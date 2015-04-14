@@ -1,0 +1,15 @@
+{
+  "name": "replays",
+  "version": "0.0.1",
+  "description": "A place to store your League of Legends replay files.",
+  "main": "index.js",
+  "author": "Ryan Cole",
+  "license": "ISC",
+  "dependencies": {
+    "boom": "^2.7.0",
+    "hapi": "^8.4.0",
+    "hapi-auth-jwt": "^2.1.1",
+    "jsonwebtoken": "^4.2.2",
+    "nano": "^6.1.2"
+  }
+}

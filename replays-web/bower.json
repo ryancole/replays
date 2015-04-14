@@ -1,0 +1,21 @@
+{
+  "name": "replays-web",
+  "version": "0.0.1",
+  "authors": [
+    "Ryan Cole <ryan@rycole.com>"
+  ],
+  "description": "A place to store your League of Legends replay files.",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.13.1",
+    "bootstrap": "~3.3.4",
+    "react-router": "~0.13.2"
+  }
+}
