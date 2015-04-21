@@ -1,12 +1,13 @@
-import Router from 'react-router';
-import AuthenticatedApp from './components/AuthenticatedApp'
+import React from 'react';
+import ReactRouter, { Route } from 'react-router';
+import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import Home from './components/Home';
-import React from 'react';
-import RouterContainer from './services/RouterContainer'
-import LoginActions from './actions/LoginActions'
+import LoginActions from './actions/LoginActions';
+import RouterContainer from './services/RouterContainer';
+import AuthenticatedApp from './components/AuthenticatedApp';
 
+// route handlers
 var routes = (
   <Route handler={AuthenticatedApp}>
     <Route name="login" handler={Login}/>
@@ -15,10 +16,14 @@ var routes = (
   </Route>
 );
 
-var router = Router.create({routes});
+// initialize react router
+var router = ReactRouter.create({routes});
+
+// whatever the fk this is
 RouterContainer.set(router);
 
 let jwt = localStorage.getItem('jwt');
+
 if (jwt) {
   LoginActions.loginUser(jwt);
 }
