@@ -1,5 +1,5 @@
 import React from 'react';
-import Replay from 'components/Replay';
+import Replay from './components/Replay';
 
 React.render(
   <Replay />,
