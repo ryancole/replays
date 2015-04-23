@@ -1,15 +1,10 @@
 import React from 'react';
-import FluxComponent from 'flummox/component';
-
-import ReplaysFlux from './ReplaysFlux';
+import Router from 'react-router';
 import ApplicationRoutes from './routes';
 
-// initialize flux application
-const flux = new ReplaysFlux;
-
-React.render(
-  <FluxComponent flux={flux}>
-    <ApplicationRoutes />
-  </FluxComponent>,
-  document.getElementById('container')
-);
+Router.run(ApplicationRoutes, function (Handler) {
+  React.render(
+    <Handler />,
+    document.getElementById('container')
+  );
+});
