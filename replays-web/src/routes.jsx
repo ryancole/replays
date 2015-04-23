@@ -1,7 +1,5 @@
 import React from 'react';
 import {Route, DefaultRoute} from 'react-router';
-
-// components
 import Dashboard from './components/Dashboard';
 import Application from './components/Application';
 
