@@ -1,15 +1,16 @@
 import React from 'react';
+import FluxComponent from 'flummox/component';
 
 class Dashboard extends React.Component {
-
   render() {
     return (
-      <section>
-        <p>This is the dashboard!</p>
-      </section>
+      <FluxComponent connectToStores={['replays']}>
+        <section>
+          <p>{this.props.replays}</p>
+        </section>
+      </FluxComponent>
     );
   }
-
 }
 
 export default Dashboard;
