@@ -1,4 +1,4 @@
 module.exports = [].concat(
-  require('./replay'),
-  require('./account')
+  require('./account'),
+  require('./session')
 );

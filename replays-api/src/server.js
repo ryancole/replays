@@ -1,5 +1,5 @@
-var Hapi = require('hapi'),
-    HapiAuthJwt = require('hapi-auth-jwt');
+var Hapi = require('hapi');
+var HapiAuthJwt = require('hapi-auth-jwt');
 
 // initialize the http server
 var server = module.exports = new Hapi.Server();

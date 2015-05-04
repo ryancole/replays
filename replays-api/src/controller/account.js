@@ -1,16 +1,24 @@
 var Boom = require('boom');
+var nano = require('nano')('http://ryancole.iriscouch.com:6984');
 
-function register (request, response) {
-  return response(Boom.notImplemented());
+/**
+ * create a new user account
+ */
+function create (request, response) {
+  var accounts = nano.use('accounts');
+  accounts.insert({username:'lol'}, function (err, body) {
+    if (err) console.log(err);
+    return response(body);
+  });
 };
 
 module.exports = [
   {
-    path: '/api/account/register',
+    path: '/api/account',
     config: {
       auth: false
     },
     method: 'POST',
-    handler: register
+    handler: create
   }
 ];
