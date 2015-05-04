@@ -1,14 +1,12 @@
 var Boom = require('boom');
-var nano = require('nano')('http://ryancole.iriscouch.com:6984');
+var accounts = require('../repository/account');
 
 /**
  * create a new user account
  */
 function create (request, response) {
-  var accounts = nano.use('accounts');
-  accounts.insert({username:'lol'}, function (err, body) {
-    if (err) console.log(err);
-    return response(body);
+  accounts.insert({}, function (body) {
+    response(body);
   });
 };
 
