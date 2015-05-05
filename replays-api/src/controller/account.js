@@ -1,13 +1,37 @@
+'use strict';
+
 var Boom = require('boom');
+var crypto = require('crypto');
 var accounts = require('../repository/account');
 
 /**
- * create a new user account
+ * handle account creation request
  */
-function create (request, response) {
-  accounts.insert({}, function (body) {
-    response(body);
+function create (request, reply) {
+
+  // initialize the hasher
+  let hash = crypto.createHmac('sha512', 'lol');
+
+  // add password to hash
+  hash.update(request.payload.password);
+
+  // initialize account
+  let account = {
+    username: request.payload.username,
+    password: hash.digest('hex')
+  };
+
+  // save account to database
+  accounts.insert(account, function (err, body) {
+
+    if (err) {
+      return reply(Boom.badImplementation());
+    }
+
+    return reply(body);
+    
   });
+
 };
 
 module.exports = [
