@@ -1,6 +1,11 @@
+var accounts = require('./repository/account');
+
 exports.validate = function validate (token, callback) {
-    return callback(null, true, {
-      id: 1,
-      email: 'ryan@rycole.com'
-    });
+    
+  console.log(token);
+
+  callback(null, true, {
+    username: "ryancole"
+  });
+
 };

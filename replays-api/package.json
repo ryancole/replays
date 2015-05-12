@@ -6,7 +6,7 @@
   "author": "Ryan Cole",
   "license": "ISC",
   "scripts": {
-    "watch": "nodemon --es_staging index.js"
+    "watch": "nodemon --harmony_arrays index.js"
   },
   "dependencies": {
     "boom": "^2.7.0",

@@ -2,33 +2,41 @@
 
 var jwt = require('jsonwebtoken');
 var Boom = require('boom');
+var accounts = require('../repository/account');
 
 /**
  * create a new session
  */
 function create (request, reply) {
 
-  // the token payload
-  let payload = {
-    _id: request.payload._id,
-    username: request.payload.username,
-    dateCreated: request.payload.dateCreated
-  };
+  // fetch the requested account
+  accounts.getByUsernameAndPassword(request.payload.username, request.payload.password, function (err, account) {
 
-  // the token options
-  let options = {
-    expiresInMinutes: 60*5
-  };
+    if (err) {
+      return reply(err);
+    }
 
-  // sign the token
-  let token = jwt.sign(payload, 'lol', options);
+    // the token payload
+    let payload = {
+      _id: account._id
+    };
 
-  // format response
-  let response = {
-    token: token
-  };
+    // the token options
+    let options = {
+      expiresInMinutes: 60 * 12
+    };
 
-  return reply(response);
+    // sign the token
+    let token = jwt.sign(payload, 'foobar', options);
+
+    // format response
+    let response = {
+      token: token
+    };
+
+    return reply(response);
+
+  });
 
 };
 

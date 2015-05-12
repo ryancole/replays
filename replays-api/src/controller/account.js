@@ -1,7 +1,6 @@
 'use strict';
 
 var Boom = require('boom');
-var crypto = require('crypto');
 var accounts = require('../repository/account');
 
 /**
@@ -9,16 +8,10 @@ var accounts = require('../repository/account');
  */
 function create (request, reply) {
 
-  // initialize the hasher
-  let hash = crypto.createHmac('sha512', 'lol');
-
-  // add password to hash
-  hash.update(request.payload.password);
-
   // initialize account
   let account = {
     username: request.payload.username,
-    password: hash.digest('hex')
+    password: request.payload.password
   };
 
   // save account to database
