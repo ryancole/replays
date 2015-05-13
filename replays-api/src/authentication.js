@@ -9,12 +9,8 @@ exports.validate = function validate (token, callback) {
   // given primary identifier
   accounts.getById(token._id, function (err, account) {
 
-    if (err) {
-      return callback(err, false);
-    }
-
-    if (account == undefined) {
-      return callback(null, false);
+    if (err || account == undefined) {
+      return callback(Error("failed to fetch account"), false);
     }
 
     // lets not pass around a user's password
