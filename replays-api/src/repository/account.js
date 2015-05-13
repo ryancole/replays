@@ -33,6 +33,24 @@ exports.insert = function insert (account, callback) {
 
 /**
  * fetch a single account with a
+ * specific primary id
+ */
+exports.getById = function getById (id, callback) {
+
+  db.get(id, function (err, body) {
+
+    if (err) {
+      return callback(err);
+    }
+    
+    return callback(null, body);
+
+  });
+
+};
+
+/**
+ * fetch a single account with a
  * given username and password
  */
 exports.getByUsernameAndPassword = function getByUsernameAndPassword (username, password, callback) {
@@ -73,12 +91,7 @@ exports.getByUsernameAndPassword = function getByUsernameAndPassword (username, 
       return callback(Error('failed to locate account'));
     }
 
-    // format response payload
-    let response = {
-      _id: account._id
-    };
-
-    return callback(null, response);
+    return callback(null, account.value);
 
   });
 
