@@ -7,7 +7,16 @@ var Boom = require('boom');
  */
 function index (request, reply) {
 
-  return reply(Boom.notImplemented());
+  let replays = [
+    {
+      name: 'foo'
+    },
+    {
+      name: 'bar'
+    }
+  ];
+
+  return reply(replays);
 
 };
 
