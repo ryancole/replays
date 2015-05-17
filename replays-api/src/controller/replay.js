@@ -20,24 +20,10 @@ function index (request, reply) {
 
 };
 
-/**
- * respond with a single replay
- */
-function detail (request, reply) {
-
-  return reply(Boom.notFound());
-
-};
-
 module.exports = [
   {
     path: '/api/replay',
     method: 'GET',
     handler: index
-  },
-  {
-    path: '/api/replay/{id}',
-    method: 'GET',
-    handler: detail
   }
 ];

@@ -1,6 +1,9 @@
 var Hapi = require('hapi');
 var HapiAuthJwt = require('hapi-auth-jwt');
 
+// application settings
+var settings = require('../settings');
+
 // initialize the http server
 var server = module.exports = new Hapi.Server();
 
@@ -12,7 +15,7 @@ server.connection({
 // register jwt authentication
 server.register(HapiAuthJwt, function () {
   server.auth.strategy('token', 'jwt', 'required', {
-    key: 'foobar',
+    key: settings.JWT_KEY,
     validateFunc: require('./authentication').validate
   });
 });

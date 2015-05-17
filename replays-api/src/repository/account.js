@@ -3,8 +3,8 @@
 var crypto = require('crypto');
 var db = require('nano')('http://localhost:5984/lol');
 
-// hash seed
-var HASH_SEED = 'lol';
+// application settings
+var settings = require('../../settings');
 
 /**
  * save an account to the database
@@ -12,7 +12,7 @@ var HASH_SEED = 'lol';
 exports.insert = function insert (account, callback) {
 
   // initialize the hasher
-  let hash = crypto.createHmac('sha512', HASH_SEED);
+  let hash = crypto.createHmac('sha512', settings.HASH_SEED);
 
   // add password to hash
   hash.update(account.password);
@@ -43,7 +43,7 @@ exports.getById = function getById (id, callback) {
       return callback(err);
     }
     
-    return callback(null, body);
+    callback(null, body);
 
   });
 
@@ -68,7 +68,7 @@ exports.getByUsernameAndPassword = function getByUsernameAndPassword (username, 
     }
 
     // initialize the hasher
-    let hash = crypto.createHmac('sha512', HASH_SEED);
+    let hash = crypto.createHmac('sha512', settings.HASH_SEED);
 
     // add password to hash
     hash.update(password);

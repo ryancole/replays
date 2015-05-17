@@ -1,0 +1,4 @@
+{
+  "JWT_KEY": "foobar",
+  "HASH_SEED": "haha"
+}
