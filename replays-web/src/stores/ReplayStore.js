@@ -1,27 +1,61 @@
+/**
+ * Module dependencies
+ */
+
+import Immutable from 'immutable';
 import { Store } from 'flummox';
+
+const Replay = Immutable.Record({
+  filename: null
+});
+
+/**
+ * Create new `ReplayStore`
+ */
 
 class ReplayStore extends Store {
 
-  constructor(flux) {
+  /**
+   * @param {Object} flux instance
+   */
+
+  constructor (flux) {
+
     super();
 
-    const replayActionIds = flux.getActionIds('replays');
-    this.register(replayActionIds.createReplay, this.handleNewReplay);
-
+    // initial state
     this.state = {
-      replays: [{
-        content: 'lulz',
-        date: Date.now()
-      }]
+      replays: Immutable.Map()
     };
+
+    // get action ids
+    let replayActionIds = flux.getActionIds('replays');
+
+    // register action handlers
+    this.register(replayActionIds.create, this.handleCreate);
+
   }
 
-  handleNewReplay(replay) {
-    this.setState({
-      replays: this.state.replays.concat([replay]),
+  /**
+   * @param {String} text
+   */
+
+  handleCreate (filename) {
+
+    const replay = new Replay({
+      filename: filename
     });
+
+    this.setState({
+      replays: this.state.replays.set(filename, replay)
+    });
+
   }
 
 }
+
+/**
+ * Expose `ReplayStore`
+ */
 
 export default ReplayStore;

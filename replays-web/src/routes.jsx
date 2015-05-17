@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, DefaultRoute} from 'react-router';
+import { Route, DefaultRoute } from 'react-router';
 import Dashboard from './components/Dashboard';
 import Application from './components/Application';
 

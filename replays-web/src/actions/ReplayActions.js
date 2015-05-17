@@ -1,12 +1,28 @@
+/**
+ * Module dependencies
+ */
+
 import { Actions } from 'flummox';
 
+/**
+ * Create new set of `ReplayActions`
+ */
+
 class ReplayActions extends Actions {
-  createReplay(replayContent) {
-    return {
-      content: replayContent,
-      date: Date.now(),
-    };
+
+  /**
+   * @param {String} filename
+   * @returns {String}
+   */
+
+  create (filename) {
+    return filename;
   }
+
 }
+
+/**
+ * Expose `ReplayActions`
+ */
 
 export default ReplayActions;

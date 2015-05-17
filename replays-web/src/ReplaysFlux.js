@@ -5,8 +5,8 @@ import ReplayActions from './actions/ReplayActions';
 class ReplaysFlux extends Flux {
   constructor() {
     super();
-    this.createActions('replays', ReplayActions);
     this.createStore('replays', ReplayStore, this);
+    this.createActions('replays', ReplayActions);
   }
 }
 
