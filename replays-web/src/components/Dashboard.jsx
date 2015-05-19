@@ -4,6 +4,7 @@
 
 import React from 'react';
 import FluxComponent from 'flummox/component';
+import ReplayList from './ReplayList';
 
 /**
  * Define the Dashboard component
@@ -15,7 +16,7 @@ class Dashboard extends React.Component {
     return (
       <FluxComponent>
         <section>
-          <p>Hello, world!</p>
+          <ReplayList />
         </section>
       </FluxComponent>
     );
