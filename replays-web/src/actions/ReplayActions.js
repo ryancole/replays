@@ -22,7 +22,7 @@ class ReplayActions extends Actions {
 }
 
 /**
- * Expose `ReplayActions`
+ * Module exports
  */
 
 export default ReplayActions;

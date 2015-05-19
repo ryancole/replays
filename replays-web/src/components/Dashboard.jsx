@@ -1,5 +1,13 @@
+/**
+ * Module dependencies
+ */
+
 import React from 'react';
 import FluxComponent from 'flummox/component';
+
+/**
+ * Define the Dashboard component
+ */
 
 class Dashboard extends React.Component {
 
@@ -14,5 +22,9 @@ class Dashboard extends React.Component {
   }
 
 }
+
+/**
+ * Module exports
+ */
 
 export default Dashboard;

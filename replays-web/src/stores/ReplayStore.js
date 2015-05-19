@@ -2,8 +2,8 @@
  * Module dependencies
  */
 
-import Immutable from 'immutable';
 import { Store } from 'flummox';
+import Immutable from 'immutable';
 
 const Replay = Immutable.Record({
   filename: null
@@ -55,7 +55,7 @@ class ReplayStore extends Store {
 }
 
 /**
- * Expose `ReplayStore`
+ * Module exports
  */
 
 export default ReplayStore;
