@@ -18,6 +18,7 @@ class ReplayList extends React.Component {
         "bar"
       ]
     };
+    console.log(this.props);
   }
 
   render() {

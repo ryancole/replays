@@ -13,6 +13,9 @@ import { RouteHandler } from 'react-router';
 class Application extends React.Component {
 
   render() {
+
+    console.log(this.props);
+
     return (
       <FluxComponent>
         <section>

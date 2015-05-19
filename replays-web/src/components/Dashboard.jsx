@@ -13,8 +13,11 @@ import ReplayList from './ReplayList';
 class Dashboard extends React.Component {
 
   render() {
+
+    console.log(this.props);
+
     return (
-      <FluxComponent>
+      <FluxComponent connectToStores={'replays'}>
         <section>
           <ReplayList />
         </section>
