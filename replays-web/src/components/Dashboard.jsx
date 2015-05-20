@@ -17,18 +17,13 @@ import ReplayListing from './ReplayListing';
  */
 
 class Dashboard extends React.Component {
-  constructor () {
-    super();
-    this.replays = [
-      {filename: "foo.txt", text: "This is foo"},
-      {filename: "bar.txt", text: "This is bar"}
-    ];
-  }
+
   render() {
     return (
-      <ReplayListing data={this.replays} />
+      <ReplayListing />
     );
   }
+
 }
 
 
