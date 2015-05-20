@@ -6,26 +6,21 @@ import React from 'react';
 import FluxComponent from 'flummox/component';
 import { RouteHandler } from 'react-router';
 
+
 /**
- * Define the Application component
+ * Component definition
  */ 
 
 class Application extends React.Component {
-  
   render() {
     return (
-      <section>
-        <header>
-          <h1>Replays</h1>
-        </header>
-        <FluxComponent>
-          <RouteHandler />
-        </FluxComponent>
-      </section>
+      <FluxComponent>
+        <RouteHandler />
+      </FluxComponent>
     );
   }
-
 }
+
 
 /**
  * Module exports

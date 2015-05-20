@@ -4,20 +4,35 @@
 
 import React from 'react';
 
+
 /**
- * Define the ReplayList component
+ * Components
+ */
+
+import Replay from './Replay';
+
+
+/**
+ * Component definition
  */
 
 class ReplayList extends React.Component {
-
-  render() {
-    let items = this.props.replays.map(function (item, index) {
-      return <li key={index + item.filename}>{item.filename}</li>;
+  render () {
+    var replayNodes = this.props.data.map(function (replay, index) {
+      return (
+        <Replay key={index} filename={replay.filename}>
+          {replay.description}
+        </Replay>
+      );
     });
-    return <ul>{items}</ul>;
+    return (
+      <div className="replayList">
+        {replayNodes}
+      </div>
+    );
   }
-
 }
+
 
 /**
  * Module exports

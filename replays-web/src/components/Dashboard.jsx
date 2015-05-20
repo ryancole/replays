@@ -3,26 +3,34 @@
  */
 
 import React from 'react';
-import FluxComponent from 'flummox/component';
-import ReplayList from './ReplayList';
+
+
+/**
+ * Components
+ */
+
+import ReplayListing from './ReplayListing';
+
 
 /**
  * Define the Dashboard component
  */
 
 class Dashboard extends React.Component {
-
+  constructor () {
+    super();
+    this.replays = [
+      {filename: "foo.txt", text: "This is foo"},
+      {filename: "bar.txt", text: "This is bar"}
+    ];
+  }
   render() {
     return (
-      <section>
-        <FluxComponent connectToStores={'replays'}>
-          <ReplayList />
-        </FluxComponent>
-      </section>
+      <ReplayListing data={this.replays} />
     );
   }
-
 }
+
 
 /**
  * Module exports
