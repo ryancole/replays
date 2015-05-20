@@ -11,20 +11,17 @@ import { RouteHandler } from 'react-router';
  */ 
 
 class Application extends React.Component {
-
+  
   render() {
-
-    console.log(this.props);
-
     return (
-      <FluxComponent>
-        <section>
-          <header>
-            <h1>Replays</h1>
-          </header>
+      <section>
+        <header>
+          <h1>Replays</h1>
+        </header>
+        <FluxComponent>
           <RouteHandler />
-        </section>
-      </FluxComponent>
+        </FluxComponent>
+      </section>
     );
   }
 

@@ -10,22 +10,11 @@ import React from 'react';
 
 class ReplayList extends React.Component {
 
-  constructor() {
-    super();
-    this.state = {
-      items: [
-        "foo",
-        "bar"
-      ]
-    };
-    console.log(this.props);
-  }
-
   render() {
-    var createItem = function(itemText, index) {
-      return <li key={index + itemText}>{itemText}</li>;
-    };
-    return <ul>{this.state.items.map(createItem)}</ul>;
+    let items = this.props.replays.map(function (item, index) {
+      return <li key={index + item.filename}>{item.filename}</li>;
+    });
+    return <ul>{items}</ul>;
   }
 
 }
