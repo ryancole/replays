@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import FluxComponent from 'flummox/component';
 
 
 /**
@@ -20,7 +21,9 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-      <ReplayListing />
+      <FluxComponent connectToStores={'replays'}>
+        <ReplayListing />
+      </FluxComponent>
     );
   }
 

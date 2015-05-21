@@ -35,7 +35,7 @@ function create (request, reply) {
   replays.push(replay);
 
   // response with new collection
-  return reply(replays);
+  return reply(replay);
 
 };
 

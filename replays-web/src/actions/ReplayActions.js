@@ -3,23 +3,33 @@
  */
 
 import { Actions } from 'flummox';
+import * as Replays from '../repository/ReplayRepository';
+
 
 /**
- * Create new set of `ReplayActions`
+ * Actions definition
  */
 
 class ReplayActions extends Actions {
 
-  /**
-   * @param {String} filename
-   * @returns {String}
-   */
+  async create (replay) {
+    try {
+      return await Replays.create(replay);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
-  create (filename) {
-    return filename;
+  async getAll () {
+    try {
+      return await Replays.getAll();
+    } catch (err) {
+      console.log(err);
+    }
   }
 
 }
+
 
 /**
  * Module exports

@@ -21,15 +21,33 @@ import ReplayList from './ReplayList';
 class ReplayListing extends React.Component {
 
   constructor () {
+
     super();
+
+    // pre-bind handlers
+    this._handleReplaySubmit = this._handleReplaySubmit.bind(this);
+
+    // initial component state
     this.state = {
       replays: []
     };
-    this._handleReplaySubmit = this._handleReplaySubmit.bind(this);
+
+  }
+
+  componentWillMount () {
+    this.setState({
+      replays: this.props.replays
+    });
   }
 
   componentDidMount () {
-    this._loadReplaysFromServer();
+    this.props.flux.getActions('replays').getAll();
+  }
+
+  componentWillReceiveProps (props) {
+    this.setState({
+      replays: props.replays
+    });
   }
 
   render () {
@@ -42,30 +60,8 @@ class ReplayListing extends React.Component {
     );
   }
 
-  _loadReplaysFromServer () {
-    reqwest({
-      url: 'http://localhost:8080/api/replay',
-      crossOrigin: true,
-      success: response => {
-        this.setState({
-          replays: response
-        });
-      }
-    });
-  }
-
   _handleReplaySubmit (replay) {
-    reqwest({
-      url: 'http://localhost:8080/api/replay',
-      data: replay,
-      method: 'post',
-      crossOrigin: true,
-      success: response => {
-        this.setState({
-          replays: response
-        });
-      }
-    });
+    this.props.flux.getActions('replays').create(replay);
   }
 
 }

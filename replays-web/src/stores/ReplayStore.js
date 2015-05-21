@@ -3,44 +3,46 @@
  */
 
 import { Store } from 'flummox';
-import Immutable from 'immutable';
 
-const Replay = Immutable.Record({
-  filename: null
-});
 
 /**
- * Create new `ReplayStore`
+ * Store definition
  */
 
 class ReplayStore extends Store {
-
-  /**
-   * @param {Object} flux instance
-   */
 
   constructor (flux) {
 
     super();
 
-    // initial state
+    // fetch action ids
+    const replayActionIds = flux.getActionIds('replays');
+
+    // register action handlers
+    this.register(replayActionIds.create, this._handleCreate);
+    this.register(replayActionIds.getAll, this._handleGetAll);
+
+    // set initial state
     this.state = {
-      replays: Immutable.List([
-        {filename: "lol"}
-      ])
+      replays: []
     };
 
   }
 
-  /**
-   * @returns {Immutable.List}
-   */
+  _handleCreate (replay) {
+    this.setState({
+      replays: this.state.replays.concat([replay])
+    });
+  }
 
-  getAll() {
-    return this.state.replays;
+  _handleGetAll (replays) {
+    this.setState({
+      replays: replays
+    });
   }
 
 }
+
 
 /**
  * Module exports
