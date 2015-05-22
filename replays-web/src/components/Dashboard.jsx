@@ -14,7 +14,7 @@ import ReplayListing from './ReplayListing';
 
 
 /**
- * Define the Dashboard component
+ * Component definition
  */
 
 class Dashboard extends React.Component {

@@ -6,9 +6,11 @@ var db = require('nano')('http://localhost:5984/lol');
 // application settings
 var settings = require('../../settings');
 
+
 /**
  * save an account to the database
  */
+
 exports.insert = function insert (account, callback) {
 
   // initialize the hasher
@@ -31,10 +33,12 @@ exports.insert = function insert (account, callback) {
 
 };
 
+
 /**
  * fetch a single account with a
  * specific primary id
  */
+
 exports.getById = function getById (id, callback) {
 
   db.get(id, function (err, body) {
@@ -49,10 +53,50 @@ exports.getById = function getById (id, callback) {
 
 };
 
+
+/**
+ * fetch single account by username
+ */
+
+exports.getByUsername = function getByUsername (username, callback) {
+
+  // filter results by key
+  let filter = {
+    keys: [ username.toLowerCase() ]
+  };
+
+  // fetch accounts with given username
+  db.view('accounts', 'byUsername', filter, function (err, body) {
+
+    if (err) {
+      return callback(err);
+    }
+
+    if (body.rows.length != 1) {
+      return callback(Error('failed to locate account'));
+    }
+
+    // extract the account
+    let account = body.rows[0].value;
+
+    // don't pass around the password
+    // or the document revision
+    delete account._rev;
+    delete account.password;
+
+    // provide the single account
+    return callback(null, account);
+
+  });
+
+};
+
+
 /**
  * fetch a single account with a
  * given username and password
  */
+
 exports.getByUsernameAndPassword = function getByUsernameAndPassword (username, password, callback) {
 
   // filter results by key

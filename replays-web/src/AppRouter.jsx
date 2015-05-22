@@ -12,8 +12,9 @@ import { Route, DefaultRoute } from 'react-router';
 
 import Dashboard from './components/Dashboard';
 import Application from './components/Application';
-import AccountSignin from './components/AccountSignin';
-import AccountSignup from './components/AccountSignup';
+import AccountDetail from './components/AccountDetail';
+import AuthenticationSignin from './components/AuthenticationSignin';
+import AuthenticationSignup from './components/AuthenticationSignup';
 
 
 /**
@@ -22,9 +23,12 @@ import AccountSignup from './components/AccountSignup';
 
 const AppRouter = (
   <Route name="application" path="/" handler={Application}>
-    <Route name="accounts">
-      <Route name="signin" handler={AccountSignin} />
-      <Route name="signup" handler={AccountSignup} />
+    <Route name="authentication">
+      <Route name="signin" handler={AuthenticationSignin} />
+      <Route name="signup" handler={AuthenticationSignup} />
+    </Route>
+    <Route name="account">
+      <Route name="detail" path=":username" handler={AccountDetail} />
     </Route>
     <DefaultRoute name="dashboard" handler={Dashboard} />
   </Route>

@@ -31,7 +31,7 @@
   },
   "browserify": {
     "transform": [
-      ["babelify", { "optional": ["es7.asyncFunctions", "asyncToGenerator"] }]
+      ["babelify", { "optional": ["es7.asyncFunctions", "es7.decorators", "asyncToGenerator"] }]
     ]
   }
 }

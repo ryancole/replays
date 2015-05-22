@@ -23,7 +23,7 @@ const flux = new AppFlux();
 Router.run(AppRouter, (Handler, State) => {
 
   React.render(
-    <FluxComponent flux={flux}>
+    <FluxComponent flux={flux} params={State.params}>
       <Handler />
     </FluxComponent>,
     document.getElementById("container")
