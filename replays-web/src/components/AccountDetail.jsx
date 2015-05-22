@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import connectToStores from 'flummox/connect';
 
 
 /**
@@ -16,6 +17,18 @@ class AccountDetail extends React.Component {
     this.state = {
       account: null
     };
+  }
+
+  componentWillMount () {
+    this.setState({
+      account: this.props.account
+    });
+  }
+
+  componentWillReceiveProps (props) {
+    this.setState({
+      account: props.account
+    });
   }
 
   componentDidMount () {
@@ -44,6 +57,7 @@ class AccountDetail extends React.Component {
 
 }
 
+AccountDetail = connectToStores(AccountDetail, 'accounts');
 
 /**
  * Module exports
