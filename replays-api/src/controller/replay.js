@@ -1,5 +1,6 @@
 "use strict";
 
+var aws = require('aws-sdk');
 var Boom = require('boom');
 
 
@@ -36,6 +37,32 @@ function create (request, reply) {
 
   // response with new collection
   return reply(replay);
+
+};
+
+
+/**
+ * sign a replay upload
+ */
+
+function sign (request, reply) {
+
+  let s3 = new aws.S3;
+
+  // set aws config
+  aws.config.update({
+    accessKeyId: "AKIAJ6GCHLMFRIRU2ZTQ",
+    secretAccessKey: "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"
+  });
+
+  // configure S3
+  let params = {
+    bucket: "league-replays",
+    key: "foo",
+    expires: 60,
+    contenttype: "binary",
+    acl: "public-read"
+  };
 
 };
 

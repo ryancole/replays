@@ -9,6 +9,7 @@
     "watch": "nodemon --harmony_arrays index.js"
   },
   "dependencies": {
+    "aws-sdk": "^2.1.30",
     "boom": "^2.7.0",
     "hapi": "^8.4.0",
     "hapi-auth-jwt": "^2.1.1",

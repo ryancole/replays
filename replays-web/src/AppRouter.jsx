@@ -12,9 +12,9 @@ import { Route, DefaultRoute } from 'react-router';
 
 import Dashboard from './components/Dashboard';
 import Application from './components/Application';
-import AccountDetail from './components/AccountDetail';
 import AuthenticationSignin from './components/AuthenticationSignin';
 import AuthenticationSignup from './components/AuthenticationSignup';
+import AccountDetailContainer from './containers/AccountDetailContainer';
 
 
 /**
@@ -28,7 +28,7 @@ const AppRouter = (
       <Route name="signup" handler={AuthenticationSignup} />
     </Route>
     <Route name="account">
-      <Route name="detail" path=":username" handler={AccountDetail} />
+      <Route name="detail" path=":username" handler={AccountDetailContainer} />
     </Route>
     <DefaultRoute name="dashboard" handler={Dashboard} />
   </Route>

@@ -28,6 +28,10 @@ class AccountStore extends Store {
 
   }
 
+  getAccount () {
+    return this.state.account;
+  }
+
   _handleGetByUsername (account) {
     this.setState({
       account: account

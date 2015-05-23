@@ -19,9 +19,13 @@ class ReplayForm extends React.Component {
   render () {
     return (
       <form className="replayForm" onSubmit={this._handleSubmit}>
-        <input type="text" ref="filename" placeholder="filename" />
-        <input type="text" ref="description" placeholder="description" />
-        <input type="submit" value="Upload" />
+        <div className="form-group">
+          <input className="form-control" type="text" ref="filename" placeholder="filename" />
+        </div>
+        <div className="form-group">
+          <input className="form-control" type="text" ref="description" placeholder="description" />
+        </div>
+        <input className="btn btn-primary" type="submit" value="Upload" />
       </form>
     );
   }

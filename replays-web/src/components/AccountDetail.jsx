@@ -3,7 +3,6 @@
  */
 
 import React from 'react';
-import connectToStores from 'flummox/connect';
 
 
 /**
@@ -12,52 +11,26 @@ import connectToStores from 'flummox/connect';
 
 class AccountDetail extends React.Component {
 
-  constructor () {
-    super();
-    this.state = {
-      account: null
-    };
-  }
-
-  componentWillMount () {
-    this.setState({
-      account: this.props.account
-    });
-  }
-
-  componentWillReceiveProps (props) {
-    this.setState({
-      account: props.account
-    });
-  }
-
-  componentDidMount () {
-
-    let actions = this.props.flux.getActions('accounts');
-
-    // the requested username
-    let username = this.props.params.username;
-
-    // fetch the requested account
-    actions.getByUsername(username);
-
-  }
-
   render () {
-    if (this.state.account != null) {
-      let account = this.state.account;
-      return (
-        <div className="userDetail">
-          <h1>{account.username} ({account._id})</h1>
-        </div>
-      );
+
+    let account = this.props.account;
+
+    // check for availability
+    if (this.props.account == null) {
+      return <h2>Loading ...</h2>;
     }
-    return false;
+
+    // render account details
+    return (
+      <div className="userDetail">
+        <h1>{account.username} ({account._id})</h1>
+      </div>
+    );
+
   }
 
 }
 
-AccountDetail = connectToStores(AccountDetail, 'accounts');
 
 /**
  * Module exports
