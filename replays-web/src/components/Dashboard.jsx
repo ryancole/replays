@@ -11,6 +11,7 @@ import FluxComponent from 'flummox/component';
  */
 
 import ReplayListing from './ReplayListing';
+import ReplayUploadFormContainer from '../containers/ReplayUploadFormContainer';
 
 
 /**
@@ -21,9 +22,12 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-      <FluxComponent connectToStores={'replays'}>
-        <ReplayListing />
-      </FluxComponent>
+      <div className="dashboard">
+        <FluxComponent connectToStores={'replays'}>
+          <ReplayListing />
+        </FluxComponent>
+        <ReplayUploadFormContainer />
+      </div>
     );
   }
 

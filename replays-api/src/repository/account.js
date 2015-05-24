@@ -70,9 +70,7 @@ exports.getByUsername = function getByUsername (username, callback) {
 
     if (err) {
       return callback(err);
-    }
-
-    if (body.rows.length != 1) {
+    } else if (body.rows.length != 1) {
       return callback(Error('failed to locate account'));
     }
 

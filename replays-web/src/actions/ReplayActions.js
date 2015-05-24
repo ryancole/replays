@@ -28,6 +28,14 @@ class ReplayActions extends Actions {
     }
   }
 
+  async sign (file) {
+    try {
+      return await Replays.sign(file);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
 }
 
 

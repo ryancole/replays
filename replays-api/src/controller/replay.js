@@ -2,26 +2,11 @@
 
 var aws = require('aws-sdk');
 var Boom = require('boom');
-
-
-let replays = [
-  {
-    filename: "perma.txt",
-    description: "this will always be here"
-  }
-];
-
-/**
- * respond with a set of replays
- */
-
-function index (request, reply) {
-  return reply(replays);
-};
+var replays = require('../repository/replay');
 
 
 /**
- * create a new replay
+ * Handle replay creation request
  */
 
 function create (request, reply) {
@@ -32,11 +17,36 @@ function create (request, reply) {
     description: request.payload.description
   };
 
-  // push into collection
-  replays.push(replay);
+  // save replay to database
+  replays.insert(replay, function (err, body) {
 
-  // response with new collection
-  return reply(replay);
+    if (err) {
+      return reply(Boom.badImplementation());
+    }
+
+    return reply(body);
+    
+  });
+
+};
+
+
+/**
+ * Handle replay index request
+ */
+
+function index (request, reply) {
+  
+  // fetch replays from database
+  replays.getAll(function (err, body) {
+
+    if (err) {
+      return reply(Boom.notFound());
+    }
+
+    return reply(body);
+
+  });
 
 };
 
@@ -48,21 +58,31 @@ function create (request, reply) {
 function sign (request, reply) {
 
   let s3 = new aws.S3;
-
-  // set aws config
-  aws.config.update({
-    accessKeyId: "AKIAJ6GCHLMFRIRU2ZTQ",
-    secretAccessKey: "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"
-  });
-
+  
   // configure S3
   let params = {
-    bucket: "league-replays",
-    key: "foo",
-    expires: 60,
-    contenttype: "binary",
-    acl: "public-read"
+    ACL: "public-read",
+    Key: request.query.name,
+    Bucket: "league-replays",
+    Expires: 60,
+    ContentType: request.query.type
   };
+
+  // request a signed url from aws
+  s3.getSignedUrl('putObject', params, (err, data) => {
+
+    if (err) {
+      return reply(Boom.badImplementation());
+    }
+
+    let signature = {
+      data: data,
+      url: `https://league-replays.s3.amazonaws.com/${params.Key}`
+    };
+
+    return reply(signature);
+
+  });
 
 };
 
@@ -84,5 +104,14 @@ module.exports = [
       cors: true
     },
     handler: create
+  },
+  {
+    path: '/api/replay/sign',
+    method: 'GET',
+    config: {
+      auth: false,
+      cors: true
+    },
+    handler: sign
   }
 ];

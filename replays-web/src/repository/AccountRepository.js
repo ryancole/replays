@@ -2,7 +2,7 @@
  * Module dependencies
  */
 
-import reqwest from 'reqwest';
+import qwest from 'qwest';
 
 
 /**
@@ -10,8 +10,5 @@ import reqwest from 'reqwest';
  */
 
 export function getByUsername (username) {
-  return reqwest({
-    url: `http://localhost:8080/api/account/${username}`,
-    crossOrigin: true
-  });
+  return qwest.get(`http://localhost:8080/api/account/${username}`);
 };
