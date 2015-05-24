@@ -1,4 +1,5 @@
 {
   "JWT_KEY": "foobar",
-  "HASH_SEED": "haha"
+  "HASH_SEED": "haha",
+  "COUCHDB_ADDR": "http://localhost:5984/lol"
 }

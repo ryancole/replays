@@ -1,10 +1,10 @@
 "use strict";
 
-var crypto = require('crypto');
-var db = require('nano')('http://localhost:5984/lol');
-
 // application settings
 var settings = require('../../settings');
+
+var db = require('nano')(settings.COUCHDB_ADDR);
+var crypto = require('crypto');
 
 
 /**
@@ -35,19 +35,35 @@ exports.insert = function insert (account, callback) {
 
 
 /**
- * fetch a single account with a
- * specific primary id
+ * get an account by id
  */
 
 exports.getById = function getById (id, callback) {
 
-  db.get(id, function (err, body) {
+  // filter results by key
+  let filter = {
+    keys: [ id ]
+  };
+
+  // fetch account with given id
+  db.view('accounts', 'byId', filter, function (err, body) {
 
     if (err) {
       return callback(err);
+    } else if (body.rows.length != 1) {
+      return callback(Error('failed to locate account'));
     }
-    
-    callback(null, body);
+
+    // extract the account
+    let account = body.rows[0].value;
+
+    // don't pass around the password
+    // or the document revision
+    delete account._rev;
+    delete account.password;
+
+    // provide the single account
+    return callback(null, account);
 
   });
 
@@ -55,7 +71,7 @@ exports.getById = function getById (id, callback) {
 
 
 /**
- * fetch single account by username
+ * get an account by username
  */
 
 exports.getByUsername = function getByUsername (username, callback) {

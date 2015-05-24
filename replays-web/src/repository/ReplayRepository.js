@@ -15,15 +15,6 @@ export function getAll () {
 
 
 /**
- * create a new replay
- */
-
-export function create (replay) {
-  return qwest.post('http://localhost:8080/api/replay', replay);
-};
-
-
-/**
  * get a signed upload request
  */
 
@@ -34,7 +25,7 @@ export function sign (file) {
     type: file.type
   };
 
-  return qwest.get('http://localhost:8080/api/replay/sign', payload);
+  return qwest.post('http://localhost:8080/api/replay', payload);
 
 };
 

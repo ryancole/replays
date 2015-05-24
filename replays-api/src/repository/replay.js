@@ -1,6 +1,9 @@
 "use strict";
 
-var db = require('nano')('http://localhost:5984/lol');
+// application settings
+var settings = require('../../settings');
+
+var db = require('nano')(settings.COUCHDB_ADDR);
 
 
 /**

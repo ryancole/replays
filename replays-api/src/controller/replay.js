@@ -6,32 +6,6 @@ var replays = require('../repository/replay');
 
 
 /**
- * Handle replay creation request
- */
-
-function create (request, reply) {
-
-  // initialize replay
-  let replay = {
-    filename: request.payload.filename,
-    description: request.payload.description
-  };
-
-  // save replay to database
-  replays.insert(replay, function (err, body) {
-
-    if (err) {
-      return reply(Boom.badImplementation());
-    }
-
-    return reply(body);
-    
-  });
-
-};
-
-
-/**
  * Handle replay index request
  */
 
@@ -62,10 +36,10 @@ function sign (request, reply) {
   // configure S3
   let params = {
     ACL: "public-read",
-    Key: request.query.name,
+    Key: request.payload.name,
     Bucket: "league-replays",
     Expires: 60,
-    ContentType: request.query.type
+    ContentType: request.payload.type
   };
 
   // request a signed url from aws
@@ -99,15 +73,6 @@ module.exports = [
   {
     path: '/api/replay',
     method: 'POST',
-    config: {
-      auth: false,
-      cors: true
-    },
-    handler: create
-  },
-  {
-    path: '/api/replay/sign',
-    method: 'GET',
     config: {
       auth: false,
       cors: true
