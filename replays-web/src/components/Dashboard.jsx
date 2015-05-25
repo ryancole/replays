@@ -26,7 +26,9 @@ class Dashboard extends React.Component {
         <FluxComponent connectToStores={'replays'}>
           <ReplayListing />
         </FluxComponent>
-        <ReplayUploadFormContainer />
+        <FluxComponent>
+          <ReplayUploadFormContainer />
+        </FluxComponent>
       </div>
     );
   }

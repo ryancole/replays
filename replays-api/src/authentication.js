@@ -1,8 +1,10 @@
 var accounts = require('./repository/account');
 
+
 /**
  * validate a given token payload
  */
+
 exports.validate = function validate (token, callback) {
 
   // fetch the account with the

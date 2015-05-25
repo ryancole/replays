@@ -35,42 +35,57 @@ class ReplayUploadFormContainer extends React.Component {
 
     // initial state
     this.state = {
-      signed: null
+      step: 1
     };
 
   }
 
-  render () {
-    if (this.state.signed) {
-      return (
-        <h2>Uploading ...</h2>
-      );
-    } else {
-      return (
-        <ReplayUploadForm onUploadAttempt={this._handleUploadAttempt} />
-      );
+  componentDidUpdate () {
+    switch (this.state.step) {
+      case 2:
+        this._uploadToAmazon();
+        break;
+      case 3:
+        this._saveToDatabase();
+        break;
     }
   }
 
-  _handleUploadAttempt (file) {
+  render () {
+    switch (this.state.step) {
+      case 1:
+        return <ReplayUploadForm onUploadAttempt={this._handleUploadAttempt} />;
+      case 2:
+        return <h2>Uploading ...</h2>;
+      case 3:
+        return <h2>Done!</h2>;
+    }
+  }
 
-    // request signed upload request
-    Replays.sign(file).then(response => {
+  _saveToDatabase () {
+    let replays = this.props.flux.getActions('replays');
+    console.log(replays);
+    replays.create({
+      filename: this.state.file.name
+    });
+  }
 
-      // update component state
+  _uploadToAmazon () {
+    Replays.upload(this.state.file, this.state.signed).then(response => {
       this.setState({
+        step: 3
+      });
+    });
+  }
+
+  _handleUploadAttempt (file) {
+    Replays.sign(file).then(response => {
+      this.setState({
+        step: 2,
+        file: file,
         signed: response
       });
-
-      // start file upload
-      Replays.upload(file, response).then(response => {
-
-        console.log(response);
-
-      });
-
     });
-
   }
 
 }
