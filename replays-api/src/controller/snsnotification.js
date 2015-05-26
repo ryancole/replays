@@ -61,8 +61,6 @@ function handle (request, reply) {
 
         let metadata = record.s3.object;
 
-        console.log(metadata);
-
       });
 
     }
@@ -70,10 +68,12 @@ function handle (request, reply) {
     // successful notification
     return reply();
 
-  }
+  } else {
 
-  // unknown type possibly
-  return reply(Boom.badRequest());
+    // unknown type possibly
+    return reply(Boom.badRequest());
+
+  }
 
 };
 
