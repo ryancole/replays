@@ -19,6 +19,12 @@ import AuthenticationSigninForm from '../components/AuthenticationSigninForm';
 
 class AuthenticationSigninContainer extends React.Component {
 
+  static get contextTypes () {
+    return {
+      router: React.PropTypes.func
+    };
+  }
+
   constructor () {
     super();
     this._handleSignin = this._handleSignin.bind(this);
@@ -41,6 +47,8 @@ class AuthenticationSigninContainer extends React.Component {
 
     // trigger create action
     sessions.create(username, password);
+
+    this.context.router.transitionTo('/');
     
   }
 

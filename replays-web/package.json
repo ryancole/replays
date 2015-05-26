@@ -29,7 +29,7 @@
     "build-css": "rework-npm index.css | cleancss -o build/app.css",
     "watch-js": "watchify src/AppBootstrap.jsx --extension=.jsx --extension=.js --debug --verbose --outfile build/app.js",
     "watch-css": "nodemon -e css --ignore build --exec \"rework-npm index.css -o build/app.css\"",
-    "http-server": "http-server -p 80"
+    "http-server": "http-server -p 8081"
   },
   "browserify": {
     "transform": [
