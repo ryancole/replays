@@ -6,7 +6,7 @@ import qwest from 'qwest';
 
 
 /**
- * create a new account
+ * fetch a single session
  */
 
 function create (username, password) {
@@ -16,9 +16,9 @@ function create (username, password) {
     password: password
   };
 
-  return qwest.post('http://localhost:8080/api/account', payload);
+  return qwest.post("http://localhost:8080/api/session", payload);
 
-}
+};
 
 
 /**

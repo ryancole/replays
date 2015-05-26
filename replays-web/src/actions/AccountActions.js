@@ -3,21 +3,13 @@
  */
 
 import { Actions } from 'flummox';
-import * as Accounts from '../repository/AccountRepository';
+import AccountRepository from '../repository/AccountRepository';
 
-
-/**
- * Actions definition
- */
 
 class AccountActions extends Actions {
 
-  async getByUsername (username) {
-    try {
-      return await Accounts.getByUsername(username);
-    } catch (err) {
-      console.log(err);
-    }
+  async create (username, password) {
+    return await AccountRepository.create(username, password);
   }
 
 }

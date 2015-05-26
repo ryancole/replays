@@ -61,7 +61,8 @@ module.exports = [
   {
     path: '/api/account',
     config: {
-      auth: false
+      auth: false,
+      cors: true
     },
     method: 'POST',
     handler: create

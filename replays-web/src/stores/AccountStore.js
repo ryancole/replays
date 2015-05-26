@@ -19,23 +19,12 @@ class AccountStore extends Store {
     const accountActionIds = flux.getActionIds('accounts');
 
     // register action handlers
-    this.register(accountActionIds.getByUsername, this._handleGetByUsername);
-
-    // set initial state
-    this.state = {
-      account: null
-    };
+    this.register(accountActionIds.create, this._handleCreate);
 
   }
 
-  getAccount () {
-    return this.state.account;
-  }
-
-  _handleGetByUsername (account) {
-    this.setState({
-      account: account
-    })
+  _handleCreate (account) {
+    console.log(account);
   }
 
 }

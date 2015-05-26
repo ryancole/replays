@@ -4,6 +4,7 @@
 
 import React from 'react';
 import FluxComponent from 'flummox/component';
+import connectToStores from 'flummox/connect';
 import { RouteHandler } from 'react-router';
 
 
@@ -23,7 +24,7 @@ class Application extends React.Component {
   render() {
     return (
       <div className="application">
-        <ApplicationNavbar />
+        <ApplicationNavbar isAuthenticated={this.props.isAuthenticated} />
         <div className="container">
           <FluxComponent>
             <RouteHandler {...this.props} />
@@ -34,6 +35,12 @@ class Application extends React.Component {
   }
 
 }
+
+Application = connectToStores(Application, {
+  sessions: store => ({
+    isAuthenticated: store.isAuthenticated()
+  })
+});
 
 
 /**

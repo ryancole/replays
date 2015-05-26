@@ -12,9 +12,9 @@ import { Route, DefaultRoute } from 'react-router';
 
 import Dashboard from './components/Dashboard';
 import Application from './components/Application';
-import AuthenticationSignin from './components/AuthenticationSignin';
-import AuthenticationSignup from './components/AuthenticationSignup';
 import AccountDetailContainer from './containers/AccountDetailContainer';
+import AuthenticationSigninContainer from './containers/AuthenticationSigninContainer';
+import AuthenticationSignupContainer from './containers/AuthenticationSignupContainer';
 
 
 /**
@@ -24,8 +24,8 @@ import AccountDetailContainer from './containers/AccountDetailContainer';
 const AppRouter = (
   <Route name="application" path="/" handler={Application}>
     <Route name="authentication">
-      <Route name="signin" handler={AuthenticationSignin} />
-      <Route name="signup" handler={AuthenticationSignup} />
+      <Route name="signin" handler={AuthenticationSigninContainer} />
+      <Route name="signup" handler={AuthenticationSignupContainer} />
     </Route>
     <Route name="account">
       <Route name="detail" path=":username" handler={AccountDetailContainer} />
