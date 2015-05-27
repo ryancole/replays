@@ -26,8 +26,18 @@ class AuthenticationSigninContainer extends React.Component {
   }
 
   constructor () {
+
     super();
+
+    // handler pre-binding
     this._handleSignin = this._handleSignin.bind(this);
+
+  }
+
+  componentWillReceiveProps (props) {
+    if (this.props.isAuthenticated == true) {
+      this.context.router.transitionTo('dashboard');
+    }
   }
 
   render() {
@@ -47,8 +57,6 @@ class AuthenticationSigninContainer extends React.Component {
 
     // trigger create action
     sessions.create(username, password);
-
-    this.context.router.transitionTo('/');
     
   }
 

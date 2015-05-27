@@ -3,6 +3,7 @@
  */
 
 import { Store } from 'flummox';
+import jwt_decode from 'jwt-decode';
 
 
 /**
@@ -34,7 +35,7 @@ class SessionStore extends Store {
 
   _handleCreate (session) {
     this.setState({
-      activeSession: session
+      activeSession: jwt_decode(session.token)
     });
   }
 
