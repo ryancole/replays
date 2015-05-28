@@ -7,7 +7,6 @@ import { Flux } from 'flummox';
 import ReplayStore from './stores/ReplayStore';
 import ReplayActions from './actions/ReplayActions';
 
-import AccountStore from './stores/AccountStore';
 import AccountActions from './actions/AccountActions';
 
 import SessionStore from './stores/SessionStore';
@@ -35,7 +34,6 @@ class AppFlux extends Flux {
 
     // stores
     this.createStore('replays', ReplayStore, this);
-    this.createStore('accounts', AccountStore, this);
     this.createStore('sessions', SessionStore, this);
     this.createStore('uploadrequests', UploadRequestStore, this);
     

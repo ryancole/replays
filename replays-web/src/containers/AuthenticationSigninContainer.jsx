@@ -35,8 +35,8 @@ class AuthenticationSigninContainer extends React.Component {
   }
 
   componentWillReceiveProps (props) {
-    if (this.props.isAuthenticated == true) {
-      this.context.router.transitionTo('dashboard');
+    if (props.isAuthenticated == true && this.props.isAuthenticated == false) {
+      this.context.router.transitionTo("dashboard");
     }
   }
 

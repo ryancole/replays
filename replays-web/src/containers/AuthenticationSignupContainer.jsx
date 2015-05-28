@@ -19,9 +19,19 @@ import AuthenticationSignupForm from '../components/AuthenticationSignupForm';
 
 class AuthenticationSignupContainer extends React.Component {
 
+  static get contextTypes () {
+    return {
+      router: React.PropTypes.func
+    };
+  }
+
   constructor () {
+
     super();
+
+    // handle pre-binding
     this._handleSignup = this._handleSignup.bind(this);
+
   }
 
   render() {
@@ -32,6 +42,12 @@ class AuthenticationSignupContainer extends React.Component {
         </div>
       </div>
     );
+  }
+
+  componentWillMount () {
+    if (this.props.isAuthenticated == true) {
+      this.context.router.transitionTo("dashboard");
+    }
   }
 
   _handleSignup (username, password) {
