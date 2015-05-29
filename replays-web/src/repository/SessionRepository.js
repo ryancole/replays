@@ -2,7 +2,7 @@
  * Module dependencies
  */
 
-import fetch from 'fetch';
+import fetchival from 'fetchival';
 
 
 /**
@@ -16,14 +16,11 @@ function create (username, password) {
     password: password
   };
 
-  return fetch("http://localhost:8080/api/session", {
-    method: 'post',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(payload)
+  let sessions = fetchival("http://localhost:8080/api/session", {
+    mode: 'cors'
   });
+
+  return sessions.post(payload);
 
 };
 

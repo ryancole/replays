@@ -44,8 +44,7 @@ module.exports = [
   {
     path: '/api/session',
     config: {
-      auth: false,
-      cors: true
+      auth: false
     },
     method: 'POST',
     handler: create

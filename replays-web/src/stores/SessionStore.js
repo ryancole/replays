@@ -35,8 +35,7 @@ class SessionStore extends Store {
     return this.state.activeSession != null;
   }
 
-  _handleSessionCreate (session) {
-    console.log(session);
+  _handleCreate (session) {
     this.setState({
       activeSession: jwt_decode(session.token)
     });

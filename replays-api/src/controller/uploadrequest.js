@@ -43,8 +43,7 @@ module.exports = [
     path: '/api/uploadrequest',
     method: 'GET',
     config: {
-      auth: false,
-      cors: true
+      auth: false
     },
     handler: create
   }

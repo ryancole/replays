@@ -9,7 +9,10 @@ var server = module.exports = new Hapi.Server();
 
 // specify server settings
 server.connection({
-  port: 8080
+  port: 8080,
+  routes: {
+    cors: true
+  }
 });
 
 // register jwt authentication

@@ -29,8 +29,7 @@ module.exports = [
     path: '/api/replay',
     method: 'GET',
     config: {
-      auth: false,
-      cors: true
+      auth: false
     },
     handler: index
   }

@@ -2,7 +2,7 @@
  * Module dependencies
  */
 
-import fetch from 'fetch';
+import fetchival from 'fetchival';
 
 
 /**
@@ -11,7 +11,11 @@ import fetch from 'fetch';
 
 function getAll () {
 
-  return fetch('http://localhost:8080/api/replay');
+  let replays = fetchival('http://localhost:8080/api/replay', {
+    mode: 'cors'
+  });
+
+  return replays.get();
 
 };
 
@@ -27,7 +31,7 @@ function upload (file, signed) {
   // add the file to the form
   form.append('file', file);
 
-  return fetch(signed.data, {
+  return fetchival.fetch(signed.data, {
     method: 'put',
     body: form
   });

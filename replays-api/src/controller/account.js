@@ -61,8 +61,7 @@ module.exports = [
   {
     path: '/api/account',
     config: {
-      auth: false,
-      cors: true
+      auth: false
     },
     method: 'POST',
     handler: create
@@ -70,8 +69,7 @@ module.exports = [
   {
     path: '/api/account/{username}',
     config: {
-      auth: false,
-      cors: true
+      auth: false
     },
     method: 'GET',
     handler: detail

@@ -2,7 +2,7 @@
  * Module dependencies
  */
 
-import fetch from 'fetch';
+import fetchival from 'fetchival';
 
 
 /**
@@ -16,9 +16,11 @@ function get (file) {
     type: file.type
   };
 
-  return fetch('http://localhost:8080/api/uploadrequest', )
+  let requests = fetchival('http://localhost:8080/api/uploadrequest', {
+    mode: 'cors'
+  });
 
-  return qwest.get('http://localhost:8080/api/uploadrequest', payload);
+  return requests.get(payload);
 
 };
 

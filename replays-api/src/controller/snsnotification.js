@@ -83,8 +83,7 @@ module.exports = [
     path: '/api/snsnotification',
     method: 'POST',
     config: {
-      auth: false,
-      cors: true
+      auth: false
     },
     handler: handle
   }
