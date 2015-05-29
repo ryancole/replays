@@ -2,7 +2,7 @@
  * Module dependencies
  */
 
-import qwest from 'qwest';
+import fetch from 'fetch';
 
 
 /**
@@ -10,7 +10,9 @@ import qwest from 'qwest';
  */
 
 function getAll () {
-  return qwest.get('http://localhost:8080/api/replay');
+
+  return fetch('http://localhost:8080/api/replay');
+
 };
 
 
@@ -19,7 +21,17 @@ function getAll () {
  */
 
 function upload (file, signed) {
-  return qwest.put(signed.data, file);
+
+  let form = new FormData();
+
+  // add the file to the form
+  form.append('file', file);
+
+  return fetch(signed.data, {
+    method: 'put',
+    body: form
+  });
+
 };
 
 

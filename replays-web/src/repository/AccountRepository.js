@@ -2,7 +2,7 @@
  * Module dependencies
  */
 
-import qwest from 'qwest';
+import fetch from 'fetch';
 
 
 /**
@@ -16,7 +16,14 @@ function create (username, password) {
     password: password
   };
 
-  return qwest.post('http://localhost:8080/api/account', payload);
+  return fetch('http://localhost:8080/api/account', {
+    method: 'post',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
 
 }
 

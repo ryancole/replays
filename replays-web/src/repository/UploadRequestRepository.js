@@ -2,7 +2,7 @@
  * Module dependencies
  */
 
-import qwest from 'qwest';
+import fetch from 'fetch';
 
 
 /**
@@ -15,6 +15,8 @@ function get (file) {
     name: file.name,
     type: file.type
   };
+
+  return fetch('http://localhost:8080/api/uploadrequest', )
 
   return qwest.get('http://localhost:8080/api/uploadrequest', payload);
 
