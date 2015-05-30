@@ -25,7 +25,10 @@ class ApplicationNavbar extends React.Component {
           <div className="navbar-header">
             <a className="navbar-brand">League Replay Database</a>
           </div>
-          <ApplicationNavbarLinks isAuthenticated={this.props.isAuthenticated} />
+          <ApplicationNavbarLinks
+            activeSession={this.props.activeSession}
+            onSignOutClick={this.props.onSignOutClick}
+            isAuthenticated={this.props.isAuthenticated} />
         </div>
       </div>
     );

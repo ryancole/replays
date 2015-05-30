@@ -11,7 +11,7 @@ import { Route, DefaultRoute } from 'react-router';
  */
 
 import Dashboard from './components/Dashboard';
-import Application from './components/Application';
+import ApplicationContainer from './containers/ApplicationContainer';
 import AuthenticationSigninContainer from './containers/AuthenticationSigninContainer';
 import AuthenticationSignupContainer from './containers/AuthenticationSignupContainer';
 
@@ -21,7 +21,7 @@ import AuthenticationSignupContainer from './containers/AuthenticationSignupCont
  */
 
 const AppRouter = (
-  <Route name="application" path="/" handler={Application}>
+  <Route name="application" path="/" handler={ApplicationContainer}>
     <Route name="authentication">
       <Route name="signin" handler={AuthenticationSigninContainer} />
       <Route name="signup" handler={AuthenticationSignupContainer} />

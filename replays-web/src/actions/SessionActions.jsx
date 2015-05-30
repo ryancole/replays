@@ -12,6 +12,10 @@ class SessionActions extends Actions {
     return await SessionRepository.create(username, password);
   }
 
+  signout () {
+    return null;
+  }
+
 }
 
 

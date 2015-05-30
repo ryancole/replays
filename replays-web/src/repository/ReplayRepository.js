@@ -9,13 +9,15 @@ import fetchival from 'fetchival';
  * get all replays
  */
 
-function getAll () {
+function getAll (skip) {
 
   let replays = fetchival('http://localhost:8080/api/replay', {
     mode: 'cors'
   });
 
-  return replays.get();
+  return replays.get({
+    skip: skip
+  });
 
 };
 

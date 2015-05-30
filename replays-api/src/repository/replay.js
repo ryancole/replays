@@ -42,9 +42,15 @@ exports.insert = function insert (replay, callback) {
  * fetch all replays
  */
 
-exports.getAll = function getAll (callback) {
+exports.getAll = function getAll (skip, callback) {
 
-  db.view('replays', 'byId', function (err, body) {
+  let params = {
+    skip: skip,
+    limit: 20,
+    descending: true
+  };
+
+  db.view('replays', 'byId', params, function (err, body) {
 
     if (err) {
       return callback(err);

@@ -3,7 +3,6 @@
  */
 
 import { Store } from 'flummox';
-import jwt_decode from 'jwt-decode';
 
 
 /**
@@ -21,8 +20,9 @@ class SessionStore extends Store {
     const sessionActionIds = flux.getActionIds('sessions');
 
     // register action handlers
-    this.register(accountActionIds.create, this._handleCreate);
-    this.register(sessionActionIds.create, this._handleCreate);
+    this.register(sessionActionIds.signout, this._handleSignout);
+    this.registerAsync(accountActionIds.create, null, this._handleCreateSuccess, this._handleCreateFailure);
+    this.registerAsync(sessionActionIds.create, null, this._handleCreateSuccess, this._handleCreateFailure);
 
     // initial state
     this.state = {
@@ -31,14 +31,28 @@ class SessionStore extends Store {
 
   }
 
-  isAuthenticated () {
+  get activeSession () {
+    return this.state.activeSession;
+  }
+
+  get isAuthenticated () {
     return this.state.activeSession != null;
   }
 
-  _handleCreate (session) {
-    this.setState({
-      activeSession: jwt_decode(session.token)
+  _handleSignout (session) {
+    this.replaceState({
+      activeSession: session
     });
+  }
+
+  _handleCreateSuccess (session) {
+    this.setState({
+      activeSession: session
+    });
+  }
+
+  _handleCreateFailure (error) {
+    console.log(error);
   }
 
 }

@@ -36,7 +36,7 @@ class ReplayListing extends React.Component {
   }
 
   componentDidMount () {
-    this.props.flux.getActions('replays').getAll();
+    this.props.flux.getActions('replays').getAll(0);
   }
 
   componentWillReceiveProps (props) {

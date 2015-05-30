@@ -10,8 +10,10 @@ var replays = require('../repository/replay');
 
 function index (request, reply) {
   
+  let skip = request.query.skip || 0;
+
   // fetch replays from database
-  replays.getAll(function (err, body) {
+  replays.getAll(skip, function (err, body) {
 
     if (err) {
       return reply(Boom.notFound());

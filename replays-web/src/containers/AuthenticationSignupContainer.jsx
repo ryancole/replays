@@ -64,7 +64,7 @@ class AuthenticationSignupContainer extends React.Component {
 
 AuthenticationSignupContainer = connectToStores(AuthenticationSignupContainer, {
   sessions: store => ({
-    isAuthenticated: store.isAuthenticated()
+    isAuthenticated: store.isAuthenticated
   })
 });
 

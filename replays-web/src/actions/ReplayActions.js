@@ -12,8 +12,8 @@ class ReplayActions extends Actions {
    * get all replays
    */
 
-  async getAll () {
-    return await Replays.getAll();
+  async getAll (skip) {
+    return await Replays.getAll(skip);
   }
 
 }
