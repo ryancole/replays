@@ -46,7 +46,9 @@ class ApplicationContainer extends React.Component {
           isAuthenticated={this.props.isAuthenticated} />
 
         <div className="container">
-          <RouteHandler flux={this.props.flux} />
+          <RouteHandler
+            flux={this.props.flux}
+            params={this.props.params} />
         </div>
       </div>
     );

@@ -21,8 +21,6 @@ class ReplayDetailContainer extends React.Component {
 
   componentDidMount () {
 
-    console.log(this.props.params);
-
     // get session actions
     let replays = this.props.flux.getActions('replays');
 
