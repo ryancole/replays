@@ -9,7 +9,7 @@ import React from 'react';
  * Components
  */
 
-import Replay from './Replay';
+import ReplayListItem from './ReplayListItem';
 
 
 /**
@@ -18,17 +18,17 @@ import Replay from './Replay';
 
 class ReplayList extends React.Component {
   render () {
-    var replayNodes = this.props.data.map(function (replay, index) {
+    var replayNodes = this.props.replays.map(function (replay, index) {
       return (
-        <Replay key={index} filename={replay.filename}>
-          {replay.description}
-        </Replay>
+        <ReplayListItem
+          key={replay._id}
+          replay={replay} />
       );
     });
     return (
-      <div className="replayList">
+      <ul className="replayList">
         {replayNodes}
-      </div>
+      </ul>
     );
   }
 }

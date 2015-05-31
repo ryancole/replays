@@ -8,12 +8,21 @@ import Replays from '../repository/ReplayRepository';
 
 class ReplayActions extends Actions {
 
-  /**
-   * get all replays
-   */
+  // get a single replay by id
+  async getById (id) {
+    return await Replays.getById(id);
+  }
 
-  async getAll (skip) {
-    return await Replays.getAll(skip);
+  // get a collection of replays keyed by id
+  async getAllById (skip) {
+
+    let replays = await Replays.getAllById(skip);
+
+    return {
+      skip: skip,
+      replays: replays
+    };
+    
   }
 
 }

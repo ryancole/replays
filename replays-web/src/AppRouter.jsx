@@ -10,8 +10,9 @@ import { Route, DefaultRoute } from 'react-router';
  * Components
  */
 
-import Dashboard from './components/Dashboard';
 import ApplicationContainer from './containers/ApplicationContainer';
+import ReplayRecentContainer from './containers/ReplayRecentContainer';
+import ReplayDetailContainer from './containers/ReplayDetailContainer';
 import AuthenticationSigninContainer from './containers/AuthenticationSigninContainer';
 import AuthenticationSignupContainer from './containers/AuthenticationSignupContainer';
 
@@ -26,7 +27,11 @@ const AppRouter = (
       <Route name="signin" handler={AuthenticationSigninContainer} />
       <Route name="signup" handler={AuthenticationSignupContainer} />
     </Route>
-    <DefaultRoute name="dashboard" handler={Dashboard} />
+    <Route name="replay">
+      <Route name="replay-recent" handler={ReplayRecentContainer} />
+      <Route name="replay-detail" path=":id" handler={ReplayDetailContainer} />
+    </Route>
+    <DefaultRoute name="dashboard" handler={ReplayRecentContainer} />
   </Route>
 );
 

@@ -19,25 +19,36 @@ class ReplayStore extends Store {
     const replayActionIds = flux.getActionIds('replays');
 
     // register action handlers
-    this.register(replayActionIds.create, this._handleCreate);
-    this.register(replayActionIds.getAll, this._handleGetAll);
+    this.register(replayActionIds.getById, this._handleGetById);
+    this.register(replayActionIds.getAllById, this._handleGetAllById);
 
     // set initial state
     this.state = {
-      replays: []
+      skipped: 0,
+      replaysById: [],
+      specificReplay: null
     };
 
   }
 
-  _handleCreate (replay) {
+  get replaysById () {
+    return this.state.replaysById;
+  }
+
+  get specificReplay () {
+    return this.state.specificReplay;
+  }
+
+  _handleGetById (replay) {
     this.setState({
-      replays: this.state.replays.concat([replay])
+      specificReplay: replay
     });
   }
 
-  _handleGetAll (replays) {
+  _handleGetAllById (data) {
     this.setState({
-      replays: replays
+      skipped: data.skip,
+      replaysById: data.replays
     });
   }
 

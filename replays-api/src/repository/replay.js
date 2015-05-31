@@ -39,10 +39,39 @@ exports.insert = function insert (replay, callback) {
 
 
 /**
- * fetch all replays
+ * fetch single replay by id
  */
 
-exports.getAll = function getAll (skip, callback) {
+exports.getById = function getById (id, callback) {
+
+  let params = {
+    keys: [ id ]
+  };
+
+  db.view('replays', 'byId', params, function (err, body) {
+
+    if (err) {
+      return callback(err);
+    } else if (body.rows.length != 1) {
+      return callback(Error("error finding replay"));
+    }
+
+    // extract the replays
+    let replay = body.rows[0].value;
+
+    // provide the replay collection
+    return callback(null, replay);
+
+  });
+
+};
+
+
+/**
+ * fetch all replays keyed by id
+ */
+
+exports.getAllById = function getAllById (skip, callback) {
 
   let params = {
     skip: skip,

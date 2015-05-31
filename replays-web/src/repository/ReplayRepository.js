@@ -5,15 +5,26 @@
 import fetchival from 'fetchival';
 
 
+const replays = fetchival('http://localhost:8080/api/replay', {
+  mode: 'cors'
+});
+
+/**
+ * get a single replay by id
+ */
+
+function getById (id) {
+
+  return replays(id).get();
+
+};
+
+
 /**
  * get all replays
  */
 
-function getAll (skip) {
-
-  let replays = fetchival('http://localhost:8080/api/replay', {
-    mode: 'cors'
-  });
+function getAllById (skip) {
 
   return replays.get({
     skip: skip
@@ -46,6 +57,7 @@ function upload (file, signed) {
  */
 
 export default {
-  getAll: getAll,
-  upload: upload
+  upload: upload,
+  getById: getById,
+  getAllById: getAllById
 };
