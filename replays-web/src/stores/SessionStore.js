@@ -41,7 +41,7 @@ class SessionStore extends Store {
 
   _handleSignout (session) {
     this.replaceState({
-      activeSession: session
+      activeSession: null
     });
   }
 

@@ -20,6 +20,12 @@ import ApplicationNavbar from '../components/ApplicationNavbar';
 
 class ApplicationContainer extends React.Component {
 
+  static get contextTypes () {
+    return {
+      router: React.PropTypes.func
+    };
+  }
+
   constructor () {
 
     super();
@@ -53,6 +59,9 @@ class ApplicationContainer extends React.Component {
 
     // trigger signout action
     sessions.signout();
+
+    // transition to dashboard
+    this.context.router.transitionTo("dashboard");
 
   }
 

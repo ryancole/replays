@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router';
 
 
 /**
@@ -23,7 +24,7 @@ class ApplicationNavbar extends React.Component {
       <div className="navbar navbar-default navbar-fixed-top">
         <div className="container">
           <div className="navbar-header">
-            <a className="navbar-brand">League Replay Database</a>
+            <Link className="navbar-brand" to="dashboard">League Replay Database</Link>
           </div>
           <ApplicationNavbarLinks
             activeSession={this.props.activeSession}

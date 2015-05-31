@@ -34,6 +34,12 @@ class AuthenticationSignupContainer extends React.Component {
 
   }
 
+  componentWillReceiveProps (props) {
+    if (props.isAuthenticated == true && this.props.isAuthenticated == false) {
+      this.context.router.transitionTo("dashboard");
+    }
+  }
+
   render() {
     return (
       <div className="row authenticationSignupContainer">
@@ -42,12 +48,6 @@ class AuthenticationSignupContainer extends React.Component {
         </div>
       </div>
     );
-  }
-
-  componentWillMount () {
-    if (this.props.isAuthenticated == true) {
-      this.context.router.transitionTo("dashboard");
-    }
   }
 
   _handleSignup (username, password) {
