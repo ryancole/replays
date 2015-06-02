@@ -10,12 +10,12 @@ import { Link } from 'react-router';
  * Component definition
  */ 
 
-class ApplicationNavbarLinks extends React.Component {
+class AccountNavbarLinks extends React.Component {
 
   render() {
-
+    
     // if signed in, show signed in links
-    if (this.props.isAuthenticated == true) {
+    if (this.props.activeSession != null) {
       return this._getSignedInLinks();
     }
 
@@ -26,7 +26,7 @@ class ApplicationNavbarLinks extends React.Component {
 
   _getSignedInLinks () {
     return (
-      <div className="collapse navbar-collapse navbar-right">
+      <div className="navbar-right">
         <p className="navbar-text">{this.props.activeSession.username}</p>
         <ul className="nav navbar-nav">
           <li>
@@ -39,7 +39,7 @@ class ApplicationNavbarLinks extends React.Component {
 
   _getSignedOutLinks () {
     return (
-      <div className="collapse navbar-collapse navbar-right">
+      <div className="navbar-right">
         <ul className="nav navbar-nav">
           <li>
             <Link to="signin">Sign In</Link>
@@ -59,4 +59,4 @@ class ApplicationNavbarLinks extends React.Component {
  * Module exports
  */
 
-export default ApplicationNavbarLinks;
+export default AccountNavbarLinks;

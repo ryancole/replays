@@ -10,7 +10,7 @@ import connectToStores from 'flummox/connect';
  * Components
  */
 
-import ReplayList from '../components/ReplayList';
+import ReplayTable from '../components/ReplayTable';
 
 
 /**
@@ -24,8 +24,11 @@ class ReplayRecentContainer extends React.Component {
     // get session actions
     let replays = this.props.flux.getActions('replays');
 
+    // the amount to skip
+    let skip = 0;
+
     // trigger get all action
-    replays.getAllById(0);
+    replays.getAllById(skip);
 
   }
 
@@ -33,13 +36,14 @@ class ReplayRecentContainer extends React.Component {
     return (
       <div className="replayRecentContainer">
         <h1>Recent Replays</h1>
-        <ReplayList replays={this.props.replays} />
+        <ReplayTable replays={this.props.replays} />
       </div>
     );
   }
 
 }
 
+// connect component to store
 ReplayRecentContainer = connectToStores(ReplayRecentContainer, {
   replays: store => ({
     replays: store.replaysById

@@ -10,21 +10,25 @@ import { Link } from 'react-router';
  * Component definition
  */
 
-class ReplayListItem extends React.Component {
+class ReplayTableRow extends React.Component {
 
   render () {
+
     const replay = this.props.replay;
+
     return (
-      <li className="replayListItem">
-        <h2>
+      <tr className="replayTableRow">
+        <td>
           <Link to="replay-detail" params={{ id: replay._id }}>
             {replay.filename}
           </Link>
-          <small>{replay.dateCreated}</small>
-        </h2>
-        <p>{replay.description}</p>
-      </li>
+        </td>
+        <td>
+          {replay.dateCreated}
+        </td>
+      </tr>
     );
+
   }
 
 }
@@ -34,4 +38,4 @@ class ReplayListItem extends React.Component {
  * Module exports
  */
 
-export default ReplayListItem;
+export default ReplayTableRow;

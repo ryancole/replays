@@ -35,7 +35,7 @@ class AuthenticationSigninContainer extends React.Component {
   }
 
   componentWillReceiveProps (props) {
-    if (props.isAuthenticated == true && this.props.isAuthenticated == false) {
+    if (props.activeSession != null && this.props.activeSession == null) {
       this.context.router.transitionTo("dashboard");
     }
   }
@@ -64,7 +64,7 @@ class AuthenticationSigninContainer extends React.Component {
 
 AuthenticationSigninContainer = connectToStores(AuthenticationSigninContainer, {
   sessions: store => ({
-    isAuthenticated: store.isAuthenticated
+    activeSession: store.activeSession
   })
 });
 

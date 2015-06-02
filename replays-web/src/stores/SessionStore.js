@@ -24,7 +24,7 @@ class SessionStore extends Store {
     this.registerAsync(accountActionIds.create, null, this._handleCreateSuccess, this._handleCreateFailure);
     this.registerAsync(sessionActionIds.create, null, this._handleCreateSuccess, this._handleCreateFailure);
 
-    // initial state
+    // initialize state
     this.state = {
       activeSession: null
     };
@@ -33,10 +33,6 @@ class SessionStore extends Store {
 
   get activeSession () {
     return this.state.activeSession;
-  }
-
-  get isAuthenticated () {
-    return this.state.activeSession != null;
   }
 
   _handleSignout (session) {
