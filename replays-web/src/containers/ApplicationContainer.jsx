@@ -22,14 +22,20 @@ class ApplicationContainer extends React.Component {
   render() {
     return (
       <div className="container applicationContainer">
+        <div className="row">
+          <div className="col-sm-2">
+          </div>
+          <div className="col-sm-10">
 
-        <AccountNavbarContainer
-          flux={this.props.flux} />
+            <AccountNavbarContainer
+              flux={this.props.flux} />
 
-        <RouteHandler
-          flux={this.props.flux}
-          params={this.props.params} />
+            <RouteHandler
+              flux={this.props.flux}
+              params={this.props.params} />
 
+          </div>
+        </div>
       </div>
     );
   }

@@ -11,6 +11,7 @@ import connectToStores from 'flummox/connect';
  */
 
 import ReplayTable from '../components/ReplayTable';
+import SectionNavbar from '../components/SectionNavbar';
 
 
 /**
@@ -35,8 +36,13 @@ class ReplayRecentContainer extends React.Component {
   render() {
     return (
       <div className="replayRecentContainer">
-        <h1>Recent Replays</h1>
-        <ReplayTable replays={this.props.replays} />
+
+        <SectionNavbar
+          label="Recent Replays" />
+
+        <ReplayTable
+          replays={this.props.replays} />
+
       </div>
     );
   }
