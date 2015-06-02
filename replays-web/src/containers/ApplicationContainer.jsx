@@ -21,11 +21,9 @@ class ApplicationContainer extends React.Component {
 
   render() {
     return (
-      <div className="container applicationContainer">
+      <div className="container">
         <div className="row">
-          <div className="col-sm-2">
-          </div>
-          <div className="col-sm-10">
+          <div className="col-sm-10 col-sm-offset-2">
 
             <AccountNavbarContainer
               flux={this.props.flux} />

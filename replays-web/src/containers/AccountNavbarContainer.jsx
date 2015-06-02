@@ -21,10 +21,16 @@ class AccountNavbarContainer extends React.Component {
 
   render() {
     return (
-      <AccountNavbar
-        flux={this.props.flux}
-        activeSession={this.props.activeSession}
-        onSignOutClick={this._handleSignOutClick} />
+      <div className="row">
+        <div className="col-sm-12">
+
+          <AccountNavbar
+            flux={this.props.flux}
+            activeSession={this.props.activeSession}
+            onSignOutClick={this._handleSignOutClick} />
+
+        </div>
+      </div>
     );
   }
 

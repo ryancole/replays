@@ -3,3 +3,7 @@
 body {
   padding-top: 60px;
 }
+
+.navbar-brand {
+  padding-left: 0px;
+}

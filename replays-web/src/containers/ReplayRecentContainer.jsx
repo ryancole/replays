@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import { Row, Col } from 'react-bootstrap';
 import connectToStores from 'flummox/connect';
 
 
@@ -12,6 +13,7 @@ import connectToStores from 'flummox/connect';
 
 import ReplayTable from '../components/ReplayTable';
 import SectionNavbar from '../components/SectionNavbar';
+import ReplayRecentNavbar from '../components/ReplayRecentNavbar';
 
 
 /**
@@ -35,14 +37,19 @@ class ReplayRecentContainer extends React.Component {
 
   render() {
     return (
-      <div className="replayRecentContainer">
-
-        <SectionNavbar
-          label="Recent Replays" />
-
-        <ReplayTable
-          replays={this.props.replays} />
-
+      <div>
+        <Row>
+          <Col sm={12}>
+            <SectionNavbar label="Recent Replays">
+              <ReplayRecentNavbar />
+            </SectionNavbar>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={12}>
+            <ReplayTable replays={this.props.replays} />
+          </Col>
+        </Row>
       </div>
     );
   }

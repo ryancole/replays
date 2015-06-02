@@ -27,7 +27,9 @@ class AccountNavbarLinks extends React.Component {
   _getSignedInLinks () {
     return (
       <div className="navbar-right">
-        <p className="navbar-text">{this.props.activeSession.username}</p>
+        <p className="navbar-text">
+          Signed in as {this.props.activeSession.username}
+        </p>
         <ul className="nav navbar-nav">
           <li>
             <a onClick={this.props.onSignOutClick}>Sign Out</a>

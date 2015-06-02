@@ -15,10 +15,11 @@ class SectionNavbar extends React.Component {
     return (
       <div className="navbar">
         <div className="navbar-header">
-          <h2 className="navbar-brand">
+          <span className="navbar-brand">
             {this.props.label}
-          </h2>
+          </span>
         </div>
+        {this.props.children}
       </div>
     );
   }
