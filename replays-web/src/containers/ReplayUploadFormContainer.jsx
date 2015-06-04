@@ -45,9 +45,6 @@ class ReplayUploadFormContainer extends React.Component {
       case 2:
         this._uploadToAmazon();
         break;
-      case 3:
-        this._saveToDatabase();
-        break;
     }
   }
 
@@ -57,17 +54,7 @@ class ReplayUploadFormContainer extends React.Component {
         return <ReplayUploadForm onUploadAttempt={this._handleUploadAttempt} />;
       case 2:
         return <h2>Uploading ...</h2>;
-      case 3:
-        return <h2>Done!</h2>;
     }
-  }
-
-  _saveToDatabase () {
-    let replays = this.props.flux.getActions('replays');
-    console.log(replays);
-    replays.create({
-      filename: this.state.file.name
-    });
   }
 
   _uploadToAmazon () {

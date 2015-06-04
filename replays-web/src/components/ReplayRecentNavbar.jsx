@@ -3,14 +3,13 @@
  */
 
 import React from 'react';
-import { ModalTrigger } from 'react-bootstrap';
 
 
 /**
  * Components
  */
 
-import ReplayUploadModal from './ReplayUploadModal';
+import ReplayUploadFormModal from './ReplayUploadFormModal';
 
 
 /**
@@ -19,16 +18,10 @@ import ReplayUploadModal from './ReplayUploadModal';
 
 class ReplayRecentNavbar extends React.Component {
 
-  constructor () {
-    super();
-    this._handleModalClose = this._handleModalClose.bind(this);
-  }
-
   render() {
 
     let modal = (
-      <ReplayUploadModal
-        onRequestHide={this._handleModalClose} />
+      <ReplayUploadFormModal />
     );
 
     return (
@@ -40,10 +33,6 @@ class ReplayRecentNavbar extends React.Component {
         </li>
       </ul>
     );
-  }
-
-  _handleModalClose () {
-    console.log("uh wut");
   }
 
 }

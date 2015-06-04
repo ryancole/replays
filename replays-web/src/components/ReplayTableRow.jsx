@@ -24,7 +24,7 @@ class ReplayTableRow extends React.Component {
           </Link>
         </td>
         <td>
-          {replay.dateCreated}
+          {replay.dateCreated.toString()}
         </td>
       </tr>
     );

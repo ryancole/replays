@@ -18,6 +18,11 @@ class ReplayActions extends Actions {
 
     let replays = await Replays.getAllById(skip);
 
+    replays = replays.map(function (replay) {
+      replay.dateCreated = new Date(replay.dateCreated);
+      return replay;
+    });
+    
     return {
       skip: skip,
       replays: replays
