@@ -5,13 +5,10 @@
   "description": "A place to store your League of Legends replay files.",
   "dependencies": {
     "bootstrap": "^3.3.4",
-    "classnames": "^1.2.2",
     "fetchival": "^0.2.0",
     "flummox": "^4.0.0-alpha",
     "react": "^0.13.1",
-    "react-modal": "^0.2.0",
     "react-router": "^0.13.2",
-    "react-skylight": "^0.2.0",
     "whatwg-fetch": "^0.8.2"
   },
   "devDependencies": {

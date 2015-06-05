@@ -9,7 +9,7 @@ import React from 'react';
  * Component definition
  */
 
-class ReplayUploadForm extends React.Component {
+class ReplayHomeNavbarForm extends React.Component {
 
   constructor () {
 
@@ -22,11 +22,13 @@ class ReplayUploadForm extends React.Component {
 
   render () {
     return (
-      <form className="replayUploadForm" onSubmit={this._handleSubmit}>
+      <form className="navbar-form" onSubmit={this._handleSubmit}>
         <div className="form-group">
           <input className="form-control" type="file" ref="filename" />
         </div>
-        <input className="btn btn-primary" type="submit" value="Upload" />
+        <button className="btn btn-default" type="submit">
+          Upload
+        </button>
       </form>
     );
   }
@@ -55,4 +57,4 @@ class ReplayUploadForm extends React.Component {
  * Module exports
  */
 
-export default ReplayUploadForm;
+export default ReplayHomeNavbarForm;

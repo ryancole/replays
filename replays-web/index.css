@@ -7,3 +7,7 @@ body {
 .navbar-brand {
   padding-left: 0px;
 }
+
+.navbar-form .btn {
+  margin-left: 10px;
+}
