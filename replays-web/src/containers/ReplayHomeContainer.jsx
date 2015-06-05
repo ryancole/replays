@@ -4,6 +4,7 @@
 
 import React from 'react';
 import connectToStores from 'flummox/connect';
+import Replays from '../repository/ReplayRepository';
 import UploadRequests from '../repository/UploadRequestRepository';
 
 
@@ -31,7 +32,9 @@ class ReplayHomeContainer extends React.Component {
 
     // initial state
     this.state = {
-      phase: 0
+      file: null,
+      phase: 0,
+      signed: null
     };
 
   }
@@ -56,7 +59,7 @@ class ReplayHomeContainer extends React.Component {
       case 1:
         this._beginAwsTransfer(
           this.state.file,
-          this.state.signe
+          this.state.signed
         );
         break;
 
@@ -115,14 +118,9 @@ class ReplayHomeContainer extends React.Component {
   async _beginAwsTransfer (file, signed) {
 
     // upload the file to aws
-    
+    let result = await Replays.upload(file, signed);
 
-    // reset the state back to default
-    this.setState({
-      file: null,
-      phase: 0,
-      signed: null
-    });
+    console.log(result);
 
   }
 

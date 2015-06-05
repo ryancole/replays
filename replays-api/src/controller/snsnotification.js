@@ -61,6 +61,8 @@ function handle (request, reply) {
 
         let metadata = record.s3.object;
 
+        console.log(metadata);
+
       });
 
     }

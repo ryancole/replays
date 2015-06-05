@@ -17,7 +17,7 @@ function create (request, reply) {
     ACL: "public-read",
     Key: request.query.name,
     Bucket: "lol-replays",
-    Expires: 30,
+    Expires: 60,
     ContentType: request.query.type
   };
 

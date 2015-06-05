@@ -44,7 +44,7 @@ function upload (file, signed) {
   // add the file to the form
   form.append('file', file);
 
-  return fetchival.fetch(signed.data, {
+  return fetchival.fetch(signed.url, {
     method: 'put',
     body: form
   });
