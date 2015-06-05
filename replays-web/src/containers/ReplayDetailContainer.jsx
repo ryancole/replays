@@ -11,6 +11,7 @@ import connectToStores from 'flummox/connect';
  */
 
 import ReplayDetail from '../components/ReplayDetail';
+import SectionNavbar from '../components/SectionNavbar';
 
 
 /**
@@ -31,13 +32,24 @@ class ReplayDetailContainer extends React.Component {
 
   render() {
 
-    if (this.props.replay == null) {
+    let replay = this.props.replay;
+
+    if (replay == null) {
       return false;
     }
 
     return (
-      <div className="replayRecentContainer">
-        <ReplayDetail replay={this.props.replay} />
+      <div>
+        <div className="row">
+          <div className="col-sm-12">
+            <SectionNavbar label={replay.filename} />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-sm-12">
+            <ReplayDetail replay={replay} />
+          </div>
+        </div>
       </div>
     );
 

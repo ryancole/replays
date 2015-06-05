@@ -19,15 +19,6 @@ import ReplayTableRow from './ReplayTableRow';
 class ReplayTable extends React.Component {
 
   render () {
-
-    var replayNodes = this.props.replays.map(function (replay, index) {
-      return (
-        <ReplayTableRow
-          key={replay._id}
-          replay={replay} />
-      );
-    });
-
     return (
       <table className="table table-striped table-hover replayTable">
         <thead>
@@ -37,10 +28,35 @@ class ReplayTable extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {replayNodes}
+          {this._buildTableRows(this.props.replays)}
         </tbody>
       </table>
     );
+  }
+
+  _buildTableRows (replays) {
+
+    // build the table rows
+    let nodes = replays.map(function (replay, index) {
+      return (
+        <ReplayTableRow
+          key={replay._id}
+          replay={replay} />
+      );
+    });
+
+    // show a no rows message if empty
+    if (nodes.length == 0) {
+      nodes = (
+        <tr>
+          <td colSpan="2" className="text-muted text-center">
+            There are no replays to show
+          </td>
+        </tr>
+      );
+    }
+
+    return nodes;
 
   }
 

@@ -28,6 +28,7 @@ class ReplayHomeContainer extends React.Component {
     super();
 
     // event pre binding
+    this._handleResetPhase = this._handleResetPhase.bind(this);
     this._handleUploadAttempt = this._handleUploadAttempt.bind(this);
 
     // initial state
@@ -63,6 +64,11 @@ class ReplayHomeContainer extends React.Component {
         );
         break;
 
+      case 2:
+      case 3:
+      this._handleResetPhase();
+        break;
+
     }
 
   }
@@ -75,10 +81,24 @@ class ReplayHomeContainer extends React.Component {
     );
 
     // if uploading, show spinner
-    if (this.state.phase == 1 || this.state.phase == 2) {
+    if (this.state.phase == 1) {
       navbar = (
         <div className="navbar-right">
           <p className="navbar-text">Uploading ...</p>
+        </div>
+      );
+    }
+    else if (this.state.phase == 2) {
+      navbar = (
+        <div className="navbar-right">
+          <p className="navbar-text">Success!</p>
+        </div>
+      );
+    }
+    else if (this.state.phase == 3) {
+      navbar = (
+        <div className="navbar-right">
+          <p className="navbar-text">Failure!</p>
         </div>
       );
     }
@@ -101,6 +121,20 @@ class ReplayHomeContainer extends React.Component {
     );
   }
 
+  _handleResetPhase () {
+
+    setTimeout(() => {
+
+      this.setState({
+        file: null,
+        phase: 0,
+        signed: null
+      });
+      
+    }, 3000);
+
+  }
+
   async _handleUploadAttempt (file) {
 
     // fetch the signed upload request
@@ -120,7 +154,21 @@ class ReplayHomeContainer extends React.Component {
     // upload the file to aws
     let result = await Replays.upload(file, signed);
 
-    console.log(result);
+    if (result.ok == true) {
+
+      // success state
+      this.setState({
+        phase: 2
+      });
+
+    } else {
+
+      // fail state
+      this.setState({
+        phase: 3
+      });
+
+    }
 
   }
 

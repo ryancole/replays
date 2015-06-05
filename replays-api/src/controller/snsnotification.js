@@ -2,6 +2,7 @@
 
 var aws = require('aws-sdk');
 var Boom = require('boom');
+var Replays = require('../repository/replay');
 
 
 /**
@@ -61,14 +62,26 @@ function handle (request, reply) {
 
         let metadata = record.s3.object;
 
-        console.log(metadata);
+        let replay = {
+          size: metadata.size,
+          filename: metadata.key
+        };
+
+        // save the replay to the database
+        Replays.insert(replay, function (err, response) {
+
+          if (err) {
+            return reply(Boom.badImplementation());
+          }
+
+          // successful reply to AWS
+          return reply();
+
+        });
 
       });
 
     }
-
-    // successful notification
-    return reply();
 
   } else {
 

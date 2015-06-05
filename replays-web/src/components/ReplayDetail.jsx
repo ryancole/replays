@@ -12,14 +12,18 @@ import React from 'react';
 class ReplayDetail extends React.Component {
 
   render () {
+    let replay = this.props.replay;
     return (
-      <div className="replayDetail">
-        <h2>
-          {this.props.replay.filename}
-          <small>{this.props.replay.dateCreated}</small>
-        </h2>
-        <p>{this.props.replay.description}</p>
-      </div>
+      <dl className="dl-horizontal">
+        <dt>Filename</dt>
+        <dd>{replay.filename}</dd>
+        <dt>Size</dt>
+        <dd>{replay.size} bytes</dd>
+        <dt>Date Uploaded</dt>
+        <dd>{replay.dateCreated.toString()}</dd>
+        <dt>Identifier</dt>
+        <dd>{replay._id}</dd>
+      </dl>
     );
   }
 

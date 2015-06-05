@@ -12,9 +12,10 @@ function create (request, reply) {
 
   let s3 = new aws.S3;
   
-  // configure S3
+  // prepare the signature payload, remember
+  // this means the client must provide the
+  // same ACL and content-type when using PUT
   let params = {
-    ACL: "public-read",
     Key: request.query.name,
     Bucket: "lol-replays",
     Expires: 60,

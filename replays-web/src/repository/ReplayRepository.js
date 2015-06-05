@@ -44,9 +44,16 @@ function upload (file, signed) {
   // add the file to the form
   form.append('file', file);
 
+  // the content type and ACL are
+  // both required parts of this
+  // request, because of what was
+  // included in the signature body
   return fetchival.fetch(signed.url, {
+    body: form,
     method: 'put',
-    body: form
+    headers: {
+      "Content-Type": file.type
+    }
   });
 
 };

@@ -10,7 +10,13 @@ class ReplayActions extends Actions {
 
   // get a single replay by id
   async getById (id) {
-    return await Replays.getById(id);
+
+    let replay = await Replays.getById(id);
+
+    replay.dateCreated = new Date(replay.dateCreated);
+
+    return replay;
+
   }
 
   // get a collection of replays keyed by id
