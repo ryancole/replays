@@ -42,14 +42,7 @@ class ReplayHomeContainer extends React.Component {
 
   componentWillMount () {
 
-    // get session actions
-    let replays = this.props.flux.getActions('replays');
-
-    // the amount to skip
-    let skip = 0;
-
-    // trigger get all action
-    replays.getAllById(skip);
+    this._fetchReplays();
 
   }
 
@@ -121,11 +114,22 @@ class ReplayHomeContainer extends React.Component {
     );
   }
 
+  _fetchReplays () {
+
+    // get session actions
+    let replays = this.props.flux.getActions('replays');
+
+    // the amount to skip
+    let skip = 0;
+
+    // trigger get all action
+    replays.getAllById(skip);
+
+  }
+
   _handleResetPhase () {
 
     setTimeout(() => {
-
-      // TODO: one state is set, request uploads
 
       this.setState({
         file: null,
@@ -133,6 +137,8 @@ class ReplayHomeContainer extends React.Component {
         signed: null
       }, () => {
         
+        this._fetchReplays();
+
       });
 
     }, 3000);
