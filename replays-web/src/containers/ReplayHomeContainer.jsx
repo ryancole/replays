@@ -125,12 +125,16 @@ class ReplayHomeContainer extends React.Component {
 
     setTimeout(() => {
 
+      // TODO: one state is set, request uploads
+
       this.setState({
         file: null,
         phase: 0,
         signed: null
+      }, () => {
+        
       });
-      
+
     }, 3000);
 
   }
