@@ -40,14 +40,6 @@ class ReplayHomeContainer extends React.Component {
 
   }
 
-  static willTransitionTo (transition) {
-    console.log("not logged in");
-    if (this.props.isAuthenticated == false) {
-      transition.abort();
-      // transition.redirect('/account/signin', {}, {nextPath: transition.path})
-    }
-  }
-
   componentWillMount () {
     this._fetchReplays();
   }
