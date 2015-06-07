@@ -18,7 +18,7 @@ class ReplayDetail extends React.Component {
         <dt>Filename</dt>
         <dd>{replay.filename}</dd>
         <dt>Size</dt>
-        <dd>{replay.size} bytes</dd>
+        <dd>{replay.awsSize} bytes</dd>
         <dt>Date Uploaded</dt>
         <dd>{replay.dateCreated.toString()}</dd>
         <dt>Identifier</dt>

@@ -71,11 +71,11 @@ exports.getById = function getById (id, callback) {
  * fetch all replays keyed by id
  */
 
-exports.getAllById = function getAllById (skip, callback) {
+exports.getAllById = function getAllById (skip, limit, callback) {
 
   let params = {
     skip: skip,
-    limit: 20,
+    limit: limit,
     descending: true
   };
 
@@ -94,3 +94,31 @@ exports.getAllById = function getAllById (skip, callback) {
   });
 
 };
+
+
+/**
+ * fetch all replays with an account id
+ */
+
+exports.getAllByAccountId = function getAllByAccountId (id, callback) {
+
+  let params = {
+    keys: [ id ],
+    descending: true
+  };
+
+  db.view('replays', 'byAccountId', params, function (err, body) {
+
+    if (err) {
+      return callback(err);
+    }
+
+    // extract the replays
+    let replays = body.rows.map(replay => replay.value);
+
+    // provide the replay collection
+    return callback(null, replays);
+
+  });
+
+}

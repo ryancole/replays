@@ -35,6 +35,10 @@ class SessionStore extends Store {
     return this.state.activeSession;
   }
 
+  get isAuthenticated () {
+    return this.state.activeSession != null;
+  }
+
   _handleSignout (session) {
     this.replaceState({
       activeSession: null

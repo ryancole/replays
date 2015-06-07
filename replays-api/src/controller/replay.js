@@ -29,12 +29,18 @@ function detail (request, reply) {
  * Handle replay index request
  */
 
-function index (request, reply) {
-  
+function replaysByPage (request, reply) {
+
+  // default to only this many
+  // at a time
+  let limit = 20;
+
+  // how many to skip, for pagination
+  // if any  
   let skip = request.query.skip || 0;
 
-  // fetch replays from database
-  replays.getAllById(skip, function (err, body) {
+  // fetch then records from the databse
+  replays.getAllById(skip, limit, function (err, body) {
 
     if (err) {
       return reply(Boom.notFound());
@@ -47,6 +53,29 @@ function index (request, reply) {
 };
 
 
+/**
+ * Handle replay for account owner request
+ */
+
+function replaysForOwner (request, reply) {
+
+  // the user to filter on
+  let account = request.query.account;
+
+  // fetch the records from the databse
+  replays.getAllByAccountId(account, (err, body) => {
+
+    if (err) {
+      return reply(Boom.notFound());
+    }
+
+    return reply(body);
+
+  });
+
+}
+
+
 module.exports = [
   {
     path: '/api/replay',
@@ -54,7 +83,12 @@ module.exports = [
     config: {
       auth: false
     },
-    handler: index
+    handler: replaysByPage
+  },
+  {
+    path: '/api/replay/mine',
+    method: 'GET',
+    handler: replaysForOwner
   },
   {
     path: '/api/replay/{id}',

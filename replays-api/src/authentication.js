@@ -1,15 +1,17 @@
-var accounts = require('./repository/account');
+"use strict";
+
+let accounts = require('./repository/account');
 
 
 /**
  * validate a given token payload
  */
 
-exports.validate = function validate (token, callback) {
+exports.validate = function validate (payload, callback) {
 
   // fetch the account with the
   // given primary identifier
-  accounts.getById(token._id, function (err, account) {
+  accounts.getById(payload._id, function (err, account) {
 
     if (err) {
       return callback(err, false);
@@ -17,11 +19,17 @@ exports.validate = function validate (token, callback) {
       return callback(Error("failed to fetch account"), false);
     }
 
-    // lets not pass around a user's password
-    delete account.password;
+    // we want to be explicit about which
+    // account details we choose to pass
+    // around the application
+    let explicitAccountDetails = {
+      _id: account._id,
+      username: account.username,
+      dateCreated: account.dateCreated
+    };
 
     // validation succeeded
-    callback(null, true, account);
+    callback(null, true, explicitAccountDetails);
 
   });
 

@@ -9,7 +9,7 @@ import fetchival from 'fetchival';
  * get a signed upload request
  */
 
-function get (file) {
+function get (token, file) {
 
   let payload = {
     name: file.name,
@@ -17,7 +17,10 @@ function get (file) {
   };
 
   let requests = fetchival('http://localhost:8080/api/uploadrequest', {
-    mode: 'cors'
+    mode: 'cors',
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
   });
 
   return requests.get(payload);

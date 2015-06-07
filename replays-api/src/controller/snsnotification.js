@@ -57,14 +57,22 @@ function handle (request, reply) {
       message.Records.forEach((record) => {
 
         if (record.s3.configurationId != "MyUploadNotification") {
-          return;
+          return reply(Boom.badImplementation());
         }
 
-        let metadata = record.s3.object;
+        // split the key so we can extract
+        // the user related information
+        let parts = record.s3.object.key.split('/');
+
+        if (parts.length != 3) {
+          return reply(Boom.badImplementation());
+        }
 
         let replay = {
-          size: metadata.size,
-          filename: metadata.key
+          accountId: parts[0],
+          filename: parts[2],
+          awsKey: record.s3.object.key,
+          awsSize: record.s3.object.size
         };
 
         // save the replay to the database

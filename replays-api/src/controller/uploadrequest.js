@@ -11,15 +11,22 @@ var Boom = require('boom');
 function create (request, reply) {
 
   let s3 = new aws.S3;
-  
+
+  // format the object key
+  let key = `${request.auth.credentials._id}/${Date.now()}/${request.query.name}`;
+
   // prepare the signature payload, remember
   // this means the client must provide the
   // same ACL and content-type when using PUT
   let params = {
-    Key: request.query.name,
+    Key: key,
     Bucket: "lol-replays",
     Expires: 60,
-    ContentType: request.query.type
+    ContentType: request.query.type,
+    Metadata: {
+      user: request.auth.credentials._id,
+      filename: request.query.name
+    }
   };
 
   // request a signed url from S3
@@ -43,9 +50,6 @@ module.exports = [
   {
     path: '/api/uploadrequest',
     method: 'GET',
-    config: {
-      auth: false
-    },
     handler: create
   }
 ];

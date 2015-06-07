@@ -147,8 +147,15 @@ class ReplayHomeContainer extends React.Component {
 
   async _handleUploadAttempt (file) {
 
+    if (this.props.isAuthenticated == false) {
+      return;
+    }
+
     // fetch the signed upload request
-    let signed = await UploadRequests.get(file);
+    let signed = await UploadRequests.get(
+      this.props.activeSession.token,
+      file
+    );
 
     // update component state with new info
     this.setState({
@@ -188,6 +195,10 @@ class ReplayHomeContainer extends React.Component {
 ReplayHomeContainer = connectToStores(ReplayHomeContainer, {
   replays: store => ({
     replays: store.replaysById
+  }),
+  sessions: store => ({
+    activeSession: store.activeSession,
+    isAuthenticated: store.isAuthenticated
   })
 });
 
