@@ -23,10 +23,10 @@ import ReplayHomeNavbar from '../components/ReplayHomeNavbar';
 
 class ReplayHomeContainer extends React.Component {
 
-  constructor () {
+  constructor (props) {
 
     super();
-
+    
     // event pre binding
     this._handleResetPhase = this._handleResetPhase.bind(this);
     this._handleUploadAttempt = this._handleUploadAttempt.bind(this);
@@ -38,6 +38,10 @@ class ReplayHomeContainer extends React.Component {
       signed: null
     };
 
+  }
+
+  static willTransitionTo (transition) {
+    console.log(transition);
   }
 
   componentWillMount () {

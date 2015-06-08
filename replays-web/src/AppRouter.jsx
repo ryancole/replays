@@ -22,7 +22,7 @@ import AuthenticationSignupContainer from './containers/AuthenticationSignupCont
  */
 
 const AppRouter = (
-  <Route name="application" path="/" handler={ApplicationContainer}>
+  <Route name="application" path="/" handler={ApplicationContainer} shitBalls={true}>
     <Route name="authentication">
       <Route name="signin" handler={AuthenticationSigninContainer} />
       <Route name="signup" handler={AuthenticationSignupContainer} />
