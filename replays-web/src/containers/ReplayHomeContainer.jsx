@@ -23,6 +23,12 @@ import ReplayHomeNavbar from '../components/ReplayHomeNavbar';
 
 class ReplayHomeContainer extends React.Component {
 
+  static get contextTypes () {
+    return {
+      router: React.PropTypes.func
+    };
+  }
+
   constructor (props) {
 
     super();
@@ -40,12 +46,16 @@ class ReplayHomeContainer extends React.Component {
 
   }
 
-  static willTransitionTo (transition) {
-    console.log(transition);
-  }
-
   componentWillMount () {
+
+    // transition away if not signed in
+    if (this.props.isAuthenticated == false) {
+      this.context.router.transitionTo("signin");
+    }
+
+    // fetch your own replays
     this._fetchReplays();
+    
   }
 
   componentDidUpdate () {
@@ -121,11 +131,8 @@ class ReplayHomeContainer extends React.Component {
     // get session actions
     let replays = this.props.flux.getActions('replays');
 
-    // the amount to skip
-    let skip = 0;
-
     // trigger get all action
-    replays.getAllById(skip);
+    replays.getForHomeView(this.props.activeSession.token);
 
   }
 
@@ -196,7 +203,7 @@ class ReplayHomeContainer extends React.Component {
 // connect component to store
 ReplayHomeContainer = connectToStores(ReplayHomeContainer, {
   replays: store => ({
-    replays: store.replaysById
+    replays: store.forHomeView
   }),
   sessions: store => ({
     activeSession: store.activeSession,

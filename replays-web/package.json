@@ -8,7 +8,7 @@
     "fetchival": "^0.2.0",
     "flummox": "^4.0.0-alpha",
     "react": "^0.13.1",
-    "react-router": "bobpace/react-router#transitionContext",
+    "react-router": "^0.13.3",
     "whatwg-fetch": "^0.8.2"
   },
   "devDependencies": {

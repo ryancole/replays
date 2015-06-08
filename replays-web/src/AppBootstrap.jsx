@@ -17,22 +17,10 @@ const flux = new AppFlux();
 
 
 /**
- * Instanciate the router
- */
-
-const router = Router.create({
-  routes: AppRouter,
-  transitionContext: {
-    flux: flux
-  }
-});
-
-
-/**
  * Render the application
  */
 
-router.run((Handler, State) => {
+Router.run(AppRouter, (Handler, State) => {
 
   React.render(
     <FluxComponent flux={flux}>

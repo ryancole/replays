@@ -3,7 +3,12 @@
  */
 
 import fetchival from 'fetchival';
+import settings from '../../settings';
 
+
+const api = fetchival(settings.API_ADDR, {
+  mode: "cors"
+});
 
 /**
  * fetch a single session
@@ -16,10 +21,10 @@ function create (username, password) {
     password: password
   };
 
-  let sessions = fetchival("http://localhost:8080/api/session", {
-    mode: 'cors'
-  });
+  // configure api endpoint
+  let sessions = api('session');
 
+  // create new session
   return sessions.post(payload);
 
 };

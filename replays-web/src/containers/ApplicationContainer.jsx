@@ -10,6 +10,8 @@ import { RouteHandler } from 'react-router';
  * Components
  */
 
+import ApplicationLogo from '../components/ApplicationLogo';
+import ApplicationNavbar from '../components/ApplicationNavbar';
 import AccountNavbarContainer from './AccountNavbarContainer';
 
 
@@ -22,11 +24,18 @@ class ApplicationContainer extends React.Component {
   render() {
     return (
       <div className="container">
-        <div className="row">
-          <div className="col-sm-10 col-sm-offset-2">
 
-            <AccountNavbarContainer
-              flux={this.props.flux} />
+        <AccountNavbarContainer
+          flux={this.props.flux} />
+
+        <div className="row">
+          <div className="col-sm-2">
+
+            <ApplicationLogo />
+            <ApplicationNavbar />
+
+          </div>
+          <div className="col-sm-10">
 
             <RouteHandler
               flux={this.props.flux}

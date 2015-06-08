@@ -3,7 +3,12 @@
  */
 
 import fetchival from 'fetchival';
+import settings from '../../settings';
 
+
+const api = fetchival(settings.API_ADDR, {
+  mode: "cors"
+});
 
 /**
  * get a signed upload request
@@ -16,13 +21,14 @@ function get (token, file) {
     type: file.type
   };
 
-  let requests = fetchival('http://localhost:8080/api/uploadrequest', {
-    mode: 'cors',
+  // configure api endpoint
+  let requests = api('uploadrequest', {
     headers: {
       "Authorization": `Bearer ${token}`
     }
   });
 
+  // request signed upload token
   return requests.get(payload);
 
 };

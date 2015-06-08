@@ -19,6 +19,20 @@ class ReplayActions extends Actions {
 
   }
 
+  // get replays for the replay home view
+  async getForHomeView (token) {
+
+    let replays = await Replays.forHomeView(token);
+
+    replays = replays.map(function (replay) {
+      replay.dateCreated = new Date(replay.dateCreated);
+      return replay;
+    });
+    
+    return replays;
+
+  }
+
   // get a collection of replays keyed by id
   async getAllById (skip) {
 

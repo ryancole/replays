@@ -10,8 +10,10 @@ var replays = require('../repository/replay');
 
 function detail (request, reply) {
 
+  // the id of the replay to look up
   let id = request.params.id;
 
+  // fetch the replay from the database
   replays.getById(id, function (err, body) {
 
     if (err) {
@@ -59,11 +61,11 @@ function replaysByPage (request, reply) {
 
 function replaysForOwner (request, reply) {
 
-  // the user to filter on
-  let account = request.query.account;
+  // the account id to filter on
+  let id = request.auth.credentials._id;
 
   // fetch the records from the databse
-  replays.getAllByAccountId(account, (err, body) => {
+  replays.getAllByAccountId(id, (err, body) => {
 
     if (err) {
       return reply(Boom.notFound());

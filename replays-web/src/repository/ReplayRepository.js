@@ -3,10 +3,11 @@
  */
 
 import fetchival from 'fetchival';
+import settings from '../../settings';
 
 
-const replays = fetchival('http://localhost:8080/api/replay', {
-  mode: 'cors'
+const api = fetchival(settings.API_ADDR, {
+  mode: "cors"
 });
 
 /**
@@ -15,6 +16,10 @@ const replays = fetchival('http://localhost:8080/api/replay', {
 
 function getById (id) {
 
+  // configure replay endpoint
+  let replays = api('replay');
+
+  // fetch detail for a single replay
   return replays(id).get();
 
 };
@@ -26,11 +31,37 @@ function getById (id) {
 
 function getAllById (skip) {
 
+  // configure replay endpoint
+  let replays = api('replay');
+
+  // fetch collection of all replays
   return replays.get({
     skip: skip
   });
 
 };
+
+
+/**
+ * get a collection of replays for use
+ * on the replay home view
+ */
+
+function forHomeView (token) {
+
+  let headers = {
+    "Authorization": `Bearer ${token}`
+  };
+
+  // configure replay endpoint
+  let replays = api('replay/mine', {
+    headers: headers
+  })
+
+  // fetch collection of user's replays
+  return replays.get();
+
+}
 
 
 /**
@@ -66,5 +97,6 @@ function upload (file, signed) {
 export default {
   upload: upload,
   getById: getById,
-  getAllById: getAllById
+  getAllById: getAllById,
+  forHomeView: forHomeView
 };

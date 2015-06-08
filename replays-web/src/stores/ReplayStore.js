@@ -21,12 +21,14 @@ class ReplayStore extends Store {
     // register action handlers
     this.register(replayActionIds.getById, this._handleGetById);
     this.register(replayActionIds.getAllById, this._handleGetAllById);
+    this.register(replayActionIds.getForHomeView, this._handleGetForHomeView);
 
     // set initial state
     this.state = {
       skipped: 0,
       replaysById: [],
-      specificReplay: null
+      specificReplay: null,
+      replaysForHomeView: []
     };
 
   }
@@ -37,6 +39,16 @@ class ReplayStore extends Store {
 
   get specificReplay () {
     return this.state.specificReplay;
+  }
+
+  get forHomeView () {
+    return this.state.replaysForHomeView;
+  }
+
+  _handleGetForHomeView (replays) {
+    this.setState({
+      replaysForHomeView: replays
+    });
   }
 
   _handleGetById (replay) {

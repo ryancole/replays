@@ -3,7 +3,12 @@
  */
 
 import fetchival from 'fetchival';
+import settings from '../../settings';
 
+
+const api = fetchival(settings.API_ADDR, {
+  mode: "cors"
+});
 
 /**
  * create a new account
@@ -16,10 +21,10 @@ function create (username, password) {
     password: password
   };
 
-  let accounts = fetchival('http://localhost:8080/api/account', {
-    mode: 'cors'
-  });
+  // configure api endpoint
+  let accounts = api('account');
 
+  // create new account
   return accounts.post(payload);
 
 }
