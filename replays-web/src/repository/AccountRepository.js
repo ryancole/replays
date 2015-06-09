@@ -10,6 +10,7 @@ const api = fetchival(settings.API_ADDR, {
   mode: "cors"
 });
 
+
 /**
  * create a new account
  */
@@ -31,9 +32,25 @@ function create (username, password) {
 
 
 /**
+ * fetch account details
+ */
+
+function getByUsername (username) {
+
+  // configure api endpoint
+  let accounts = api('account');
+
+  // fetch account details
+  return accounts(username).get();
+
+}
+
+
+/**
  * Module exports
  */
 
 export default {
-  create: create
+  create: create,
+  getByUsername: getByUsername
 };

@@ -10,7 +10,7 @@ import { Link } from 'react-router';
  * Component definition
  */ 
 
-class AccountNavbarLinks extends React.Component {
+class AuthenticationNavbarLinks extends React.Component {
 
   render() {
     
@@ -61,4 +61,4 @@ class AccountNavbarLinks extends React.Component {
  * Module exports
  */
 
-export default AccountNavbarLinks;
+export default AuthenticationNavbarLinks;

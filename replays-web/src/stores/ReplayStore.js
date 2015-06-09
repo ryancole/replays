@@ -2,6 +2,7 @@
  * Module dependencies
  */
 
+import { Map } from 'immutable';
 import { Store } from 'flummox';
 
 
@@ -19,49 +20,38 @@ class ReplayStore extends Store {
     const replayActionIds = flux.getActionIds('replays');
 
     // register action handlers
-    this.register(replayActionIds.getById, this._handleGetById);
-    this.register(replayActionIds.getAllById, this._handleGetAllById);
-    this.register(replayActionIds.getForHomeView, this._handleGetForHomeView);
+    this.register(replayActionIds.getForAccountId, this._handleGet);
+    this.register(replayActionIds.getForAccountView, this._handleGet);
 
     // set initial state
     this.state = {
-      skipped: 0,
-      replaysById: [],
-      specificReplay: null,
-      replaysForHomeView: []
+      replays: Map()
     };
 
   }
 
-  get replaysById () {
-    return this.state.replaysById;
+  getAll () {
+    return this.state.replays;
   }
 
-  get specificReplay () {
-    return this.state.specificReplay;
-  }
-
-  get forHomeView () {
-    return this.state.replaysForHomeView;
-  }
-
-  _handleGetForHomeView (replays) {
-    this.setState({
-      replaysForHomeView: replays
+  getByAccountId (id) {
+    return this.state.replays.filter(replay => {
+      return replay.accountId == id;
     });
   }
 
-  _handleGetById (replay) {
-    this.setState({
-      specificReplay: replay
-    });
-  }
+  _handleGet (replays) {
 
-  _handleGetAllById (data) {
+    // convert array of replays to map
+    let hash = replays.reduce((prev, curr) => {
+      return prev.set(curr._id, curr);
+    }, Map());
+
+    // update store state
     this.setState({
-      skipped: data.skip,
-      replaysById: data.replays
+      replays: this.state.replays.merge(hash)
     });
+
   }
 
 }

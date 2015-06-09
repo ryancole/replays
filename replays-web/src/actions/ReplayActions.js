@@ -8,46 +8,25 @@ import Replays from '../repository/ReplayRepository';
 
 class ReplayActions extends Actions {
 
-  // get a single replay by id
-  async getById (id) {
+  async getForAccountId (id) {
 
-    let replay = await Replays.getById(id);
-
-    replay.dateCreated = new Date(replay.dateCreated);
-
-    return replay;
+    // fetch replays for an account
+    let response = await Replays.getByAccountId(id);
+    
+    // dispatch the replays
+    return response;
 
   }
 
-  // get replays for the replay home view
-  async getForHomeView (token) {
+  async getForAccountView (token) {
 
-    let replays = await Replays.forHomeView(token);
-
-    replays = replays.map(function (replay) {
-      replay.dateCreated = new Date(replay.dateCreated);
-      return replay;
-    });
+    // fetch replays for an account, using the
+    // current active user's token
+    let response = await Replays.forOwner(token);
     
-    return replays;
+    // dispatch the replays
+    return response.replays;
 
-  }
-
-  // get a collection of replays keyed by id
-  async getAllById (skip) {
-
-    let replays = await Replays.getAllById(skip);
-
-    replays = replays.map(function (replay) {
-      replay.dateCreated = new Date(replay.dateCreated);
-      return replay;
-    });
-    
-    return {
-      skip: skip,
-      replays: replays
-    };
-    
   }
 
 }

@@ -12,7 +12,7 @@ import { RouteHandler } from 'react-router';
 
 import ApplicationLogo from '../components/ApplicationLogo';
 import ApplicationNavbar from '../components/ApplicationNavbar';
-import AccountNavbarContainer from './AccountNavbarContainer';
+import AuthenticationNavbarContainer from './AuthenticationNavbarContainer';
 
 
 /**
@@ -25,7 +25,7 @@ class ApplicationContainer extends React.Component {
     return (
       <div className="container">
 
-        <AccountNavbarContainer
+        <AuthenticationNavbarContainer
           flux={this.props.flux} />
 
         <div className="row">

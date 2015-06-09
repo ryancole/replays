@@ -31,26 +31,26 @@ function detail (request, reply) {
  * Handle replay index request
  */
 
-function replaysByPage (request, reply) {
+function index (request, reply) {
 
-  // default to only this many
-  // at a time
-  let limit = 20;
+  // get possible account id from query string
+  let accountId = request.query.accountId;
 
-  // how many to skip, for pagination
-  // if any  
-  let skip = request.query.skip || 0;
-
-  // fetch then records from the databse
-  replays.getAllById(skip, limit, function (err, body) {
-
-    if (err) {
-      return reply(Boom.notFound());
-    }
-
-    return reply(body);
-
-  });
+  if (accountId) {
+    replays.getAllByAccountId(accountId, (err, body) => {
+      if (err) {
+        return reply(Boom.notFound());
+      }
+      return reply({replays: body});
+    });
+  } else {
+    replays.getAllById((err, body) => {
+      if (err) {
+        return reply(Boom.notFound());
+      }
+      return reply({replays: body});
+    });
+  }
 
 };
 
@@ -85,7 +85,7 @@ module.exports = [
     config: {
       auth: false
     },
-    handler: replaysByPage
+    handler: index
   },
   {
     path: '/api/replay/mine',

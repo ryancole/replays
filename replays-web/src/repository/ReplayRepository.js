@@ -10,6 +10,22 @@ const api = fetchival(settings.API_ADDR, {
   mode: "cors"
 });
 
+
+/**
+ * get all replays
+ */
+
+function getAll () {
+
+  // configure replay endpoint
+  let replays = api('replay');
+
+  // fetch collection of all replays
+  return replays.get();
+
+};
+
+
 /**
  * get a single replay by id
  */
@@ -26,28 +42,27 @@ function getById (id) {
 
 
 /**
- * get all replays
+ * get all replays by account id
  */
 
-function getAllById (skip) {
+function getByAccountId (id) {
 
   // configure replay endpoint
   let replays = api('replay');
 
   // fetch collection of all replays
   return replays.get({
-    skip: skip
+    accountId: id
   });
 
 };
 
 
 /**
- * get a collection of replays for use
- * on the replay home view
+ * get a collection of replays with a specific owner
  */
 
-function forHomeView (token) {
+function forOwner (token) {
 
   let headers = {
     "Authorization": `Bearer ${token}`
@@ -96,7 +111,8 @@ function upload (file, signed) {
 
 export default {
   upload: upload,
+  getAll: getAll,
   getById: getById,
-  getAllById: getAllById,
-  forHomeView: forHomeView
+  getByAccountId: getByAccountId,
+  forOwner: forOwner
 };

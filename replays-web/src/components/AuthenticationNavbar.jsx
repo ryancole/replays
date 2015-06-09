@@ -9,14 +9,14 @@ import React from 'react';
  * Components
  */
 
-import AccountNavbarLinks from './AccountNavbarLinks';
+import AuthenticationNavbarLinks from './AuthenticationNavbarLinks';
 
 
 /**
  * Component definition
  */ 
 
-class AccountNavbar extends React.Component {
+class AuthenticationNavbar extends React.Component {
 
   constructor () {
 
@@ -30,7 +30,7 @@ class AccountNavbar extends React.Component {
   render() {
     return (
       <div className="navbar">
-        <AccountNavbarLinks
+        <AuthenticationNavbarLinks
           activeSession={this.props.activeSession}
           onSignOutClick={this._handleSignOutClick} />
       </div>
@@ -63,4 +63,4 @@ class AccountNavbar extends React.Component {
  * Module exports
  */
 
-export default AccountNavbar;
+export default AuthenticationNavbar;

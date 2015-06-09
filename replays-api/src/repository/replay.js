@@ -71,11 +71,9 @@ exports.getById = function getById (id, callback) {
  * fetch all replays keyed by id
  */
 
-exports.getAllById = function getAllById (skip, limit, callback) {
+exports.getAllById = function getAllById (callback) {
 
   let params = {
-    skip: skip,
-    limit: limit,
     descending: true
   };
 

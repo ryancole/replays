@@ -10,21 +10,21 @@ import connectToStores from 'flummox/connect';
  * Components
  */
 
-import AccountNavbar from '../components/AccountNavbar';
+import AuthenticationNavbar from '../components/AuthenticationNavbar';
 
 
 /**
  * Component definition
  */ 
 
-class AccountNavbarContainer extends React.Component {
+class AuthenticationNavbarContainer extends React.Component {
 
   render() {
     return (
       <div className="row">
         <div className="col-sm-12">
 
-          <AccountNavbar
+          <AuthenticationNavbar
             flux={this.props.flux}
             activeSession={this.props.activeSession}
             onSignOutClick={this._handleSignOutClick} />
@@ -56,11 +56,11 @@ class AccountNavbarContainer extends React.Component {
 }
 
 // connect component to stores
-AccountNavbarContainer = connectToStores(AccountNavbarContainer, ['sessions']);
+AuthenticationNavbarContainer = connectToStores(AuthenticationNavbarContainer, ['sessions']);
 
 
 /**
  * Module exports
  */
 
-export default AccountNavbarContainer;
+export default AuthenticationNavbarContainer;

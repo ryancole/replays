@@ -46,7 +46,7 @@ class ReplayTable extends React.Component {
     });
 
     // show a no rows message if empty
-    if (nodes.length == 0) {
+    if (nodes.size == 0) {
       nodes = (
         <tr>
           <td colSpan="2" className="text-muted text-center">

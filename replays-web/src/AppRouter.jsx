@@ -3,16 +3,15 @@
  */
 
 import React from 'react';
-import { Route, DefaultRoute } from 'react-router';
+import { Route } from 'react-router';
 
 
 /**
  * Components
  */
 
+import AccountView from './views/AccountView';
 import ApplicationContainer from './containers/ApplicationContainer';
-import ReplayHomeContainer from './containers/ReplayHomeContainer';
-import ReplayDetailContainer from './containers/ReplayDetailContainer';
 import AuthenticationSigninContainer from './containers/AuthenticationSigninContainer';
 import AuthenticationSignupContainer from './containers/AuthenticationSignupContainer';
 
@@ -27,11 +26,7 @@ const AppRouter = (
       <Route name="signin" handler={AuthenticationSigninContainer} />
       <Route name="signup" handler={AuthenticationSignupContainer} />
     </Route>
-    <Route name="replay">
-      <Route name="replay-home" handler={ReplayHomeContainer} />
-      <Route name="replay-detail" path=":id" handler={ReplayDetailContainer} />
-    </Route>
-    <DefaultRoute name="dashboard" handler={ReplayHomeContainer} />
+    <Route name="account" path=":username" handler={AccountView} />
   </Route>
 );
 

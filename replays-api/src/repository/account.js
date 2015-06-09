@@ -91,12 +91,15 @@ exports.getByUsername = function getByUsername (username, callback) {
     }
 
     // extract the account
-    let account = body.rows[0].value;
+    let value = body.rows[0].value;
 
-    // don't pass around the password
-    // or the document revision
-    delete account._rev;
-    delete account.password;
+    // lets be explicit about what
+    // values we pass through
+    let account = {
+      _id: value._id,
+      username: value.username,
+      dateCreated: value.dateCreated
+    };
 
     // provide the single account
     return callback(null, account);
