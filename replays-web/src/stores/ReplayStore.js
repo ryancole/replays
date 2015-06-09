@@ -18,10 +18,10 @@ class ReplayStore extends Store {
 
     // fetch action ids
     const replayActionIds = flux.getActionIds('replays');
+    const accountActionIds = flux.getActionIds('accounts');
 
     // register action handlers
-    this.register(replayActionIds.getForAccountId, this._handleGet);
-    this.register(replayActionIds.getForAccountView, this._handleGet);
+    this.register(accountActionIds.getForAccountView, this._handleGet);
 
     // set initial state
     this.state = {
@@ -40,10 +40,10 @@ class ReplayStore extends Store {
     });
   }
 
-  _handleGet (replays) {
+  _handleGet (data) {
 
     // convert array of replays to map
-    let hash = replays.reduce((prev, curr) => {
+    let hash = data.replays.reduce((prev, curr) => {
       return prev.set(curr._id, curr);
     }, Map());
 

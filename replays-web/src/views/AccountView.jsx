@@ -59,21 +59,6 @@ class AccountView extends React.Component {
 
   }
 
-  componentDidUpdate () {
-    if (this.props.account != undefined) {
-      this._fetchReplays(this.props.account._id);
-    }
-  }
-
-  _fetchReplays (id) {
-
-    let actions = this.props.flux.getActions('replays');
-
-    // store needs the replays
-    actions.getForAccountId(id);
-
-  }
-
 }
 
 class AccountViewWrapper extends React.Component {

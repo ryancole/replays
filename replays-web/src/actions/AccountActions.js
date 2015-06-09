@@ -3,6 +3,7 @@
  */
 
 import { Actions } from 'flummox';
+import ReplayRepository from '../repository/ReplayRepository';
 import AccountRepository from '../repository/AccountRepository';
 import SessionRepository from '../repository/SessionRepository';
 
@@ -30,9 +31,15 @@ class AccountActions extends Actions {
 
     // fetch the account
     let account = await AccountRepository.getByUsername(username);
+
+    // fetch replays for the account
+    let replays = await ReplayRepository.getByAccountId(account._id);
     
-    // dispatch account to store
-    return account;
+    // dispatch account and replay information
+    return {
+      account: account,
+      replays: replays.replays
+    };
 
   }
 

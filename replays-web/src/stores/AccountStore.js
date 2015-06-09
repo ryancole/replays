@@ -35,7 +35,9 @@ class AccountStore extends Store {
 
   }
 
-  _handleGetForAccountView (account) {
+  _handleGetForAccountView (data) {
+
+    let account = data.account;
 
     // get the current account collection
     let accounts = this.state.accountsForAccountView;

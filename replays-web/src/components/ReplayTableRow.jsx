@@ -19,9 +19,7 @@ class ReplayTableRow extends React.Component {
     return (
       <tr className="replayTableRow">
         <td>
-          <Link to="replay-detail" params={{ id: replay._id }}>
-            {replay.filename}
-          </Link>
+          {replay.filename}
         </td>
         <td>
           {replay.dateCreated.toString()}
