@@ -31,13 +31,14 @@ class ReplayStore extends Store {
   }
 
   getAll () {
-    return this.state.replays;
+    return this.state.replays.toArray();
   }
 
   getByAccountId (id) {
-    return this.state.replays.filter(replay => {
+    let replays = this.state.replays.filter(replay => {
       return replay.accountId == id;
     });
+    return replays.toArray();
   }
 
   _handleGet (data) {
