@@ -20,6 +20,7 @@ class ReplayStore extends Store {
     const replayActionIds = flux.getActionIds('replays');
 
     // register action handlers
+    this.register(replayActionIds.getAll, this._handleGetForAccountId);
     this.register(replayActionIds.getById, this._handleGetById);
     this.register(replayActionIds.getForAccountId, this._handleGetForAccountId);
 
