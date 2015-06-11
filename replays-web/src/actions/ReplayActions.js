@@ -8,6 +8,16 @@ import Replays from '../repository/ReplayRepository';
 
 class ReplayActions extends Actions {
 
+  async getAll () {
+
+    // fetch replays
+    let replays = await Replays.geAll();
+
+    // dispatch the replays
+    return replays.replays;
+
+  }
+
   async getById (id) {
 
     // fetch replay
