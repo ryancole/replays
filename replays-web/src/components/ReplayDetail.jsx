@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router';
 
 
 /**
@@ -12,7 +13,9 @@ import React from 'react';
 class ReplayDetail extends React.Component {
 
   render () {
-    let replay = this.props.replay;
+
+    const { replay, account } = this.props;
+
     return (
       <dl className="dl-horizontal">
         <dt>Filename</dt>
@@ -20,7 +23,13 @@ class ReplayDetail extends React.Component {
         <dt>Size</dt>
         <dd>{replay.awsSize} bytes</dd>
         <dt>Date Uploaded</dt>
-        <dd>{replay.dateCreated.toString()}</dd>
+        <dd>{new Date(replay.dateCreated).toString()}</dd>
+        <dt>Upload By</dt>
+        <dd>
+          <Link to="account" params={{username: account.username}}>
+            {account.username}
+          </Link>
+        </dd>
         <dt>Identifier</dt>
         <dd>{replay._id}</dd>
       </dl>

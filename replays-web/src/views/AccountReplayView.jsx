@@ -7,18 +7,26 @@ import SectionNavbar from '../components/SectionNavbar';
 class AccountReplayView extends React.Component {
 
   render () {
+
+    const replay = this.props.replay;
+
+    if (replay == null) {
+      return null;
+    }
+
     return (
       <div>
         <div className="row">
           <div className="col-sm-12">
             <SectionNavbar
-              label={this.props.replay.filename} />
+              label={replay.filename} />
           </div>
         </div>
         <div className="row">
           <div className="col-sm-12">
             <ReplayDetail
-              replay={this.props.replay} />
+              replay={replay}
+              account={this.props.account} />
           </div>
         </div>
       </div>
@@ -44,8 +52,10 @@ export default class AccountReplayViewWrapper extends React.Component {
 
   componentDidMount () {
 
-    // trigger the fetch replay detail action
-    this._fetchAccount(this.props.params.username);
+    // trigger the fetch replay detail actions
+    setTimeout(() => {
+      this._fetchReplay(this.props.params.id);
+    });
 
   }
 

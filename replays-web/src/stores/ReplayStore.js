@@ -20,6 +20,7 @@ class ReplayStore extends Store {
     const replayActionIds = flux.getActionIds('replays');
 
     // register action handlers
+    this.register(replayActionIds.getById, this._handleGetById);
     this.register(replayActionIds.getForAccountId, this._handleGetForAccountId);
 
     // set initial state
@@ -46,6 +47,16 @@ class ReplayStore extends Store {
       return replay.accountId == id;
     });
     return replays.toArray();
+  }
+
+  _handleGetById (replay) {
+    let replays = this.state.replays.set(
+      replay._id,
+      replay
+    );
+    this.setState({
+      replays: replays
+    });
   }
 
   _handleGetForAccountId (replays) {
