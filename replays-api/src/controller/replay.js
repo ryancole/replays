@@ -14,7 +14,7 @@ function detail (request, reply) {
   let id = request.params.id;
 
   // fetch the replay from the database
-  replays.getById(id, function (err, body) {
+  replays.get(id, function (err, body) {
 
     if (err) {
       return reply(Boom.notFound());
@@ -44,7 +44,7 @@ function index (request, reply) {
       return reply({replays: body});
     });
   } else {
-    replays.getAllById((err, body) => {
+    replays.getAll((err, body) => {
       if (err) {
         return reply(Boom.notFound());
       }

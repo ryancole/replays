@@ -42,7 +42,7 @@ exports.insert = function insert (replay, callback) {
  * fetch single replay by id
  */
 
-exports.getById = function getById (id, callback) {
+exports.get = function get (id, callback) {
 
   let params = {
     keys: [ id ]
@@ -71,20 +71,35 @@ exports.getById = function getById (id, callback) {
  * fetch all replays keyed by id
  */
 
-exports.getAllById = function getAllById (callback) {
+exports.getAll = function getAllById (callback) {
 
   let params = {
-    descending: true
+    descending: true,
+    include_docs: true
   };
 
-  db.view('replays', 'byId', params, function (err, body) {
+  db.view('replays', 'byIdWithAccount', params, function (err, body) {
 
     if (err) {
       return callback(err);
     }
 
-    // extract the replays
-    let replays = body.rows.map(replay => replay.value);
+    let replays = body.rows.filter(row => {
+
+      // we only want rows with doc
+      return row.doc != null;
+
+    }).map(row => {
+
+      // extract replay values
+      let replay = row.value.replay;
+
+      // set account username value
+      replay.accountUsername = row.doc.username;
+
+      return replay;
+
+    });
 
     // provide the replay collection
     return callback(null, replays);
