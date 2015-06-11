@@ -26,20 +26,13 @@ class AccountActions extends Actions {
 
   }
 
-  // get account details for the account view
-  async getForAccountView (username) {
+  // get account details
+  async getByUsername (username) {
 
     // fetch the account
     let account = await AccountRepository.getByUsername(username);
 
-    // fetch replays for the account
-    let replays = await ReplayRepository.getByAccountId(account._id);
-    
-    // dispatch account and replay information
-    return {
-      account: account,
-      replays: replays.replays
-    };
+    return account;
 
   }
 

@@ -17,7 +17,7 @@ class AccountDetail extends React.Component {
         <dt>Username</dt>
         <dd>{this.props.account.username}</dd>
         <dt>Member Since</dt>
-        <dd>{this.props.account.dateCreated}</dd>
+        <dd>{new Date(this.props.account.dateCreated).toString()}</dd>
       </dl>
     );
   }

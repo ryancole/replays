@@ -14,7 +14,7 @@ class ReplayActions extends Actions {
     let response = await Replays.getByAccountId(id);
     
     // dispatch the replays
-    return response;
+    return response.replays;
 
   }
 

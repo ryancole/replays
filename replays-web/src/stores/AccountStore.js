@@ -2,6 +2,7 @@
  * Module dependencies
  */
 
+import { Map } from 'immutable';
 import { Store } from 'flummox';
 
 
@@ -19,37 +20,36 @@ class AccountStore extends Store {
     const accountActionIds = flux.getActionIds('accounts');
 
     // register action handlers
-    this.register(accountActionIds.getForAccountView, this._handleGetForAccountView);
+    this.register(accountActionIds.getByUsername, this._handleGetByUsername);
 
     // initial state
     this.state = {
-      accountsForAccountView: {}
+      accounts: Map()
     };
 
   }
 
-  getByUsername (username) {
-
-    // get the specific account
-    return this.state.accountsForAccountView[username.toLowerCase()];
-
+  hasAccount (username) {
+    return this.state.accounts.has(username.toLowerCase());
   }
 
-  _handleGetForAccountView (data) {
+  getByUsername (username) {
+    return this.state.accounts.get(username.toLowerCase());
+  }
 
-    let account = data.account;
+  _handleGetByUsername (account) {
 
-    // get the current account collection
-    let accounts = this.state.accountsForAccountView;
-
-    // set this account's details
-    accounts[account.username.toLowerCase()] = account;
+    // account map with new account
+    let accounts = this.state.accounts.set(
+      account.username.toLowerCase(),
+      account
+    );
 
     // update store state
     this.setState({
-      accountForAccountView: accounts
+      accounts: accounts
     });
-
+    
   }
 
 }
