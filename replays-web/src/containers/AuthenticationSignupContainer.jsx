@@ -36,7 +36,7 @@ class AuthenticationSignupContainer extends React.Component {
 
   componentWillReceiveProps (props) {
     if (props.activeSession != null && this.props.activeSession == null) {
-      this.context.router.transitionTo("dashboard");
+      this.context.router.transitionTo("application");
     }
   }
 

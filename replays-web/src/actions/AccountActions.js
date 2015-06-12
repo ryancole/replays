@@ -17,7 +17,7 @@ class AccountActions extends Actions {
     // create the account
     let account = await AccountRepository.create(username, password);
 
-    if (account.ok == true) {
+    if (account.id > 0) {
 
       // create a session for the account
       return await SessionRepository.create(username, password);

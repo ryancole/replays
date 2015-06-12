@@ -9,7 +9,13 @@ import SessionRepository from '../repository/SessionRepository';
 class SessionActions extends Actions {
 
   async create (username, password) {
-    return await SessionRepository.create(username, password);
+
+    // fetch a session token
+    let session = await SessionRepository.create(username, password);
+
+    // dispatch session token
+    return session;
+
   }
 
   signout () {

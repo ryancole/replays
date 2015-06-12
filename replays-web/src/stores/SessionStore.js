@@ -44,9 +44,21 @@ class SessionStore extends Store {
     // fetch previous active session
     let session = localStorage.getItem("session");
 
-    // parse if available
     if (session != null) {
-      session = JSON.parse(session);
+      try {
+
+        // attempt to parse session body
+        session = JSON.parse(session);
+
+      } catch (err) {
+
+        // we need to return null
+        session = null;
+
+        // clear whatever was in storage
+        localStorage.removeItem("session");
+
+      }
     }
 
     // null if not available

@@ -31,6 +31,7 @@ exports.insert = function insert (account, callback) {
       (username, password)
       VALUES
       ($1, $2)
+      RETURNING id
     `;
 
     const params = [
@@ -42,10 +43,13 @@ exports.insert = function insert (account, callback) {
 
       if (err) {
         return callback(err);
+      } else if (result.rowCount != 1) {
+        return callback(Error("failed to insert"));
       }
 
       done();
-      return callback(null, result);
+
+      return callback(null, result.rows[0]);
 
     });
 
@@ -116,7 +120,7 @@ exports.getByUsernameAndPassword = function getByUsernameAndPassword (username, 
     password = hash.digest('hex');
 
     const query = `
-      SELECT *
+      SELECT id, username, create_date
       FROM accounts
       WHERE LOWER(username) = $1 AND password = $2
     `;
@@ -130,11 +134,13 @@ exports.getByUsernameAndPassword = function getByUsernameAndPassword (username, 
 
       if (err) {
         return callback(err);
+      } else if (result.rowCount != 1) {
+        return callback(Error("failed to select"));
       }
 
       done();
 
-      return callback(null, result);
+      return callback(null, result.rows[0]);
 
     });
 

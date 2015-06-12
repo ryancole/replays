@@ -3,10 +3,13 @@
 var jwt = require('jsonwebtoken');
 var Boom = require('boom');
 var accounts = require('../repository/account');
+var settings = require('../../settings');
+
 
 /**
  * create a new session
  */
+
 function create (request, reply) {
 
   // fetch the requested account
@@ -18,7 +21,7 @@ function create (request, reply) {
 
     // the token payload
     let payload = {
-      _id: account._id
+      id: account.id
     };
 
     // the token options
@@ -27,7 +30,7 @@ function create (request, reply) {
     };
 
     // sign the token
-    let token = jwt.sign(payload, 'foobar', options);
+    let token = jwt.sign(payload, settings.JWT_KEY, options);
 
     // format response
     let response = {
