@@ -11,7 +11,7 @@ class ReplayActions extends Actions {
   async getAll () {
 
     // fetch replays
-    let replays = await Replays.geAll();
+    let replays = await Replays.getAll();
 
     // dispatch the replays
     return replays.replays;

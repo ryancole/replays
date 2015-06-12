@@ -1,5 +1,5 @@
 {
   "JWT_KEY": "foobar",
   "HASH_SEED": "haha",
-  "COUCHDB_ADDR": "http://localhost:5984/lol"
+  "AWS_SQL": "postgres://replays:password@replays.c7mtujn7zj0p.us-west-2.rds.amazonaws.com/replays"
 }

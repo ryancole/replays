@@ -1,9 +1,7 @@
 "use strict";
 
-// application settings
+var pg = require('pg');
 var settings = require('../../settings');
-
-var db = require('nano')(settings.COUCHDB_ADDR);
 
 
 /**
@@ -12,26 +10,36 @@ var db = require('nano')(settings.COUCHDB_ADDR);
 
 exports.insert = function insert (replay, callback) {
 
-  // replay is specified by the `replay` type
-  replay.type = "replay";
-
-  // document creation date
-  replay.dateCreated = Date.now();
-
-  // insert the account into couchdb
-  db.insert(replay, function (err, body) {
+  pg.connect(settings.AWS_SQL, (err, db, done) => {
 
     if (err) {
       return callback(err);
-    } else if (body.ok != true) {
-      return callback(Error('ok not true'));
     }
 
-    // attach the new id
-    replay._id = body._id;
+    const query = `
+      INSERT INTO replays
+      (filename, size, account)
+      VALUES
+      ($1, $2, $3)
+    `;
 
-    // provide the new replay
-    return callback(null, replay);
+    const params = [
+      replay.filename,
+      replay.size,
+      replay.account
+    ];
+
+    db.query(query, params, (err, result) => {
+
+      if (err) {
+        return callback(err);
+      }
+
+      done();
+
+      return callback(null, result);
+
+    });
 
   });
 
@@ -44,23 +52,34 @@ exports.insert = function insert (replay, callback) {
 
 exports.get = function get (id, callback) {
 
-  let params = {
-    keys: [ id ]
-  };
-
-  db.view('replays', 'byId', params, function (err, body) {
+  pg.connect(settings.AWS_SQL, (err, db, done) => {
 
     if (err) {
       return callback(err);
-    } else if (body.rows.length != 1) {
-      return callback(Error("error finding replay"));
     }
 
-    // extract the replays
-    let replay = body.rows[0].value;
+    const query = `
+      SELECT r.*, a.username
+      FROM replays AS r
+      JOIN accounts AS a ON r.account = a.id
+      WHERE r.id = $1
+    `;
 
-    // provide the replay collection
-    return callback(null, replay);
+    const params = [
+      id
+    ];
+
+    db.query(query, params, (err, result) => {
+
+      if (err) {
+        return callback(err);
+      }
+
+      done();
+
+      return callback(null, result);
+
+    });
 
   });
 
@@ -73,36 +92,30 @@ exports.get = function get (id, callback) {
 
 exports.getAll = function getAllById (callback) {
 
-  let params = {
-    descending: true,
-    include_docs: true
-  };
-
-  db.view('replays', 'byIdWithAccount', params, function (err, body) {
+  pg.connect(settings.AWS_SQL, (err, db, done) => {
 
     if (err) {
       return callback(err);
     }
 
-    let replays = body.rows.filter(row => {
+    const query = `
+      SELECT r.*, a.username
+      FROM replays AS r
+      JOIN accounts AS a ON r.account = a.id
+      ORDER BY r.id DESC
+    `;
 
-      // we only want rows with doc
-      return row.doc != null;
+    db.query(query, (err, result) => {
 
-    }).map(row => {
+      if (err) {
+        return callback(err);
+      }
 
-      // extract replay values
-      let replay = row.value.replay;
+      done();
 
-      // set account username value
-      replay.accountUsername = row.doc.username;
-
-      return replay;
+      return callback(null, result.rows);
 
     });
-
-    // provide the replay collection
-    return callback(null, replays);
 
   });
 
@@ -115,22 +128,34 @@ exports.getAll = function getAllById (callback) {
 
 exports.getAllByAccountId = function getAllByAccountId (id, callback) {
 
-  let params = {
-    keys: [ id ],
-    descending: true
-  };
-
-  db.view('replays', 'byAccountId', params, function (err, body) {
+  pg.connect(settings.AWS_SQL, (err, db, done) => {
 
     if (err) {
       return callback(err);
     }
 
-    // extract the replays
-    let replays = body.rows.map(replay => replay.value);
+    const query = `
+      SELECT r.*, a.username
+      FROM replays AS r
+      JOIN accounts AS a ON r.account = a.id
+      WHERE r.account = $1
+    `;
 
-    // provide the replay collection
-    return callback(null, replays);
+    const params = [
+      id
+    ];
+
+    db.query(query, params, (err, result) => {
+
+      if (err) {
+        return callback(err);
+      }
+
+      done();
+
+      return callback(null, result);
+
+    });
 
   });
 

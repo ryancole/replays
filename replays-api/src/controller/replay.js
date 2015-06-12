@@ -46,6 +46,7 @@ function index (request, reply) {
   } else {
     replays.getAll((err, body) => {
       if (err) {
+        console.log(err);
         return reply(Boom.notFound());
       }
       return reply({replays: body});

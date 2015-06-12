@@ -14,14 +14,19 @@ class ReplayTableRow extends React.Component {
 
   render () {
 
+    // replay meta data
     const replay = this.props.replay;
+
+    // account username
+    const username = this.props.username;
 
     return (
       <tr className="replayTableRow">
         <td>
           <Link to="replay" params={{
-            username: "test",
-            id: replay._id}}>
+            username: username,
+            id: replay._id
+          }}>
             {replay.filename}
           </Link>
         </td>

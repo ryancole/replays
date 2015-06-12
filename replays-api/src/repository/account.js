@@ -1,10 +1,8 @@
 "use strict";
 
-// application settings
-var settings = require('../../settings');
-
-var db = require('nano')(settings.COUCHDB_ADDR);
+var pg = require('pg');
 var crypto = require('crypto');
+var settings = require('../../settings');
 
 
 /**
@@ -19,51 +17,37 @@ exports.insert = function insert (account, callback) {
   // add password to hash
   hash.update(account.password);
 
-  // account is specified by the `account` type
-  account.type = "account";
-
   // hash the password
-  account.password = hash.digest('hex');
+  let password = hash.digest('hex');
 
-  // document creation date
-  account.dateCreated = Date.now();
-
-  // insert the account into couchdb
-  db.insert(account, callback);
-
-};
-
-
-/**
- * get an account by id
- */
-
-exports.getById = function getById (id, callback) {
-
-  // filter results by key
-  let filter = {
-    keys: [ id ]
-  };
-
-  // fetch account with given id
-  db.view('accounts', 'byId', filter, function (err, body) {
+  pg.connect(settings.AWS_SQL, (err, db, done) => {
 
     if (err) {
       return callback(err);
-    } else if (body.rows.length != 1) {
-      return callback(Error('failed to locate account'));
     }
 
-    // extract the account
-    let account = body.rows[0].value;
+    const query = `
+      INSERT INTO accounts
+      (username, password)
+      VALUES
+      ($1, $2)
+    `;
 
-    // don't pass around the password
-    // or the document revision
-    delete account._rev;
-    delete account.password;
+    const params = [
+      account.username,
+      password
+    ];
 
-    // provide the single account
-    return callback(null, account);
+    db.query(query, params, (err, result) => {
+
+      if (err) {
+        return callback(err);
+      }
+
+      done();
+      return callback(null, result);
+
+    });
 
   });
 
@@ -76,33 +60,33 @@ exports.getById = function getById (id, callback) {
 
 exports.getByUsername = function getByUsername (username, callback) {
 
-  // filter results by key
-  let filter = {
-    keys: [ username.toLowerCase() ]
-  };
-
-  // fetch accounts with given username
-  db.view('accounts', 'byUsername', filter, function (err, body) {
+  pg.connect(settings.AWS_SQL, (err, db, done) => {
 
     if (err) {
       return callback(err);
-    } else if (body.rows.length != 1) {
-      return callback(Error('failed to locate account'));
     }
 
-    // extract the account
-    let value = body.rows[0].value;
+    const query = `
+      SELECT *
+      FROM accounts
+      WHERE LOWER(username) = $1
+    `;
 
-    // lets be explicit about what
-    // values we pass through
-    let account = {
-      _id: value._id,
-      username: value.username,
-      dateCreated: value.dateCreated
-    };
+    const params = [
+      username.toLowerCase()
+    ];
 
-    // provide the single account
-    return callback(null, account);
+    db.query(query, params, (err, result) => {
+
+      if (err) {
+        return callback(err);
+      }
+
+      done();
+
+      return callback(null, result);
+
+    });
 
   });
 
@@ -116,13 +100,7 @@ exports.getByUsername = function getByUsername (username, callback) {
 
 exports.getByUsernameAndPassword = function getByUsernameAndPassword (username, password, callback) {
 
-  // filter results by key
-  let filter = {
-    keys: [ username.toLowerCase() ]
-  };
-
-  // fetch accouts with the given username
-  db.view('accounts', 'byUsername', filter, function (err, body) {
+  pg.connect(settings.AWS_SQL, (err, db, done) => {
 
     if (err) {
       return callback(err);
@@ -137,22 +115,28 @@ exports.getByUsernameAndPassword = function getByUsernameAndPassword (username, 
     // change password to hashed version
     password = hash.digest('hex');
 
-    // find records with the given password
-    let account = body.rows.find(function (element, index, array) {
+    const query = `
+      SELECT *
+      FROM accounts
+      WHERE LOWER(username) = $1 AND password = $2
+    `;
 
-      if (element.value.password == password) {
-        return true;
+    const params = [
+      username.toLowerCase(),
+      password
+    ];
+
+    db.query(query, params, (err, result) => {
+
+      if (err) {
+        return callback(err);
       }
 
-      return false;
-      
+      done();
+
+      return callback(null, result);
+
     });
-
-    if (account === undefined) {
-      return callback(Error('failed to locate account'));
-    }
-
-    return callback(null, account.value);
 
   });
 

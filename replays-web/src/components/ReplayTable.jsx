@@ -37,7 +37,7 @@ class ReplayTable extends React.Component {
   _buildTableRows (replays) {
 
     // build the table rows
-    let nodes = replays.map(function (replay, index) {
+    let nodes = replays.map(replay => {
       return (
         <ReplayTableRow
           key={replay._id}

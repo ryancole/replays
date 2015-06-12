@@ -113,6 +113,6 @@ export default {
   upload: upload,
   getAll: getAll,
   getById: getById,
-  getByAccountId: getByAccountId,
-  forOwner: forOwner
+  forOwner: forOwner,
+  getByAccountId: getByAccountId
 };
