@@ -3,20 +3,36 @@ import FluxComponent from 'flummox/component';
 import ReplayTable from '../components/ReplayTable';
 import AccountDetail from '../components/AccountDetail';
 import SectionNavbar from '../components/SectionNavbar';
+import ReplayHomeNavbar from '../components/ReplayHomeNavbar';
 
 
 class AccountDetailView extends React.Component {
 
   render () {
 
+    // the account to view
     const account = this.props.account;
+
+    // default navbar
+    let navbar = (
+      <SectionNavbar
+        label={account.username} />
+    );
+
+    // navbar for account owner
+    if (this.props.isAccountOwner == true) {
+      navbar = (
+        <SectionNavbar label={account.username}>
+          <ReplayHomeNavbar />
+        </SectionNavbar>
+      );
+    }
 
     return (
       <div>
         <div className="row">
           <div className="col-sm-12">
-            <SectionNavbar
-              label={account.username} />
+            {navbar}
           </div>
         </div>
         <div className="row">
@@ -42,16 +58,15 @@ export default class AccountDetailViewWrapper extends React.Component {
 
   render () {
     return (
-      <div>
-        <FluxComponent connectToStores={{
-          replays: store => ({
-            replays: store.getByAccountId(this.props.account.id)
-          })
-        }}>
-          <AccountDetailView
-            account={this.props.account} />
-        </FluxComponent>
-      </div>
+      <FluxComponent connectToStores={{
+        replays: store => ({
+          replays: store.getByAccountId(this.props.account.id)
+        })
+      }}>
+        <AccountDetailView
+          account={this.props.account}
+          isAccountOwner={this.props.isAccountOwner} />
+      </FluxComponent>
     );
   }
 

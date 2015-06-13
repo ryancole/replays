@@ -14,10 +14,24 @@ class AccountView extends React.Component {
     }
 
     return (
-      <RouteHandler
-        flux={this.props.flux}
-        account={account} />
+      <FluxComponent>
+        <RouteHandler
+          account={account}
+          isAccountOwner={this.isAccountOwner} />
+      </FluxComponent>
     );
+
+  }
+
+  get isAccountOwner () {
+
+    // default to false if no acocunt
+    if (this.props.activeSession == null || this.props.account == null) {
+      return false;
+    }
+
+    // is this the owner
+    return this.props.activeSession.id == this.props.account.id;
 
   }
 
@@ -27,7 +41,9 @@ export default class AccountViewWrapper extends React.Component {
 
   render () {
     return (
-      <FluxComponent connectToStores={{
+      <FluxComponent
+        activeSession={this.props.activeSession}
+        connectToStores={{
         accounts: store => ({
           account: store.getByUsername(this.props.params.username)
         })
