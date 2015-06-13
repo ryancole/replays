@@ -18,26 +18,30 @@ exports.insert = function insert (replay, callback) {
 
     const query = `
       INSERT INTO replays
-      (filename, size, account)
+      (filename, size, account, aws_key)
       VALUES
-      ($1, $2, $3)
+      ($1, $2, $3, $4)
+      RETURNING id
     `;
 
     const params = [
       replay.filename,
       replay.size,
-      replay.account
+      replay.account,
+      replay.aws_key
     ];
 
     db.query(query, params, (err, result) => {
 
       if (err) {
         return callback(err);
+      } else if (result.rowCount != 1) {
+        return callback(Error("failed to insert"));
       }
 
       done();
 
-      return callback(null, result);
+      return callback(null, result.rows[0]);
 
     });
 

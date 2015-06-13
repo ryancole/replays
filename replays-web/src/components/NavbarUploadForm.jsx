@@ -1,0 +1,130 @@
+import React from 'react';
+import Replays from '../repository/ReplayRepository';
+import UploadRequests from '../repository/UploadRequestRepository';
+
+
+export default class NavbarUploadForm extends React.Component {
+
+  constructor () {
+
+    super();
+
+    // event handler binding
+    this._handleSubmit = this._handleSubmit.bind(this);
+
+    // initial state
+    this.state = {
+      file: null,
+      phase: 0,
+      signed: null
+    };
+
+  }
+
+  render () {
+    return (
+      <form className="navbar-form" onSubmit={this._handleSubmit}>
+        <div className="form-group">
+          <input className="form-control" type="file" ref="filename" />
+        </div>
+        <button className="btn btn-default" type="submit">
+          Upload
+        </button>
+      </form>
+    );
+  }
+
+  componentDidUpdate () {
+
+    switch (this.state.phase) {
+
+      case 1:
+        this._beginAwsTransfer(
+          this.state.file,
+          this.state.signed
+        );
+        break;
+
+      case 2:
+      case 3:
+      this._handleResetPhase();
+        break;
+
+    }
+
+  }
+
+  _handleSubmit (event) {
+
+    event.preventDefault();
+
+    // extract list of selected files
+    let files = React.findDOMNode(this.refs.filename).files;
+
+    if (files.length == 0) {
+      return;
+    }
+
+    // trigger the upload attempt
+    this._handleUploadAttempt(files[0]);
+
+  }
+
+  _handleResetPhase () {
+
+    setTimeout(() => {
+
+      this.setState({
+        file: null,
+        phase: 0,
+        signed: null
+      });
+
+    }, 3000);
+
+  }
+
+  async _handleUploadAttempt (file) {
+
+    // fetch the signed upload request
+    let signed = await UploadRequests.get(
+      this.props.activeSession.token,
+      file
+    );
+
+    // update component state with new info
+    this.setState({
+      file: file,
+      phase: 1,
+      signed: signed
+    });
+
+  }
+
+  async _beginAwsTransfer (file, signed) {
+
+    // upload the file to aws
+    let result = await Replays.upload(
+      file,
+      signed
+    );
+
+    if (result.id > 0) {
+
+      // success state
+      this.setState({
+        phase: 2
+      });
+
+    } else {
+
+      // fail state
+      this.setState({
+        phase: 3
+      });
+
+    }
+
+  }
+
+}

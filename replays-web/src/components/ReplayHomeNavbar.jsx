@@ -1,35 +1,22 @@
-/**
- * Module dependencies
- */
-
 import React from 'react';
+import FluxComponent from 'flummox/component';
+import NavbarUploadForm from './NavbarUploadForm';
 
 
-/**
- * Components
- */
+export default class ReplayHomeNavbar extends React.Component {
 
-import ReplayHomeNavbarForm from './ReplayHomeNavbarForm';
-
-
-/**
- * Component definition
- */ 
-
-class ReplayHomeNavbar extends React.Component {
   render() {
     return (
       <div className="navbar-right">
-        <ReplayHomeNavbarForm
-          onUploadAttempt={this.props.onUploadAttempt} />
+        <FluxComponent connectToStores={{
+          sessions: store => ({
+            activeSession: store.activeSession
+          })
+        }}>
+          <NavbarUploadForm />
+        </FluxComponent>
       </div>
     );
   }
+  
 }
-
-
-/**
- * Module exports
- */
-
-export default ReplayHomeNavbar;

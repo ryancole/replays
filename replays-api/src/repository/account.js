@@ -59,6 +59,47 @@ exports.insert = function insert (account, callback) {
 
 
 /**
+ * get an account by id
+ */
+
+exports.getById = function getById (id, callback) {
+
+  pg.connect(settings.AWS_SQL, (err, db, done) => {
+
+    if (err) {
+      return callback(err);
+    }
+
+    const query = `
+      SELECT id, username, create_date
+      FROM accounts
+      WHERE id = $1
+    `;
+
+    const params = [
+      id
+    ];
+
+    db.query(query, params, (err, result) => {
+
+      if (err) {
+        return callback(err);
+      } else if (result.rowCount != 1) {
+        return callback(Error("failed to select"));
+      }
+
+      done();
+
+      return callback(null, result.rows[0]);
+
+    });
+
+  });
+
+};
+
+
+/**
  * get an account by username
  */
 

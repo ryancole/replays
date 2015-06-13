@@ -23,7 +23,10 @@ class AccountDetailView extends React.Component {
     if (this.props.isAccountOwner == true) {
       navbar = (
         <SectionNavbar label={account.username}>
-          <ReplayHomeNavbar />
+          <FluxComponent>
+            <ReplayHomeNavbar
+              activeSession={this.props.activeSession} />
+          </FluxComponent>
         </SectionNavbar>
       );
     }
@@ -65,6 +68,7 @@ export default class AccountDetailViewWrapper extends React.Component {
       }}>
         <AccountDetailView
           account={this.props.account}
+          activeSession={this.props.activeSession}
           isAccountOwner={this.props.isAccountOwner} />
       </FluxComponent>
     );

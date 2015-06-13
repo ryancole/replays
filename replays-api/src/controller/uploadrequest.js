@@ -13,7 +13,7 @@ function create (request, reply) {
   let s3 = new aws.S3;
 
   // format the object key
-  let key = `${request.auth.credentials._id}/${Date.now()}/${request.query.name}`;
+  let key = `${request.auth.credentials.id}/${Date.now()}/${request.query.name}`;
 
   // prepare the signature payload, remember
   // this means the client must provide the
@@ -24,7 +24,7 @@ function create (request, reply) {
     Expires: 60,
     ContentType: request.query.type,
     Metadata: {
-      user: request.auth.credentials._id,
+      user: request.auth.credentials.id.toString(),
       filename: request.query.name
     }
   };

@@ -69,10 +69,10 @@ function handle (request, reply) {
         }
 
         let replay = {
-          accountId: parts[0],
-          filename: parts[2],
-          awsKey: record.s3.object.key,
-          awsSize: record.s3.object.size
+          size: record.s3.object.size,
+          aws_key: record.s3.object.key,
+          account: parts[0],
+          filename: parts[2]
         };
 
         // save the replay to the database
