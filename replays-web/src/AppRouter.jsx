@@ -13,10 +13,13 @@ import { Route, DefaultRoute } from 'react-router';
 import AccountView from './views/AccountView';
 import AccountReplayView from './views/AccountReplayView';
 import AccountDetailView from './views/AccountDetailView';
-import ApplicationContainer from './containers/ApplicationContainer';
+
+import ApplicationView from './views/ApplicationView';
 import ApplicationReplayView from './views/ApplicationReplayView';
-import AuthenticationSigninContainer from './containers/AuthenticationSigninContainer';
-import AuthenticationSignupContainer from './containers/AuthenticationSignupContainer';
+
+import AuthenticationView from './views/AuthenticationView';
+import AuthenticationSigninView from './views/AuthenticationSigninView';
+import AuthenticationSignupView from './views/AuthenticationSignupView';
 
 
 /**
@@ -24,10 +27,10 @@ import AuthenticationSignupContainer from './containers/AuthenticationSignupCont
  */
 
 const AppRouter = (
-  <Route name="application" path="/" handler={ApplicationContainer}>
-    <Route name="authentication">
-      <Route name="signin" handler={AuthenticationSigninContainer} />
-      <Route name="signup" handler={AuthenticationSignupContainer} />
+  <Route name="application" path="/" handler={ApplicationView}>
+    <Route name="authentication" handler={AuthenticationView}>
+      <Route name="signup" handler={AuthenticationSignupView} />
+      <DefaultRoute name="signin" handler={AuthenticationSigninView} />
     </Route>
     <Route name="account" path=":username" handler={AccountView}>
       <Route name="replay" path=":id" handler={AccountReplayView} />

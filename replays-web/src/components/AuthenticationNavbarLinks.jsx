@@ -1,21 +1,13 @@
-/**
- * Module dependencies
- */
-
 import React from 'react';
 import { Link } from 'react-router';
 
 
-/**
- * Component definition
- */ 
-
-class AuthenticationNavbarLinks extends React.Component {
+export default class AuthenticationNavbarLinks extends React.Component {
 
   render() {
     
     // if signed in, show signed in links
-    if (this.props.activeSession != null) {
+    if (this.props.isAuthenticated == true) {
       return this._getSignedInLinks();
     }
 
@@ -32,7 +24,7 @@ class AuthenticationNavbarLinks extends React.Component {
         </p>
         <ul className="nav navbar-nav">
           <li>
-            <a onClick={this.props.onSignOutClick}>Sign Out</a>
+            <a onClick={this.props.onSignout}>Sign Out</a>
           </li>
         </ul>
       </div>
@@ -55,10 +47,3 @@ class AuthenticationNavbarLinks extends React.Component {
   }
 
 }
-
-
-/**
- * Module exports
- */
-
-export default AuthenticationNavbarLinks;

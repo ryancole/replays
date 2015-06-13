@@ -22,9 +22,20 @@ const flux = new AppFlux();
 
 Router.run(AppRouter, (Handler, State) => {
 
+  // url parameters
+  const params = State.params;
+
   React.render(
-    <FluxComponent flux={flux}>
-      <Handler params={State.params} />
+    <FluxComponent
+      flux={flux}
+      params={params}
+      connectToStores={{
+        sessions: store => ({
+          activeSession: store.activeSession,
+          isAuthenticated: store.isAuthenticated
+        })
+      }}>
+      <Handler />
     </FluxComponent>,
     document.getElementById("container")
   );

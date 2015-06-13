@@ -71,7 +71,7 @@ exports.getByUsername = function getByUsername (username, callback) {
     }
 
     const query = `
-      SELECT *
+      SELECT id, username, create_date
       FROM accounts
       WHERE LOWER(username) = $1
     `;
@@ -84,11 +84,13 @@ exports.getByUsername = function getByUsername (username, callback) {
 
       if (err) {
         return callback(err);
+      } else if (result.rowCount != 1) {
+        return callback(Error("failed to select"));
       }
 
       done();
 
-      return callback(null, result);
+      return callback(null, result.rows[0]);
 
     });
 

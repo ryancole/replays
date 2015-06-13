@@ -14,10 +14,8 @@ class AccountDetail extends React.Component {
   render() {
     return (
       <dl className="dl-horizontal">
-        <dt>Username</dt>
-        <dd>{this.props.account.username}</dd>
         <dt>Member Since</dt>
-        <dd>{new Date(this.props.account.dateCreated).toString()}</dd>
+        <dd>{this.props.account.create_date}</dd>
       </dl>
     );
   }

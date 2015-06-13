@@ -32,7 +32,7 @@ class ReplayActions extends Actions {
 
     // fetch replays for an account
     let response = await Replays.getByAccountId(id);
-    
+
     // dispatch the replays
     return response.replays;
 

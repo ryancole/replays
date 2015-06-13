@@ -34,6 +34,7 @@ function create (request, reply) {
 
     // format response
     let response = {
+      id: account.id,
       token: token,
       username: account.username
     };

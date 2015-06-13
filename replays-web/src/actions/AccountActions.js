@@ -32,6 +32,7 @@ class AccountActions extends Actions {
     // fetch the account
     let account = await AccountRepository.getByUsername(username);
 
+    // dispatch account
     return account;
 
   }

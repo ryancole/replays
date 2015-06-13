@@ -153,7 +153,7 @@ exports.getAllByAccountId = function getAllByAccountId (id, callback) {
 
       done();
 
-      return callback(null, result);
+      return callback(null, result.rows);
 
     });
 

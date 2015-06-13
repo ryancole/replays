@@ -1,19 +1,15 @@
-/**
- * Module dependencies
- */
-
 import React from 'react';
 
 
-/**
- * Component definition
- */
-
-class AuthenticationSigninForm extends React.Component {
+export default class AuthenticationSigninForm extends React.Component {
 
   constructor () {
+
     super();
+
+    // pre bind event handlers
     this._handleSubmit = this._handleSubmit.bind(this);
+
   }
 
   render () {
@@ -48,15 +44,8 @@ class AuthenticationSigninForm extends React.Component {
     React.findDOMNode(this.refs.password).value = "";
 
     // handle the signin attempt
-    this.props.signin(username, password);
+    this.props.onSignin(username, password);
 
   }
 
 }
-
-
-/**
- * Module exports
- */
-
-export default AuthenticationSigninForm;
