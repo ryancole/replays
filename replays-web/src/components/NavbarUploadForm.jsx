@@ -22,6 +22,29 @@ export default class NavbarUploadForm extends React.Component {
   }
 
   render () {
+
+    if (this.state.phase == 1) {
+      return (
+        <div className="navbar-right">
+          <p className="navbar-text">Uploading ...</p>
+        </div>
+      );
+    }
+    else if (this.state.phase == 2) {
+      return (
+        <div className="navbar-right">
+          <p className="navbar-text">Success!</p>
+        </div>
+      );
+    }
+    else if (this.state.phase == 3) {
+      return (
+        <div className="navbar-right">
+          <p className="navbar-text">Failure!</p>
+        </div>
+      );
+    }
+
     return (
       <form className="navbar-form" onSubmit={this._handleSubmit}>
         <div className="form-group">
@@ -32,6 +55,7 @@ export default class NavbarUploadForm extends React.Component {
         </button>
       </form>
     );
+    
   }
 
   componentDidUpdate () {

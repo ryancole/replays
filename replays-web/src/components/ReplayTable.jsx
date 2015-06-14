@@ -40,7 +40,7 @@ class ReplayTable extends React.Component {
     let nodes = replays.map(replay => {
       return (
         <ReplayTableRow
-          key={replay._id}
+          key={replay.id}
           replay={replay} />
       );
     });

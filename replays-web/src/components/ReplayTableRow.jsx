@@ -1,37 +1,25 @@
-/**
- * Module dependencies
- */
-
 import React from 'react';
 import { Link } from 'react-router';
 
 
-/**
- * Component definition
- */
-
-class ReplayTableRow extends React.Component {
+export default class ReplayTableRow extends React.Component {
 
   render () {
 
-    // replay meta data
     const replay = this.props.replay;
-
-    // account username
-    const username = this.props.username;
 
     return (
       <tr className="replayTableRow">
         <td>
           <Link to="replay" params={{
-            username: username,
-            id: replay._id
+            username: replay.username,
+            id: replay.id
           }}>
             {replay.filename}
           </Link>
         </td>
         <td>
-          {new Date(replay.dateCreated).toString()}
+          {new Date(replay.create_date).toString()}
         </td>
       </tr>
     );
@@ -39,10 +27,3 @@ class ReplayTableRow extends React.Component {
   }
 
 }
-
-
-/**
- * Module exports
- */
-
-export default ReplayTableRow;

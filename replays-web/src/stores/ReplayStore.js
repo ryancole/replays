@@ -45,14 +45,14 @@ class ReplayStore extends Store {
 
   getByAccountId (id) {
     let replays = this.state.replays.filter(replay => {
-      return replay.accountId == id;
+      return replay.account == id;
     });
     return replays.toArray();
   }
 
   _handleGetById (replay) {
     let replays = this.state.replays.set(
-      replay._id,
+      replay.id,
       replay
     );
     this.setState({
@@ -64,7 +64,7 @@ class ReplayStore extends Store {
 
     // convert array of replays to map
     let hash = replays.reduce((prev, curr) => {
-      return prev.set(curr._id, curr);
+      return prev.set(curr.id, curr);
     }, Map());
 
     // update store state
