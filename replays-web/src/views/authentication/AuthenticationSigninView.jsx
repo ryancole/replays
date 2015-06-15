@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthenticationSigninForm from '../components/AuthenticationSigninForm';
+import AuthenticationSigninForm from '../../components/AuthenticationSigninForm';
 
 
 class AuthenticationSigninView extends React.Component {

@@ -1,9 +1,9 @@
 import React from 'react';
 import FluxComponent from 'flummox/component';
-import ReplayTable from '../components/ReplayTable';
-import AccountDetail from '../components/AccountDetail';
-import SectionNavbar from '../components/SectionNavbar';
-import ReplayHomeNavbar from '../components/ReplayHomeNavbar';
+import ReplayTable from '../../components/ReplayTable';
+import AccountDetail from '../../components/AccountDetail';
+import SectionNavbar from '../../components/SectionNavbar';
+import ReplayHomeNavbar from '../../components/ReplayHomeNavbar';
 
 
 class AccountDetailView extends React.Component {

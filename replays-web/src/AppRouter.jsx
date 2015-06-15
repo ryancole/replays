@@ -10,16 +10,16 @@ import { Route, DefaultRoute } from 'react-router';
  * Components
  */
 
-import AccountView from './views/AccountView';
-import AccountReplayView from './views/AccountReplayView';
-import AccountDetailView from './views/AccountDetailView';
+import AccountView from './views/account/AccountView';
+import AccountReplayView from './views/account/AccountReplayView';
+import AccountDetailView from './views/account/AccountDetailView';
 
-import ApplicationView from './views/ApplicationView';
-import ApplicationReplayView from './views/ApplicationReplayView';
+import ApplicationView from './views/application/ApplicationView';
+import ApplicationReplayView from './views/application/ApplicationReplayView';
 
-import AuthenticationView from './views/AuthenticationView';
-import AuthenticationSigninView from './views/AuthenticationSigninView';
-import AuthenticationSignupView from './views/AuthenticationSignupView';
+import AuthenticationView from './views/authentication/AuthenticationView';
+import AuthenticationSigninView from './views/authentication/AuthenticationSigninView';
+import AuthenticationSignupView from './views/authentication/AuthenticationSignupView';
 
 
 /**

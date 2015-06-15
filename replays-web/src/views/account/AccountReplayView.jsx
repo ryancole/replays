@@ -1,8 +1,8 @@
 import React from 'react';
 import FluxComponent from 'flummox/component';
-import ReplayDetail from '../components/ReplayDetail';
-import SectionNavbar from '../components/SectionNavbar';
-import ReplayDetailNavbar from '../components/ReplayDetailNavbar';
+import ReplayDetail from '../../components/ReplayDetail';
+import SectionNavbar from '../../components/SectionNavbar';
+import ReplayDetailNavbar from '../../components/ReplayDetailNavbar';
 
 
 class AccountReplayView extends React.Component {
@@ -44,7 +44,7 @@ export default class AccountReplayViewWrapper extends React.Component {
     return (
       <FluxComponent connectToStores={{
         replays: store => ({
-          replay: store.getById(this.props.params.id)
+          replay: store.getById(parseInt(this.props.params.id))
         })
       }}>
         <AccountReplayView
@@ -55,9 +55,12 @@ export default class AccountReplayViewWrapper extends React.Component {
 
   componentDidMount () {
 
+    // convert string to int
+    const id = parseInt(this.props.params.id);
+
     // trigger the fetch replay detail actions
     setTimeout(() => {
-      this._fetchReplay(this.props.params.id);
+      this._fetchReplay(id);
     });
 
   }

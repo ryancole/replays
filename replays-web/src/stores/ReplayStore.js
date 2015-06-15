@@ -51,13 +51,17 @@ class ReplayStore extends Store {
   }
 
   _handleGetById (replay) {
+
     let replays = this.state.replays.set(
       replay.id,
       replay
     );
+
+    // update store state
     this.setState({
       replays: replays
     });
+
   }
 
   _handleGetForAccountId (replays) {

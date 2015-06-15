@@ -1,6 +1,6 @@
 import React from 'react';
 import FluxComponent from 'flummox/component';
-import ReplayTable from '../components/ReplayTable';
+import ReplayTable from '../../components/ReplayTable';
 
 
 class ApplicationReplayView extends React.Component {

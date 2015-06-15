@@ -1,9 +1,9 @@
 import React from 'react';
 import FluxComponent from 'flummox/component';
 import { RouteHandler } from 'react-router';
-import ApplicationLogo from '../components/ApplicationLogo';
-import ApplicationNavbar from '../components/ApplicationNavbar';
-import AuthenticationNavbar from '../components/AuthenticationNavbar';
+import ApplicationLogo from '../../components/ApplicationLogo';
+import ApplicationNavbar from '../../components/ApplicationNavbar';
+import AuthenticationNavbar from '../../components/AuthenticationNavbar';
 
 
 export default class ApplicationView extends React.Component {
