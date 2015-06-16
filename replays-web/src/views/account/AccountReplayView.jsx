@@ -9,9 +9,10 @@ class AccountReplayView extends React.Component {
 
   render () {
 
-    const replay = this.props.replay;
-    const account = this.props.account;
+    // needed values
+    const { replay, account } = this.props;
 
+    // make sure we've got them
     if (replay == null || account == null) {
       return null;
     }
@@ -21,7 +22,8 @@ class AccountReplayView extends React.Component {
         <div className="row">
           <div className="col-sm-12">
             <SectionNavbar label={replay.filename}>
-              <ReplayDetailNavbar />
+              <ReplayDetailNavbar
+                replay={replay} />
             </SectionNavbar>
           </div>
         </div>

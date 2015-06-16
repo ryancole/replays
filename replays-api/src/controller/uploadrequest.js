@@ -20,6 +20,7 @@ function create (request, reply) {
   // same ACL and content-type when using PUT
   let params = {
     Key: key,
+    ACL: 'public-read',
     Bucket: "lol-replays",
     Expires: 60,
     ContentType: request.query.type,

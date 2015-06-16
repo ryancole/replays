@@ -1,3 +1,4 @@
 {
-  "API_ADDR": "http://localhost:8080/api"
+  "API_ADDR": "http://localhost:8080/api",
+  "DOWNLOAD_PREFIX": "https://s3-us-west-2.amazonaws.com/lol-replays"
 }

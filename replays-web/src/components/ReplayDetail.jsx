@@ -21,17 +21,15 @@ class ReplayDetail extends React.Component {
         <dt>Filename</dt>
         <dd>{replay.filename}</dd>
         <dt>Size</dt>
-        <dd>{replay.awsSize} bytes</dd>
+        <dd>{replay.size} bytes</dd>
         <dt>Date Uploaded</dt>
-        <dd>{new Date(replay.dateCreated).toString()}</dd>
-        <dt>Upload By</dt>
+        <dd>{replay.create_date}</dd>
+        <dt>Uploaded By</dt>
         <dd>
           <Link to="account" params={{username: account.username}}>
             {account.username}
           </Link>
         </dd>
-        <dt>Identifier</dt>
-        <dd>{replay._id}</dd>
       </dl>
     );
   }

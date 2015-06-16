@@ -33,7 +33,9 @@ export default class ApplicationView extends React.Component {
         <div className="row">
           <div className="col-sm-2">
             <ApplicationLogo />
-            <ApplicationNavbar />
+            <ApplicationNavbar
+              activeSession={this.props.activeSession}
+              isAuthenticated={this.props.isAuthenticated} />
           </div>
           <div className="col-sm-10">
             <FluxComponent

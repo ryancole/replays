@@ -24,6 +24,7 @@ class ReplayTable extends React.Component {
         <thead>
           <tr>
             <th>Name</th>
+            <th>Author</th>
             <th>Uploaded</th>
           </tr>
         </thead>
@@ -49,7 +50,7 @@ class ReplayTable extends React.Component {
     if (nodes.length == 0) {
       nodes = (
         <tr>
-          <td colSpan="2" className="text-muted text-center">
+          <td colSpan="3" className="text-muted text-center">
             There are no replays to show
           </td>
         </tr>

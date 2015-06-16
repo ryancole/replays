@@ -1,31 +1,20 @@
-/**
- * Module dependencies
- */
-
 import React from 'react';
+import settings from '../../settings';
 
 
-/**
- * Component definition
- */ 
-
-class ReplayDetailNavbar extends React.Component {
+export default class ReplayDetailNavbar extends React.Component {
 
   render() {
+
+    const source = `${settings.DOWNLOAD_PREFIX}/${this.props.replay.aws_key}`;
+
     return (
       <ul className="nav navbar-nav navbar-right">
         <li>
-          <a>Download</a>
+          <a target="_blank" href={source}>Download</a>
         </li>
       </ul>
     );
   }
 
 }
-
-
-/**
- * Module exports
- */
-
-export default ReplayDetailNavbar;

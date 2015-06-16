@@ -19,7 +19,14 @@ export default class ReplayTableRow extends React.Component {
           </Link>
         </td>
         <td>
-          {new Date(replay.create_date).toString()}
+          <Link to="account" params={{
+            username: replay.username
+          }}>
+            {replay.username}
+          </Link>
+        </td>
+        <td>
+          {replay.create_date}
         </td>
       </tr>
     );

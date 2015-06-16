@@ -1,24 +1,42 @@
-/**
- * Module dependencies
- */
-
 import React from 'react';
 import { Link } from 'react-router';
 
 
-/**
- * Component definition
- */ 
-
-class ApplicationNavbar extends React.Component {
+export default class ApplicationNavbar extends React.Component {
 
   render() {
+    return (
+      <div>
+        <div className="row">
+          <div className="col-sm-12">
+            <ul className="nav">
+              <li>
+                <Link to="application">
+                  Newest
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+        {this._getSignedInLinks()}
+      </div>
+    );
+  }
+
+  _getSignedInLinks () {
+    if (this.props.isAuthenticated == false) {
+      return;
+    }
     return (
       <div className="row">
         <div className="col-sm-12">
           <ul className="nav">
             <li>
-              <a>Home</a>
+              <Link to="account" params={{
+                username: this.props.activeSession.username
+              }}>
+                Mine
+              </Link>
             </li>
           </ul>
         </div>
@@ -27,10 +45,3 @@ class ApplicationNavbar extends React.Component {
   }
 
 }
-
-
-/**
- * Module exports
- */
-
-export default ApplicationNavbar;
