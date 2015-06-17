@@ -71,7 +71,7 @@ exports.getById = function getById (id, callback) {
     }
 
     const query = `
-      SELECT id, username, create_date
+      SELECT id, username, date_created
       FROM accounts
       WHERE id = $1
     `;
@@ -112,7 +112,7 @@ exports.getByUsername = function getByUsername (username, callback) {
     }
 
     const query = `
-      SELECT id, username, create_date
+      SELECT id, username, date_created
       FROM accounts
       WHERE LOWER(username) = $1
     `;
@@ -163,7 +163,7 @@ exports.getByUsernameAndPassword = function getByUsernameAndPassword (username, 
     password = hash.digest('hex');
 
     const query = `
-      SELECT id, username, create_date
+      SELECT id, username, date_created
       FROM accounts
       WHERE LOWER(username) = $1 AND password = $2
     `;

@@ -133,7 +133,7 @@ export default class NavbarUploadForm extends React.Component {
       signed
     );
 
-    if (result.id > 0) {
+    if (result.ok == true) {
 
       // success state
       this.setState({

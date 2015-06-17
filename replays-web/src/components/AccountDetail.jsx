@@ -1,30 +1,15 @@
-/**
- * Module dependencies
- */
-
 import React from 'react';
 
 
-/**
- * Component definition
- */ 
-
-class AccountDetail extends React.Component {
+export default class AccountDetail extends React.Component {
 
   render() {
     return (
       <dl className="dl-horizontal">
         <dt>Member Since</dt>
-        <dd>{this.props.account.create_date}</dd>
+        <dd>{this.props.account.date_created}</dd>
       </dl>
     );
   }
 
 }
-
-
-/**
- * Module exports
- */
-
-export default AccountDetail;

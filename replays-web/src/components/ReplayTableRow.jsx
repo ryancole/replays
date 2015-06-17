@@ -26,7 +26,7 @@ export default class ReplayTableRow extends React.Component {
           </Link>
         </td>
         <td>
-          {replay.create_date}
+          {replay.date_created}
         </td>
       </tr>
     );

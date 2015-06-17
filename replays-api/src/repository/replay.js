@@ -18,7 +18,7 @@ exports.insert = function insert (replay, callback) {
 
     const query = `
       INSERT INTO replays
-      (filename, size, account, aws_key)
+      (filename, size, account_id, aws_key)
       VALUES
       ($1, $2, $3, $4)
       RETURNING id
@@ -27,7 +27,7 @@ exports.insert = function insert (replay, callback) {
     const params = [
       replay.filename,
       replay.size,
-      replay.account,
+      replay.account_id,
       replay.aws_key
     ];
 
@@ -65,7 +65,7 @@ exports.get = function get (id, callback) {
     const query = `
       SELECT r.*, a.username
       FROM replays AS r
-      JOIN accounts AS a ON r.account = a.id
+      JOIN accounts AS a ON r.account_id = a.id
       WHERE r.id = $1
     `;
 
@@ -107,7 +107,7 @@ exports.getAll = function getAllById (callback) {
     const query = `
       SELECT r.*, a.username
       FROM replays AS r
-      JOIN accounts AS a ON r.account = a.id
+      JOIN accounts AS a ON r.account_id = a.id
       ORDER BY r.id DESC
     `;
 
@@ -143,8 +143,8 @@ exports.getAllByAccountId = function getAllByAccountId (id, callback) {
     const query = `
       SELECT r.*, a.username
       FROM replays AS r
-      JOIN accounts AS a ON r.account = a.id
-      WHERE r.account = $1
+      JOIN accounts AS a ON r.account_id = a.id
+      WHERE r.account_id = $1
     `;
 
     const params = [

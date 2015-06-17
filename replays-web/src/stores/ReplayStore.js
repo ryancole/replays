@@ -45,7 +45,7 @@ class ReplayStore extends Store {
 
   getByAccountId (id) {
     let replays = this.state.replays.filter(replay => {
-      return replay.account == id;
+      return replay.account_id == id;
     });
     return replays.toArray();
   }

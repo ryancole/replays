@@ -10,7 +10,9 @@ var Boom = require('boom');
 
 function create (request, reply) {
 
-  let s3 = new aws.S3;
+  let s3 = new aws.S3({
+    region: 'us-west-2'
+  });
 
   // format the object key
   let key = `${request.auth.credentials.id}/${Date.now()}/${request.query.name}`;
@@ -20,8 +22,8 @@ function create (request, reply) {
   // same ACL and content-type when using PUT
   let params = {
     Key: key,
-    ACL: 'public-read',
-    Bucket: "lol-replays",
+    ACL: "public-read",
+    Bucket: "dankgg",
     Expires: 60,
     ContentType: request.query.type,
     Metadata: {

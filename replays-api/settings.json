@@ -1,5 +1,5 @@
 {
   "JWT_KEY": "foobar",
   "HASH_SEED": "haha",
-  "AWS_SQL": "postgres://replays:password@replays.c7mtujn7zj0p.us-west-2.rds.amazonaws.com/replays"
+  "AWS_SQL": "postgres://dank:password@dank.c7mtujn7zj0p.us-west-2.rds.amazonaws.com/dank"
 }

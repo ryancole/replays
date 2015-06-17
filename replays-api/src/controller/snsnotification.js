@@ -54,7 +54,7 @@ function handle (request, reply) {
 
       // a notification may contain multiple
       // S3 notifications in a single message
-      message.Records.forEach((record) => {
+      message.Records.forEach(record => {
 
         if (record.s3.configurationId != "MyUploadNotification") {
           return reply(Boom.badImplementation());
@@ -71,7 +71,7 @@ function handle (request, reply) {
         let replay = {
           size: record.s3.object.size,
           aws_key: record.s3.object.key,
-          account: parts[0],
+          account_id: parseInt(parts[0]),
           filename: parts[2]
         };
 

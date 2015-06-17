@@ -63,7 +63,7 @@ function index (request, reply) {
 function replaysForOwner (request, reply) {
 
   // the account id to filter on
-  let id = request.auth.credentials._id;
+  let id = request.auth.credentials.id;
 
   // fetch the records from the databse
   replays.getAllByAccountId(id, (err, body) => {
