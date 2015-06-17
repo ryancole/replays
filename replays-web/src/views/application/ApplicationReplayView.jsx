@@ -1,14 +1,27 @@
 import React from 'react';
 import FluxComponent from 'flummox/component';
 import ReplayTable from '../../components/ReplayTable';
+import SectionNavbar from '../../components/SectionNavbar';
 
 
 class ApplicationReplayView extends React.Component {
 
   render () {
     return (
-      <ReplayTable 
-        replays={this.props.replays} />
+      <div>
+        <div className="row">
+          <div className="col-sm-12">
+            <SectionNavbar
+              label="Newest Replays" />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-sm-12">
+            <ReplayTable 
+              replays={this.props.replays} />
+          </div>
+        </div>
+      </div>
     );
   }
 
