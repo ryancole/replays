@@ -2,8 +2,8 @@
  * Module dependencies
  */
 
-import { Map } from 'immutable';
 import { Store } from 'flummox';
+import { OrderedMap } from 'immutable';
 
 
 /**
@@ -26,7 +26,7 @@ class ReplayStore extends Store {
 
     // set initial state
     this.state = {
-      replays: Map()
+      replays: OrderedMap()
     };
 
   }
@@ -69,7 +69,7 @@ class ReplayStore extends Store {
     // convert array of replays to map
     let hash = replays.reduce((prev, curr) => {
       return prev.set(curr.id, curr);
-    }, Map());
+    }, OrderedMap());
 
     // update store state
     this.setState({

@@ -104,6 +104,10 @@ export default class NavbarUploadForm extends React.Component {
         signed: null
       });
 
+      const actions = this.props.flux.getActions("replays");
+      
+      actions.getForAccountId(this.props.activeSession.id);
+
     }, 3000);
 
   }
