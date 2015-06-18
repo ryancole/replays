@@ -47,7 +47,8 @@ class AccountDetailView extends React.Component {
         <div className="row">
           <div className="col-sm-12">
             <ReplayTable 
-              replays={this.props.replays} />
+              replays={this.props.replays}
+              isAccountOwner={this.props.isAccountOwner} />
           </div>
         </div>
       </div>

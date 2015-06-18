@@ -98,7 +98,8 @@ function upload (file, signed) {
     body: form,
     method: 'put',
     headers: {
-      "Content-Type": file.type
+      "Content-Type": "application/octet-stream",
+      "Content-Disposition": "attachment"
     }
   });
 

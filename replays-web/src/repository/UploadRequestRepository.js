@@ -17,8 +17,7 @@ const api = fetchival(settings.API_ADDR, {
 function get (token, file) {
 
   let payload = {
-    name: file.name,
-    type: file.type
+    name: file.name
   };
 
   // configure api endpoint

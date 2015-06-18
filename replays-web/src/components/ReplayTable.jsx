@@ -19,19 +19,41 @@ import ReplayTableRow from './ReplayTableRow';
 class ReplayTable extends React.Component {
 
   render () {
+
+    // table header columns
+    const headers = this._buildTableHeaders();
+
+    // table rows
+    const rows = this._buildTableRows(this.props.replays);
+
     return (
       <table className="table table-striped table-hover replayTable">
         <thead>
-          <tr>
-            <th>Name</th>
-            <th>Author</th>
-            <th>Uploaded</th>
-          </tr>
+          {headers}
         </thead>
         <tbody>
-          {this._buildTableRows(this.props.replays)}
+          {rows}
         </tbody>
       </table>
+    );
+
+  }
+
+  _buildTableHeaders () {
+    if (this.props.isAccountOwner == true) {
+      return (
+        <tr>
+          <th>Name</th>
+          <th>Uploaded</th>
+        </tr>
+      );
+    }
+    return (
+      <tr>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Uploaded</th>
+      </tr>
     );
   }
 
@@ -42,7 +64,8 @@ class ReplayTable extends React.Component {
       return (
         <ReplayTableRow
           key={replay.id}
-          replay={replay} />
+          replay={replay}
+          isAccountOwner={this.props.isAccountOwner} />
       );
     });
 

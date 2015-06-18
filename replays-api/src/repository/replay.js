@@ -145,6 +145,7 @@ exports.getAllByAccountId = function getAllByAccountId (id, callback) {
       FROM replays AS r
       JOIN accounts AS a ON r.account_id = a.id
       WHERE r.account_id = $1
+      ORDER BY r.id DESC
     `;
 
     const params = [

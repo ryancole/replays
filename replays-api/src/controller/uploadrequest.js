@@ -25,7 +25,8 @@ function create (request, reply) {
     ACL: "public-read",
     Bucket: "dankgg",
     Expires: 60,
-    ContentType: request.query.type,
+    ContentType: "application/octet-stream",
+    ContentDisposition: "attachment",
     Metadata: {
       user: request.auth.credentials.id.toString(),
       filename: request.query.name

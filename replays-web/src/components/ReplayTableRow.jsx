@@ -8,6 +8,24 @@ export default class ReplayTableRow extends React.Component {
 
     const replay = this.props.replay;
 
+    if (this.props.isAccountOwner == true) {
+      return (
+        <tr className="replayTableRow">
+          <td>
+            <Link to="replay" params={{
+              username: replay.username,
+              id: replay.id
+            }}>
+              {replay.filename}
+            </Link>
+          </td>
+          <td>
+            {replay.date_created}
+          </td>
+        </tr>
+      );
+    }
+
     return (
       <tr className="replayTableRow">
         <td>
