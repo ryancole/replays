@@ -4,11 +4,7 @@ var aws = require('aws-sdk');
 var Boom = require('boom');
 
 
-/**
- * sign an S3 upload request
- */
-
-function create (request, reply) {
+function get (request, reply) {
 
   let s3 = new aws.S3({
     region: 'us-west-2'
@@ -51,8 +47,8 @@ function create (request, reply) {
 
 module.exports = [
   {
-    path: '/api/uploadrequest',
+    path: '/api/downloadrequest',
     method: 'GET',
-    handler: create
+    handler: get
   }
 ];
