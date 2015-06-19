@@ -11,14 +11,14 @@ const api = fetchival(settings.API_ADDR, {
 });
 
 
-/**
- * get all replays
- */
-
-function getAll () {
+function getAll (token) {
 
   // configure replay endpoint
-  let replays = api('replay');
+  let replays = api('replay', {
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  });
 
   // fetch collection of all replays
   return replays.get();
@@ -59,27 +59,6 @@ function getByAccountId (id) {
 
 
 /**
- * get a collection of replays with a specific owner
- */
-
-function forOwner (token) {
-
-  let headers = {
-    "Authorization": `Bearer ${token}`
-  };
-
-  // configure replay endpoint
-  let replays = api('replay/mine', {
-    headers: headers
-  })
-
-  // fetch collection of user's replays
-  return replays.get();
-
-}
-
-
-/**
  * upload a replay to S3
  */
 
@@ -114,6 +93,5 @@ export default {
   upload: upload,
   getAll: getAll,
   getById: getById,
-  forOwner: forOwner,
   getByAccountId: getByAccountId
 };

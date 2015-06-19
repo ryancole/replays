@@ -29,5 +29,6 @@ server.route([].concat(
   require('./controller/account'),
   require('./controller/session'),
   require('./controller/uploadrequest'),
+  require('./controller/downloadrequest'),
   require('./controller/snsnotification')
 ));

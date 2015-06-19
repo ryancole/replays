@@ -64,7 +64,7 @@ export default class AccountDetailViewWrapper extends React.Component {
     return (
       <FluxComponent connectToStores={{
         replays: store => ({
-          replays: store.getByAccountId(this.props.account.id)
+          replays: store.getAll()
         })
       }}>
         <AccountDetailView
@@ -76,20 +76,21 @@ export default class AccountDetailViewWrapper extends React.Component {
   }
 
   componentDidMount () {
-
-    // trigger the fetch replay action
     setTimeout(() => {
       this._fetchReplays(this.props.account.id);
     });
-
   }
 
   _fetchReplays (id) {
 
+    // then active session token
+    const token = this.props.activeSession.token;
+
+    // replay actions
     const actions = this.props.flux.getActions('replays');
 
     // store needs the replays
-    actions.getForAccountId(id);
+    actions.getForAccountId(token);
 
   }
 

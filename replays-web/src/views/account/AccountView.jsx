@@ -17,7 +17,7 @@ class AccountView extends React.Component {
       <FluxComponent>
         <RouteHandler
           account={account}
-          activeSesson={this.props.activeSession}
+          activeSession={this.props.activeSession}
           isAccountOwner={this.isAccountOwner} />
       </FluxComponent>
     );

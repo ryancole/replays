@@ -54,7 +54,7 @@ exports.insert = function insert (replay, callback) {
  * fetch single replay by id
  */
 
-exports.get = function get (id, callback) {
+exports.get = function get (id, account, callback) {
 
   pg.connect(settings.AWS_SQL, (err, db, done) => {
 
@@ -66,7 +66,7 @@ exports.get = function get (id, callback) {
       SELECT r.*, a.username
       FROM replays AS r
       JOIN accounts AS a ON r.account_id = a.id
-      WHERE r.id = $1
+      WHERE r.id = $1 AND r.account_id = $2
     `;
 
     const params = [
@@ -84,42 +84,6 @@ exports.get = function get (id, callback) {
       done();
 
       return callback(null, result.rows[0]);
-
-    });
-
-  });
-
-};
-
-
-/**
- * fetch all replays keyed by id
- */
-
-exports.getAll = function getAllById (callback) {
-
-  pg.connect(settings.AWS_SQL, (err, db, done) => {
-
-    if (err) {
-      return callback(err);
-    }
-
-    const query = `
-      SELECT r.*, a.username
-      FROM replays AS r
-      JOIN accounts AS a ON r.account_id = a.id
-      ORDER BY r.id DESC
-    `;
-
-    db.query(query, (err, result) => {
-
-      if (err) {
-        return callback(err);
-      }
-
-      done();
-
-      return callback(null, result.rows);
 
     });
 

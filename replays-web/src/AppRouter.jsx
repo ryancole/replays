@@ -15,7 +15,6 @@ import AccountReplayView from './views/account/AccountReplayView';
 import AccountDetailView from './views/account/AccountDetailView';
 
 import ApplicationView from './views/application/ApplicationView';
-import ApplicationReplayView from './views/application/ApplicationReplayView';
 
 import AuthenticationView from './views/authentication/AuthenticationView';
 import AuthenticationSigninView from './views/authentication/AuthenticationSigninView';
@@ -36,7 +35,6 @@ const AppRouter = (
       <Route name="replay" path=":id" handler={AccountReplayView} />
       <DefaultRoute handler={AccountDetailView} />
     </Route>
-    <DefaultRoute handler={ApplicationReplayView} />
   </Route>
 );
 
