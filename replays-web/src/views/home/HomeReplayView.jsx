@@ -1,7 +1,8 @@
 import React from 'react';
 import FluxComponent from 'flummox/component';
-import ReplayDetail from '../../components/ReplayDetail';
 import SectionNavbar from '../../components/SectionNavbar';
+import ReplayDetail from '../../components/ReplayDetail';
+import ReplayDetailNavbar from '../../components/ReplayDetailNavbar';
 
 
 class HomeReplayView extends React.Component {
@@ -14,7 +15,10 @@ class HomeReplayView extends React.Component {
       <div>
         <div className="row">
           <div className="col-sm-12">
-            <SectionNavbar label={this.props.replay.filename} />
+            <SectionNavbar label={this.props.replay.filename}>
+              <ReplayDetailNavbar
+                replay={this.props.replay} />
+            </SectionNavbar>
           </div>
         </div>
         <div className="row">
