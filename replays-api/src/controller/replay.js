@@ -6,10 +6,12 @@ var replays = require('../repository/replay');
 
 function index (request, reply) {
 
-  // the account id to fetch replays for
+  // the account id of the user to fetch
+  // replays for, since we assume you can
+  // only fetch replays for the auth'd user
   const id = request.auth.credentials.id;
 
-  // fetch replays for the account
+  // fetch replays for the authenticated user
   replays.getAllByAccountId(id, (err, body) => {
 
     if (err) {

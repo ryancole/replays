@@ -1,12 +1,8 @@
-'use strict';
+"use strict";
 
 var Boom = require('boom');
 var accounts = require('../repository/account');
 
-
-/**
- * Handle account creation request
- */
 
 function create (request, reply) {
 
@@ -30,17 +26,23 @@ function create (request, reply) {
 };
 
 
-/**
- * Handle account detail request
- */
-
 function detail (request, reply) {
 
-  // sanitize username
-  let username = request.params.username;
+  // the account id to get details for
+  // this comes from auth creds because
+  // atm it's only intended for the owner
+  // of the account
+  const id = request.auth.credentials.id;
 
-  // fetch account details from database
-  accounts.getByUsername(username, function (err, body) {
+  // the auth'd user needs to match the 
+  // requested user id
+  if (id != request.params.id) {
+    return reply(Boom.unauthorized());
+  }
+
+  // query the database for the desired
+  // account information
+  accounts.getById(id, function (err, body) {
 
     if (err) {
       return reply(Boom.notFound());
@@ -67,10 +69,7 @@ module.exports = [
     handler: create
   },
   {
-    path: '/api/account/{username}',
-    config: {
-      auth: false
-    },
+    path: '/api/account/{id}',
     method: 'GET',
     handler: detail
   }

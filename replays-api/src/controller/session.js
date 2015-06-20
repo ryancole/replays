@@ -34,9 +34,11 @@ function create (request, reply) {
 
     // format response
     let response = {
-      id: account.id,
       token: token,
-      username: account.username
+      account: {
+        id: account.id,
+        username: account.username
+      }
     };
 
     return reply(response);

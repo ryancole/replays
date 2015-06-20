@@ -20,7 +20,7 @@ export default class AuthenticationNavbarLinks extends React.Component {
     return (
       <div className="navbar-right">
         <p className="navbar-text">
-          Signed in as {this.props.activeSession.username}
+          Signed in as {this.props.activeSession.account.username}
         </p>
         <ul className="nav navbar-nav">
           <li>

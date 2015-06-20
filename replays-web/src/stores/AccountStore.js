@@ -1,16 +1,8 @@
-/**
- * Module dependencies
- */
-
 import { Map } from 'immutable';
 import { Store } from 'flummox';
 
 
-/**
- * Store definition
- */
-
-class AccountStore extends Store {
+export default class AccountStore extends Store {
 
   constructor (flux) {
 
@@ -20,7 +12,7 @@ class AccountStore extends Store {
     const accountActionIds = flux.getActionIds('accounts');
 
     // register action handlers
-    this.register(accountActionIds.getByUsername, this._handleGetByUsername);
+    this.register(accountActionIds.getByActiveSession, this._handleGetByActiveSession);
 
     // initial state
     this.state = {
@@ -29,19 +21,19 @@ class AccountStore extends Store {
 
   }
 
-  hasAccount (username) {
-    return this.state.accounts.has(username.toLowerCase());
+  getById (id) {
+    return this.state.accounts.get(id);
   }
 
-  getByUsername (username) {
-    return this.state.accounts.get(username.toLowerCase());
+  hasAccount (id) {
+    return this.state.accounts.has(id);
   }
 
-  _handleGetByUsername (account) {
+  _handleGetByActiveSession (account) {
 
     // account map with new account
     let accounts = this.state.accounts.set(
-      account.username.toLowerCase(),
+      account.id,
       account
     );
 
@@ -53,10 +45,3 @@ class AccountStore extends Store {
   }
 
 }
-
-
-/**
- * Module exports
- */
-
-export default AccountStore;

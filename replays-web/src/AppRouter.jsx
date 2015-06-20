@@ -10,9 +10,9 @@ import { Route, DefaultRoute } from 'react-router';
  * Components
  */
 
-import AccountView from './views/account/AccountView';
-import AccountReplayView from './views/account/AccountReplayView';
-import AccountDetailView from './views/account/AccountDetailView';
+import HomeView from './views/home/HomeView';
+import HomeReplayView from './views/home/HomeReplayView';
+import HomeReplaysView from './views/home/HomeReplaysView';
 
 import ApplicationView from './views/application/ApplicationView';
 
@@ -31,9 +31,9 @@ const AppRouter = (
       <Route name="signup" handler={AuthenticationSignupView} />
       <DefaultRoute name="signin" handler={AuthenticationSigninView} />
     </Route>
-    <Route name="account" path=":username" handler={AccountView}>
-      <Route name="replay" path=":id" handler={AccountReplayView} />
-      <DefaultRoute handler={AccountDetailView} />
+    <Route path="home" handler={HomeView}>
+      <Route name="replay" path="replay/:id" handler={HomeReplayView} />
+      <DefaultRoute name="replays" handler={HomeReplaysView} />
     </Route>
   </Route>
 );

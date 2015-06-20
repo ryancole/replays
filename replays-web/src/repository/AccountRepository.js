@@ -35,13 +35,17 @@ function create (username, password) {
  * fetch account details
  */
 
-function getByUsername (username) {
+function getByActiveSession (session) {
 
   // configure api endpoint
-  let accounts = api('account');
+  let accounts = api("account", {
+    headers: {
+      "Authorization": `Bearer ${session.token}`
+    }
+  });
 
   // fetch account details
-  return accounts(username).get();
+  return accounts(session.account.id).get();
 
 }
 
@@ -52,5 +56,5 @@ function getByUsername (username) {
 
 export default {
   create: create,
-  getByUsername: getByUsername
+  getByActiveSession: getByActiveSession
 };

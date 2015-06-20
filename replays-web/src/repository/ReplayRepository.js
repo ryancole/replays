@@ -11,56 +11,18 @@ const api = fetchival(settings.API_ADDR, {
 });
 
 
-function getAll (token) {
+function getByActiveSession (session) {
 
-  // configure replay endpoint
-  let replays = api('replay', {
+  let replays = api("replay", {
     headers: {
-      "Authorization": `Bearer ${token}`
+      "Authorization": `Bearer ${session.token}`
     }
   });
 
-  // fetch collection of all replays
   return replays.get();
 
-};
+}
 
-
-/**
- * get a single replay by id
- */
-
-function getById (id) {
-
-  // configure replay endpoint
-  let replays = api('replay');
-
-  // fetch detail for a single replay
-  return replays(id).get();
-
-};
-
-
-/**
- * get all replays by account id
- */
-
-function getByAccountId (id) {
-
-  // configure replay endpoint
-  let replays = api('replay');
-
-  // fetch collection of all replays
-  return replays.get({
-    accountId: id
-  });
-
-};
-
-
-/**
- * upload a replay to S3
- */
 
 function upload (file, signed) {
 
@@ -91,7 +53,5 @@ function upload (file, signed) {
 
 export default {
   upload: upload,
-  getAll: getAll,
-  getById: getById,
-  getByAccountId: getByAccountId
+  getByActiveSession: getByActiveSession
 };

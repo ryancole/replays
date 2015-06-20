@@ -1,15 +1,7 @@
-/**
- * Module dependencies
- */
-
 import { Store } from 'flummox';
 
 
-/**
- * Store definition
- */
-
-class SessionStore extends Store {
+export default class SessionStore extends Store {
 
   constructor (flux) {
 
@@ -95,10 +87,3 @@ class SessionStore extends Store {
   }
 
 }
-
-
-/**
- * Module exports
- */
-
-export default SessionStore;

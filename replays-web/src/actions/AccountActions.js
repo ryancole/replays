@@ -3,9 +3,8 @@
  */
 
 import { Actions } from 'flummox';
-import ReplayRepository from '../repository/ReplayRepository';
-import AccountRepository from '../repository/AccountRepository';
-import SessionRepository from '../repository/SessionRepository';
+import Accounts from '../repository/AccountRepository';
+import Sessions from '../repository/SessionRepository';
 
 
 class AccountActions extends Actions {
@@ -15,26 +14,19 @@ class AccountActions extends Actions {
   async create (username, password) {
 
     // create the account
-    let account = await AccountRepository.create(username, password);
+    let account = await Accounts.create(username, password);
 
     if (account.id > 0) {
 
       // create a session for the account
-      return await SessionRepository.create(username, password);
+      return await Sessions.create(username, password);
 
     }
 
   }
 
-  // get account details
-  async getByUsername (username) {
-
-    // fetch the account
-    let account = await AccountRepository.getByUsername(username);
-
-    // dispatch account
-    return account;
-
+  async getByActiveSession (session) {
+    return await Accounts.getByActiveSession(session);
   }
 
 }

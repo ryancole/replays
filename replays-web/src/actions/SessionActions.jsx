@@ -1,32 +1,32 @@
-/**
- * Module dependencies
- */
-
 import { Actions } from 'flummox';
-import SessionRepository from '../repository/SessionRepository';
+import Sessions from '../repository/SessionRepository';
 
 
-class SessionActions extends Actions {
+export default class SessionActions extends Actions {
+
+  /**
+   * fetch a new session
+   */
 
   async create (username, password) {
 
     // fetch a session token
-    let session = await SessionRepository.create(username, password);
+    let session = await Sessions.create(username, password);
 
     // dispatch session token
     return session;
 
   }
 
+
+  /**
+   * kill the current session
+   */
+
   signout () {
+
     return null;
+    
   }
 
 }
-
-
-/**
- * Module exports
- */
-
-export default SessionActions;

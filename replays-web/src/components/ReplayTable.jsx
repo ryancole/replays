@@ -1,35 +1,21 @@
-/**
- * Module dependencies
- */
-
 import React from 'react';
-
-
-/**
- * Components
- */
-
 import ReplayTableRow from './ReplayTableRow';
 
 
-/**
- * Component definition
- */
-
-class ReplayTable extends React.Component {
+export default class ReplayTable extends React.Component {
 
   render () {
-
-    // table header columns
-    const headers = this._buildTableHeaders();
 
     // table rows
     const rows = this._buildTableRows(this.props.replays);
 
     return (
-      <table className="table table-striped table-hover replayTable">
+      <table className="table table-striped table-hover">
         <thead>
-          {headers}
+          <tr>
+            <th>Name</th>
+            <th>Uploaded</th>
+          </tr>
         </thead>
         <tbody>
           {rows}
@@ -39,24 +25,6 @@ class ReplayTable extends React.Component {
 
   }
 
-  _buildTableHeaders () {
-    if (this.props.isAccountOwner == true) {
-      return (
-        <tr>
-          <th>Name</th>
-          <th>Uploaded</th>
-        </tr>
-      );
-    }
-    return (
-      <tr>
-        <th>Name</th>
-        <th>Author</th>
-        <th>Uploaded</th>
-      </tr>
-    );
-  }
-
   _buildTableRows (replays) {
 
     // build the table rows
@@ -64,8 +32,7 @@ class ReplayTable extends React.Component {
       return (
         <ReplayTableRow
           key={replay.id}
-          replay={replay}
-          isAccountOwner={this.props.isAccountOwner} />
+          replay={replay} />
       );
     });
 
@@ -73,7 +40,7 @@ class ReplayTable extends React.Component {
     if (nodes.length == 0) {
       nodes = (
         <tr>
-          <td colSpan="3" className="text-muted text-center">
+          <td colSpan="2" className="text-muted text-center">
             There are no replays to show
           </td>
         </tr>
@@ -85,10 +52,3 @@ class ReplayTable extends React.Component {
   }
 
 }
-
-
-/**
- * Module exports
- */
-
-export default ReplayTable;
