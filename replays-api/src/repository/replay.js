@@ -70,7 +70,8 @@ exports.get = function get (id, account, callback) {
     `;
 
     const params = [
-      id
+      id,
+      account
     ];
 
     db.query(query, params, (err, result) => {

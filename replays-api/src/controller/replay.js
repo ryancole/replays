@@ -42,6 +42,7 @@ function detail (request, reply) {
   replays.get(id, account, function (err, body) {
 
     if (err) {
+      console.log(err);
       return reply(Boom.notFound());
     }
 

@@ -52,7 +52,7 @@ export default class HomeReplaysViewWrapper extends React.Component {
       const replays = this.props.flux.getActions("replays");
 
       // store needs the replays
-      replays.getByActiveSession(this.props.activeSession);
+      replays.getAll(this.props.activeSession);
 
     });
   }

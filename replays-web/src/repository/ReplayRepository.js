@@ -11,7 +11,20 @@ const api = fetchival(settings.API_ADDR, {
 });
 
 
-function getByActiveSession (session) {
+function getById (session, id) {
+
+  let replays = api("replay", {
+    headers: {
+      "Authorization": `Bearer ${session.token}`
+    }
+  });
+
+  return replays(id).get();
+
+}
+
+
+function getAll (session) {
 
   let replays = api("replay", {
     headers: {
@@ -53,5 +66,6 @@ function upload (file, signed) {
 
 export default {
   upload: upload,
-  getByActiveSession: getByActiveSession
+  getAll: getAll,
+  getById: getById
 };

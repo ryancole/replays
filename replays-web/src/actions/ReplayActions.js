@@ -4,11 +4,19 @@ import Replays from '../repository/ReplayRepository';
 
 export default class ReplayActions extends Actions {
 
-  async getByActiveSession (session) {
+  async getAll (session) {
 
-    let response = await Replays.getByActiveSession(session);
+    let response = await Replays.getAll(session);
 
     return response.replays;
+
+  }
+
+  async getById (session, id) {
+
+    let response = await Replays.getById(session, id);
+
+    return response;
 
   }
 
