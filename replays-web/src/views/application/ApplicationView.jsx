@@ -52,7 +52,7 @@ export default class ApplicationView extends React.Component {
 
   componentWillReceiveProps (props) {
     if (this.props.activeSession == null && props.activeSession != null) {
-      this.context.router.transitionTo("home");
+      this.context.router.transitionTo("replays");
     } else if (this.props.activeSession != null && props.activeSession == null) {
       this.context.router.transitionTo("application");
     }
