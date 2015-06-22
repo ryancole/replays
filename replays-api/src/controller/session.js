@@ -12,8 +12,11 @@ var settings = require('../../settings');
 
 function create (request, reply) {
 
+  const username = request.payload.username;
+  const password = request.payload.password;
+
   // fetch the requested account
-  accounts.getByUsernameAndPassword(request.payload.username, request.payload.password, function (err, account) {
+  accounts.getByUsernameAndPassword(username, password, (err, account) => {
 
     if (err) {
       return reply(err);
@@ -21,7 +24,8 @@ function create (request, reply) {
 
     // the token payload
     let payload = {
-      id: account.id
+      id: account.id,
+      username: account.username
     };
 
     // the token options
@@ -34,11 +38,7 @@ function create (request, reply) {
 
     // format response
     let response = {
-      token: token,
-      account: {
-        id: account.id,
-        username: account.username
-      }
+      token: token
     };
 
     return reply(response);

@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import { Store } from 'flummox';
 
 
@@ -13,8 +14,8 @@ export default class SessionStore extends Store {
 
     // register action handlers
     this.register(sessionActionIds.signout, this._handleSignout);
-    this.registerAsync(accountActionIds.create, null, this._handleCreateSuccess, this._handleCreateFailure);
-    this.registerAsync(sessionActionIds.create, null, this._handleCreateSuccess, this._handleCreateFailure);
+    this.register(sessionActionIds.create, this._handleCreateSuccess);
+    this.register(accountActionIds.create, this._handleCreateSuccess);
 
     // initialize state
     this.state = {
@@ -34,7 +35,7 @@ export default class SessionStore extends Store {
   _getStoredSession () {
 
     // fetch previous active session
-    let session = localStorage.getItem("session");
+    let session = localStorage.getItem("dank");
 
     if (session != null) {
       try {
@@ -42,13 +43,24 @@ export default class SessionStore extends Store {
         // attempt to parse session body
         session = JSON.parse(session);
 
+        // check for expired session
+        if (session.details.exp < Math.floor(Date.now() / 1000)) {
+
+          // we need to return null
+          session = null;
+
+          // clear whatever was in storage
+          localStorage.removeItem("dank");
+
+        }
+
       } catch (err) {
 
         // we need to return null
         session = null;
 
         // clear whatever was in storage
-        localStorage.removeItem("session");
+        localStorage.removeItem("dank");
 
       }
     }
@@ -61,7 +73,7 @@ export default class SessionStore extends Store {
   _handleSignout (session) {
 
     // clear persisted session
-    localStorage.removeItem("session");
+    localStorage.removeItem("dank");
 
     // clear store state
     this.replaceState({
@@ -70,20 +82,26 @@ export default class SessionStore extends Store {
 
   }
 
-  _handleCreateSuccess (session) {
+  _handleCreateSuccess (token) {
 
-    // persist this session locally
-    localStorage.setItem("session", JSON.stringify(session));
+    // decode the token
+    const payload = jwt.decode(token);
+
+    // include both token and payload
+    // in the session data
+    const session = {
+      token: token,
+      details: payload
+    };
+
+    // persist this token
+    localStorage.setItem("dank", JSON.stringify(session));
 
     // update store state
     this.setState({
       activeSession: session
     });
 
-  }
-
-  _handleCreateFailure (error) {
-    console.log(error);
   }
 
 }

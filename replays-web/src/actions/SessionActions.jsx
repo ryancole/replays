@@ -14,7 +14,7 @@ export default class SessionActions extends Actions {
     let session = await Sessions.create(username, password);
 
     // dispatch session token
-    return session;
+    return session.token;
 
   }
 
