@@ -37,7 +37,39 @@ function getAll (session) {
 }
 
 
-function upload (file, signed) {
+function getDownloadSource (session, id) {
+
+  let replays = api("replay", {
+    headers: {
+      "Authorization": `Bearer ${session.token}`
+    }
+  });
+
+  return replays(`${id}/download`).get();
+
+};
+
+
+function getUploadDestination (session, file) {
+
+  let payload = {
+    name: file.name
+  };
+
+  // configure api endpoint
+  let replays = api("replays", {
+    headers: {
+      "Authorization": `Bearer ${session.token}`
+    }
+  });
+
+  // request signed upload token
+  return replays.post(payload);
+
+};
+
+
+function putToDestination (file, signed) {
 
   let form = new FormData();
 
@@ -65,7 +97,9 @@ function upload (file, signed) {
  */
 
 export default {
-  upload: upload,
   getAll: getAll,
-  getById: getById
+  getById: getById,
+  putToDestination: putToDestination,
+  getDownloadSource: getDownloadSource,
+  getUploadDestination: getUploadDestination
 };

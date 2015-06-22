@@ -1,6 +1,5 @@
 import React from 'react';
 import Replays from '../repository/ReplayRepository';
-import UploadRequests from '../repository/UploadRequestRepository';
 
 
 export default class NavbarUploadForm extends React.Component {

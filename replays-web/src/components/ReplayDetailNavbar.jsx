@@ -1,20 +1,42 @@
 import React from 'react';
+import Replays from '../repository/ReplayRepository';
 import settings from '../../settings';
 
 
 export default class ReplayDetailNavbar extends React.Component {
 
+  constructor () {
+
+    super();
+
+    this._handleDownloadClick = this._handleDownloadClick.bind(this);
+
+  }
+
   render() {
-
-    const source = `${settings.DOWNLOAD_PREFIX}/${this.props.replay.aws_key}`;
-
     return (
       <ul className="nav navbar-nav navbar-right">
         <li>
-          <a target="_blank" href={source}>Download</a>
+          <a onClick={this._handleDownloadClick}>Download</a>
         </li>
       </ul>
     );
+  }
+
+  async _handleDownloadClick (event) {
+
+    event.preventDefault();
+
+    let source = await Replays.getDownloadSource(
+      this.props.activeSession,
+      this.props.replay.id
+    );
+
+    window.open(
+      source.url,
+      "_blank"
+    );
+
   }
 
 }

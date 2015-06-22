@@ -13,9 +13,6 @@ import AccountActions from './actions/AccountActions';
 import SessionStore from './stores/SessionStore';
 import SessionActions from './actions/SessionActions';
 
-import UploadRequestStore from './stores/UploadRequestStore';
-import UploadRequestActions from './actions/UploadRequestActions';
-
 
 /**
  * Define the flux application
@@ -31,13 +28,11 @@ class AppFlux extends Flux {
     this.createActions('replays', ReplayActions);
     this.createActions('accounts', AccountActions);
     this.createActions('sessions', SessionActions);
-    this.createActions('uploadrequests', UploadRequestActions);
 
     // stores
     this.createStore('replays', ReplayStore, this);
     this.createStore('accounts', AccountStore, this);
     this.createStore('sessions', SessionStore, this);
-    this.createStore('uploadrequests', UploadRequestStore, this);
     
   }
   

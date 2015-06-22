@@ -1,5 +1,6 @@
 "use strict";
 
+var aws = require('aws-sdk');
 var Boom = require('boom');
 var replays = require('../repository/replay');
 
@@ -42,11 +43,104 @@ function detail (request, reply) {
   replays.get(id, account, function (err, body) {
 
     if (err) {
-      console.log(err);
       return reply(Boom.notFound());
     }
 
     return reply(body);
+
+  });
+
+};
+
+
+function upload (request, reply) {
+
+  // the account of the replay owner
+  const account = request.auth.credentials.id;
+
+  let s3 = new aws.S3({
+    region: 'us-west-2'
+  });
+
+  // format the object key
+  let key = `${account}/${Date.now()}/${request.payload.name}`;
+
+  // prepare the signature payload, remember
+  // this means the client must provide the
+  // same ACL and content-type when using PUT
+  let params = {
+    Key: key,
+    Bucket: "dankgg",
+    Expires: 60,
+    ContentType: "application/octet-stream",
+    ContentDisposition: "attachment",
+    Metadata: {
+      user: account.toString(),
+      filename: request.payload.name
+    }
+  };
+
+  // request a signed url from S3
+  s3.getSignedUrl('putObject', params, (err, data) => {
+
+    if (err) {
+      return reply(Boom.badImplementation());
+    }
+
+    let signature = {
+      url: data
+    };
+
+    return reply(signature);
+
+  });
+
+};
+
+
+function download (request, reply) {
+
+  // the id of the replay to generate
+  // a signed download request for
+  const id = request.params.id;
+
+  // the account of the replay owner
+  const account = request.auth.credentials.id;
+
+  // fetch the reply from the database
+  replays.get(id, account, (err, body) => {
+
+    if (err) {
+      return reply(Boom.notFound());
+    }
+
+    let s3 = new aws.S3({
+      region: 'us-west-2'
+    });
+
+    // prepare the signature payload, remember
+    // this means the client must provide the
+    // same ACL and content-type when using PUT
+    let params = {
+      Key: body.aws_key,
+      Bucket: "dankgg",
+      Expires: 60
+    };
+
+    // request a signed url from S3
+    s3.getSignedUrl('getObject', params, (err, data) => {
+
+      if (err) {
+        return reply(Boom.badImplementation());
+      }
+
+      let signature = {
+        url: data
+      };
+
+      return reply(signature);
+
+    });
 
   });
 
@@ -60,8 +154,18 @@ module.exports = [
     handler: index
   },
   {
+    path: '/api/replay',
+    method: 'POST',
+    handler: upload
+  },
+  {
     path: '/api/replay/{id}',
     method: 'GET',
     handler: detail
+  },
+  {
+    path: '/api/replay/{id}/download',
+    method: 'GET',
+    handler: download
   }
 ];
