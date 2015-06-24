@@ -27,6 +27,7 @@ server.register(HapiAuthJwt, function () {
 server.route([].concat(
   require('./controller/replay'),
   require('./controller/account'),
+  require('./controller/general'),
   require('./controller/session'),
   require('./controller/snsnotification')
 ));

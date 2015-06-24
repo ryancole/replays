@@ -6,7 +6,8 @@
   "author": "Ryan Cole",
   "license": "ISC",
   "scripts": {
-    "watch": "nodemon --harmony_arrays --harmony_arrow_functions index.js"
+    "watch": "nodemon --harmony_arrays --harmony_arrow_functions index.js",
+    "start": "nodemon --harmony_arrays --harmony_arrow_functions index.js"
   },
   "dependencies": {
     "aws-sdk": "^2.1.30",
