@@ -61,7 +61,7 @@ function detail (request, reply) {
 
 module.exports = [
   {
-    path: '/api/account',
+    path: '/account',
     config: {
       auth: false
     },
@@ -69,7 +69,7 @@ module.exports = [
     handler: create
   },
   {
-    path: '/api/account/{id}',
+    path: '/account/{id}',
     method: 'GET',
     handler: detail
   }

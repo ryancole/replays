@@ -2,6 +2,7 @@
  * Module dependencies
  */
 
+import fetch from 'node-fetch';
 import fetchival from 'fetchival';
 import settings from '../../settings';
 
@@ -20,6 +21,8 @@ function create (username, password) {
     username: username,
     password: password
   };
+
+  console.log(fetch);
 
   // configure api endpoint
   let sessions = api('session');

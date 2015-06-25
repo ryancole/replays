@@ -103,7 +103,7 @@ function handle (request, reply) {
 
 module.exports = [
   {
-    path: '/api/snsnotification',
+    path: '/snsnotification',
     method: 'POST',
     config: {
       auth: false

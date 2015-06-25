@@ -149,22 +149,22 @@ function download (request, reply) {
 
 module.exports = [
   {
-    path: '/api/replay',
+    path: '/replay',
     method: 'GET',
     handler: index
   },
   {
-    path: '/api/replay',
+    path: '/replay',
     method: 'POST',
     handler: upload
   },
   {
-    path: '/api/replay/{id}',
+    path: '/replay/{id}',
     method: 'GET',
     handler: detail
   },
   {
-    path: '/api/replay/{id}/download',
+    path: '/replay/{id}/download',
     method: 'GET',
     handler: download
   }

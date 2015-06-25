@@ -49,7 +49,7 @@ function create (request, reply) {
 
 module.exports = [
   {
-    path: '/api/session',
+    path: '/session',
     config: {
       auth: false
     },
