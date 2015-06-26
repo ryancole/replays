@@ -1,6 +1,8 @@
 var server = require('./src/server');
 
 // start handling requests
-server.start(function () {
+server.start(() => {
+
   console.log(`Server running at ${server.info.uri} ...`);
+  
 });

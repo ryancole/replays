@@ -3,9 +3,7 @@
 
 function status (request, reply) {
 
-  return reply({
-    time: Date.now()
-  });
+  return reply();
 
 };
 
