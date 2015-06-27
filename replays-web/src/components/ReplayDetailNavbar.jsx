@@ -1,6 +1,5 @@
 import React from 'react';
 import Replays from '../repository/ReplayRepository';
-import settings from '../../settings';
 
 
 export default class ReplayDetailNavbar extends React.Component {

@@ -1,19 +1,12 @@
-/**
- * Module dependencies
- */
-
 import fetch from 'node-fetch';
 import fetchival from 'fetchival';
-import settings from '../../settings';
+import settings from '../AppSettings';
 
 
 const api = fetchival(settings.API_ADDR, {
   mode: "cors"
 });
 
-/**
- * fetch a single session
- */
 
 function create (username, password) {
 
@@ -21,8 +14,6 @@ function create (username, password) {
     username: username,
     password: password
   };
-
-  console.log(fetch);
 
   // configure api endpoint
   let sessions = api('session');
@@ -32,10 +23,6 @@ function create (username, password) {
 
 };
 
-
-/**
- * Module exports
- */
 
 export default {
   create: create

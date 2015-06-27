@@ -1,9 +1,5 @@
-/**
- * Module dependencies
- */
-
 import fetchival from 'fetchival';
-import settings from '../../settings';
+import settings from '../AppSettings';
 
 
 const api = fetchival(settings.API_ADDR, {

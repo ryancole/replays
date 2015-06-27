@@ -1,19 +1,11 @@
-/**
- * Module dependencies
- */
-
 import fetchival from 'fetchival';
-import settings from '../../settings';
+import settings from '../AppSettings';
 
 
 const api = fetchival(settings.API_ADDR, {
   mode: "cors"
 });
 
-
-/**
- * create a new account
- */
 
 function create (username, password) {
 
@@ -31,10 +23,6 @@ function create (username, password) {
 }
 
 
-/**
- * fetch account details
- */
-
 function getByActiveSession (session) {
 
   // configure api endpoint
@@ -49,10 +37,6 @@ function getByActiveSession (session) {
 
 }
 
-
-/**
- * Module exports
- */
 
 export default {
   create: create,
