@@ -3,7 +3,7 @@ import fetchival from 'fetchival';
 import settings from '../AppSettings';
 
 
-const api = fetchival(settings.API_ADDR, {
+const api = fetchival(settings.get("API_ADDR"), {
   mode: "cors"
 });
 

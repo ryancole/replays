@@ -22,13 +22,10 @@ const flux = new AppFlux();
 
 Router.run(AppRouter, (Handler, State) => {
 
-  // url parameters
-  const params = State.params;
-
   React.render(
     <FluxComponent
       flux={flux}
-      params={params}
+      params={State.params}
       connectToStores={{
         sessions: store => ({
           activeSession: store.activeSession,
