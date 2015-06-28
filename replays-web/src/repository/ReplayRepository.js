@@ -1,3 +1,4 @@
+import fetch from 'isomorphic-fetch';
 import fetchival from 'fetchival';
 import settings from '../AppSettings';
 
@@ -53,7 +54,7 @@ function getUploadDestination (session, file) {
   };
 
   // configure api endpoint
-  let replays = api("replays", {
+  let replays = api("replay", {
     headers: {
       "Authorization": `Bearer ${session.token}`
     }

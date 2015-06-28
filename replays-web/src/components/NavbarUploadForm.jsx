@@ -105,7 +105,7 @@ export default class NavbarUploadForm extends React.Component {
 
       const actions = this.props.flux.getActions("replays");
       
-      actions.getForAccountId(this.props.activeSession.details.id);
+      actions.getAll(this.props.activeSession);
 
     }, 3000);
 
@@ -114,8 +114,8 @@ export default class NavbarUploadForm extends React.Component {
   async _handleUploadAttempt (file) {
 
     // fetch the signed upload request
-    let signed = await UploadRequests.get(
-      this.props.activeSession.token,
+    let signed = await Replays.getUploadDestination(
+      this.props.activeSession,
       file
     );
 
@@ -131,7 +131,7 @@ export default class NavbarUploadForm extends React.Component {
   async _beginAwsTransfer (file, signed) {
 
     // upload the file to aws
-    let result = await Replays.upload(
+    let result = await Replays.putToDestination(
       file,
       signed
     );
