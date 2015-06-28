@@ -1,9 +1,13 @@
 "use strict";
 
+var settings = require('../../settings');
+
 
 function status (request, reply) {
 
-  return reply();
+  return reply({
+    version: settings.VERSION
+  });
 
 };
 
