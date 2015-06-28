@@ -19,7 +19,10 @@ class AccountActions extends Actions {
     if (account.id > 0) {
 
       // create a session for the account
-      return await Sessions.create(username, password);
+      let session = await Sessions.create(username, password);
+
+      // dispatch the session token
+      return session.token;
 
     }
 
