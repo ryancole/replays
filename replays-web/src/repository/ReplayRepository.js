@@ -68,21 +68,15 @@ function getUploadDestination (session, file) {
 
 function putToDestination (file, signed) {
 
-  let form = new FormData();
-
-  // add the file to the form
-  form.append('file', file);
-
   // the content type and ACL are
   // both required parts of this
   // request, because of what was
   // included in the signature body
   return fetchival.fetch(signed.url, {
-    body: form,
+    body: file,
     method: 'put',
     headers: {
-      "Content-Type": "application/octet-stream",
-      "Content-Disposition": "attachment"
+      "Content-Type": "binary/octet-stream"
     }
   });
 

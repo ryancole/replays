@@ -67,12 +67,12 @@ function upload (request, reply) {
 
   // prepare the signature payload, remember
   // this means the client must provide the
-  // same ACL and content-type when using PUT
+  // same content-type when using PUT
   let params = {
     Key: key,
     Bucket: "dankgg",
     Expires: 60,
-    ContentType: "application/octet-stream",
+    ContentType: "binary/octet-stream",
     ContentDisposition: "attachment",
     Metadata: {
       user: account.toString(),
