@@ -50,7 +50,8 @@ function getDownloadSource (session, id) {
 function getUploadDestination (session, file) {
 
   let payload = {
-    name: file.name
+    name: file.name,
+    size: file.size
   };
 
   // configure api endpoint

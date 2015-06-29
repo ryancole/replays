@@ -55,6 +55,10 @@ function detail (request, reply) {
 
 function upload (request, reply) {
 
+  if (request.payload.size > 30000000) {
+    return reply(Boom.notAcceptable());
+  }
+
   // the account of the replay owner
   const account = request.auth.credentials.id;
 
