@@ -40,7 +40,6 @@
           "optional": [
             "es7.asyncFunctions",
             "es7.decorators",
-            "asyncToGenerator",
             "utility.inlineEnvironmentVariables"
           ]
         }
