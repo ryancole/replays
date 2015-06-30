@@ -1,11 +1,3 @@
-
-/**
- * babel polyfill
- */
-
-require("babelify/polyfill");
-
-
 /**
  * Module dependencies
  */
