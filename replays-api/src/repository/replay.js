@@ -5,6 +5,47 @@ var settings = require('../../settings');
 
 
 /**
+ * remove a replay
+ */
+
+exports.remove = function remove (id, account, callback) {
+
+  pg.connect(settings.AWS_SQL, (err, db, done) => {
+
+    if (err) {
+      return callback(err);
+    }
+
+    const query = `
+      DELETE FROM replays
+      WHERE id = $1 AND account_id = $2
+    `;
+
+    const params = [
+      id,
+      account
+    ];
+
+    db.query(query, params, (err, result) => {
+
+      if (err) {
+        return callback(err);
+      } else if (result.rowCount != 1) {
+        return callback(Error("failed to remove"));
+      }
+
+      done();
+
+      return callback(null, true);
+
+    });
+
+  });
+
+};
+
+
+/**
  * save a replay to the database
  */
 

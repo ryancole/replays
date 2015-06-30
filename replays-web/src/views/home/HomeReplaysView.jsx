@@ -23,7 +23,8 @@ class HomeReplaysView extends React.Component {
         <div className="row">
           <div className="col-sm-12">
             <ReplayTable 
-              replays={this.props.replays} />
+              replays={this.props.replays}
+              onDelete={this.props.onDelete} />
           </div>
         </div>
       </div>
@@ -34,6 +35,14 @@ class HomeReplaysView extends React.Component {
 
 export default class HomeReplaysViewWrapper extends React.Component {
 
+  constructor () {
+
+    super();
+
+    this._handleDelete = this._handleDelete.bind(this);
+
+  }
+
   render () {
     return (
       <FluxComponent connectToStores={{
@@ -41,7 +50,8 @@ export default class HomeReplaysViewWrapper extends React.Component {
           replays: store.getAll()
         })
       }}>
-        <HomeReplaysView {...this.props} />
+        <HomeReplaysView {...this.props}
+          onDelete={this._handleDelete} />
       </FluxComponent>
     );
   }
@@ -55,6 +65,18 @@ export default class HomeReplaysViewWrapper extends React.Component {
       replays.getAll(this.props.activeSession);
 
     });
+  }
+
+  _handleDelete (replay) {
+
+    const replays = this.props.flux.getActions("replays");
+
+    // remove the replay
+    replays.remove(
+      this.props.activeSession,
+      replay.id
+    );
+
   }
 
 }

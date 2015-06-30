@@ -14,7 +14,7 @@ export default class ReplayTable extends React.Component {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Uploaded</th>
+            <th colSpan="2">Uploaded</th>
           </tr>
         </thead>
         <tbody>
@@ -32,7 +32,8 @@ export default class ReplayTable extends React.Component {
       return (
         <ReplayTableRow
           key={replay.id}
-          replay={replay} />
+          replay={replay}
+          onDelete={this.props.onDelete} />
       );
     });
 

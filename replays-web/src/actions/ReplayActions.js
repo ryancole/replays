@@ -20,4 +20,16 @@ export default class ReplayActions extends Actions {
 
   }
 
+  async remove (session, id) {
+
+    let response = await Replays.remove(session, id);
+
+    if (response.success == true) {
+
+      return response;
+
+    }
+
+  }
+
 }

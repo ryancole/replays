@@ -2,5 +2,6 @@
   "VERSION": "0.0.1",
   "JWT_KEY": "foobar",
   "HASH_SEED": "haha",
+  "AWS_S3_BUCKET": "dankgg",
   "AWS_SQL": "postgres://dank:password@dank.c7mtujn7zj0p.us-west-2.rds.amazonaws.com/dank"
 }

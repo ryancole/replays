@@ -2,7 +2,7 @@
 
 var aws = require('aws-sdk');
 var Boom = require('boom');
-var replays = require('../repository/replay');
+var Replays = require('../repository/replay');
 
 
 function index (request, reply) {
@@ -13,7 +13,7 @@ function index (request, reply) {
   const id = request.auth.credentials.id;
 
   // fetch replays for the authenticated user
-  replays.getAllByAccountId(id, (err, body) => {
+  Replays.getAllByAccountId(id, (err, body) => {
 
     if (err) {
       return reply(Boom.notFound());
@@ -40,13 +40,74 @@ function detail (request, reply) {
   const account = request.auth.credentials.id;
 
   // fetch the replay from the database
-  replays.get(id, account, function (err, body) {
+  Replays.get(id, account, function (err, body) {
 
     if (err) {
       return reply(Boom.notFound());
     }
 
     return reply(body);
+
+  });
+
+};
+
+
+function remove (request, reply) {
+
+  // the id of the replay to remove
+  const id = parseInt(request.params.id);
+
+  // the account of the replay owner
+  const account = request.auth.credentials.id;
+
+  // first, get the replay with the given id
+  // because we need the aws key, etc
+  Replays.get(id, account, (err, replay) => {
+
+    if (err) {
+      return reply(Boom.notFound());
+    }
+
+    let s3 = new aws.S3({
+      region: 'us-west-2'
+    });
+
+    let params = {
+      Key: replay.aws_key,
+      Bucket: "dankgg"
+    };
+
+    // second, delete the replay file from
+    // our aws bucket
+    s3.deleteObject(params, (err, result) => {
+
+      if (err) {
+        return reply(Boom.badImplementation());
+      } else if (result == null) {
+        return reply(Boom.badImplementation());
+      }
+
+      // third, we can now safely delete the
+      // replay file from our own database
+      Replays.remove(id, account, (err, body) => {
+
+        if (err) {
+          return reply(Boom.badImplementation());
+        } else if (body != true) {
+          return reply(Boom.badImplementation());
+        }
+
+        const payload = {
+          id: id,
+          success: true
+        };
+
+        return reply(payload);
+
+      });
+
+    });
 
   });
 
@@ -112,7 +173,7 @@ function download (request, reply) {
   const account = request.auth.credentials.id;
 
   // fetch the reply from the database
-  replays.get(id, account, (err, body) => {
+  Replays.get(id, account, (err, body) => {
 
     if (err) {
       return reply(Boom.notFound());
@@ -166,6 +227,11 @@ module.exports = [
     path: '/replay/{id}',
     method: 'GET',
     handler: detail
+  },
+  {
+    path: '/replay/{id}',
+    method: 'DELETE',
+    handler: remove
   },
   {
     path: '/replay/{id}/download',

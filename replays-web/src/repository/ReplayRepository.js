@@ -8,6 +8,19 @@ const api = fetchival(settings.get("API_ADDR"), {
 });
 
 
+function remove (session, id) {
+
+  let replays = api("replay", {
+    headers: {
+      "Authorization": `Bearer ${session.token}`
+    }
+  });
+
+  return replays(id).delete();
+
+};
+
+
 function getById (session, id) {
 
   let replays = api("replay", {
@@ -89,6 +102,7 @@ function putToDestination (file, signed) {
  */
 
 export default {
+  remove: remove,
   getAll: getAll,
   getById: getById,
   putToDestination: putToDestination,

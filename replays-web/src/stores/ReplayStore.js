@@ -12,6 +12,7 @@ export default class ReplayStore extends Store {
     const replayActionIds = flux.getActionIds('replays');
 
     // register action handlers
+    this.register(replayActionIds.remove, this._handleRemove);
     this.register(replayActionIds.getAll, this._handleGetAll);
     this.register(replayActionIds.getById, this._handleGetById);
 
@@ -32,6 +33,14 @@ export default class ReplayStore extends Store {
 
   getAll () {
     return this.state.replays.toArray();
+  }
+
+  _handleRemove (result) {
+    if (result.success == true) {
+      this.setState({
+        replays: this.state.replays.delete(result.id)
+      });
+    }
   }
 
   _handleGetAll (replays) {
