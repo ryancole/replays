@@ -25,6 +25,7 @@ server.register(HapiAuthJwt, function () {
 
 // register route handlers
 server.route([].concat(
+  require('./controller/link'),
   require('./controller/replay'),
   require('./controller/account'),
   require('./controller/general'),

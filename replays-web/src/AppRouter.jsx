@@ -11,6 +11,7 @@ import { Route, DefaultRoute } from 'react-router';
  */
 
 import HomeView from './views/home/HomeView';
+import HomeLinksView from './views/home/HomeLinksView';
 import HomeReplayView from './views/home/HomeReplayView';
 import HomeReplaysView from './views/home/HomeReplaysView';
 
@@ -32,6 +33,7 @@ const AppRouter = (
       <DefaultRoute name="signin" handler={AuthenticationSigninView} />
     </Route>
     <Route path="home" handler={HomeView}>
+      <Route name="links" handler={HomeLinksView} />
       <Route name="replay" path="replay/:id" handler={HomeReplayView} />
       <DefaultRoute name="replays" handler={HomeReplaysView} />
     </Route>
