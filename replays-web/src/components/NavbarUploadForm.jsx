@@ -107,7 +107,7 @@ export default class NavbarUploadForm extends React.Component {
       
       actions.getAll(this.props.activeSession);
 
-    }, 3000);
+    });
 
   }
 
