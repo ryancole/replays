@@ -5,10 +5,10 @@ var settings = require('../../settings');
 
 
 /**
- * set public flag
+ * disable sharing of a replay
  */
 
-exports.setPublic = function setPublic (id, account, public, callback) {
+exports.disableSharing = function disableSharing (id, account, callback) {
 
   pg.connect(settings.AWS_SQL, (err, db, done) => {
 
@@ -18,12 +18,53 @@ exports.setPublic = function setPublic (id, account, public, callback) {
 
     const query = `
       UPDATE replays
-      SET public = $1
-      WHERE id = $2 AND account_id = $3
+      SET public = false
+      WHERE id = $1 AND account_id = $2
     `;
 
     const params = [
-      public,
+      id,
+      account
+    ];
+
+    db.query(query, params, (err, result) => {
+
+      if (err) {
+        return callback(err);
+      } else if (result.rowCount != 1) {
+        return callback(Error("failed to update"));
+      }
+
+      done();
+
+      return callback(null, true);
+
+    });
+
+  });
+
+};
+
+
+/**
+ * enable sharing of a replay
+ */
+
+exports.enableSharing = function enableSharing (id, account, callback) {
+
+  pg.connect(settings.AWS_SQL, (err, db, done) => {
+
+    if (err) {
+      return callback(err);
+    }
+
+    const query = `
+      UPDATE replays
+      SET public = true
+      WHERE id = $1 AND account_id = $2
+    `;
+
+    const params = [
       id,
       account
     ];

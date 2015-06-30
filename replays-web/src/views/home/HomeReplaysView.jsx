@@ -24,7 +24,8 @@ class HomeReplaysView extends React.Component {
           <div className="col-sm-12">
             <ReplayTable 
               replays={this.props.replays}
-              onDelete={this.props.onDelete} />
+              onDelete={this.props.onDelete}
+              onToggleSharing={this.props.onToggleSharing} />
           </div>
         </div>
       </div>
@@ -40,6 +41,7 @@ export default class HomeReplaysViewWrapper extends React.Component {
     super();
 
     this._handleDelete = this._handleDelete.bind(this);
+    this._handleToggleSharing = this._handleToggleSharing.bind(this);
 
   }
 
@@ -51,7 +53,8 @@ export default class HomeReplaysViewWrapper extends React.Component {
         })
       }}>
         <HomeReplaysView {...this.props}
-          onDelete={this._handleDelete} />
+          onDelete={this._handleDelete}
+          onToggleSharing={this._handleToggleSharing} />
       </FluxComponent>
     );
   }
@@ -75,6 +78,19 @@ export default class HomeReplaysViewWrapper extends React.Component {
     replays.remove(
       this.props.activeSession,
       replay.id
+    );
+
+  }
+
+  _handleToggleSharing (replay) {
+
+    const replays = this.props.flux.getActions("replays");
+
+    // toggle public state
+    replays.toggleSharing(
+      this.props.activeSession,
+      replay.id,
+      !replay.public
     );
 
   }

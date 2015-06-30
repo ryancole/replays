@@ -15,6 +15,7 @@ export default class ReplayStore extends Store {
     this.register(replayActionIds.remove, this._handleRemove);
     this.register(replayActionIds.getAll, this._handleGetAll);
     this.register(replayActionIds.getById, this._handleGetById);
+    this.register(replayActionIds.toggleSharing, this._handleToggleSharing);
 
     // set initial state
     this.state = {
@@ -64,6 +65,28 @@ export default class ReplayStore extends Store {
         replay
       )
     });
+  }
+
+  _handleToggleSharing (result) {
+
+    if (this.has(result.id)) {
+
+      // get the adjusted replay
+      let replay = this.get(result.id);
+
+      // set the proper public value
+      replay.public = result.shared;
+
+      // update store state
+      this.setState({
+        replays: this.state.replays.set(
+          replay.id,
+          replay
+        )
+      });
+
+    }
+
   }
 
 }

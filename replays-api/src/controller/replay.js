@@ -3,6 +3,7 @@
 var aws = require('aws-sdk');
 var Boom = require('boom');
 var Replays = require('../repository/replay');
+var Settings = require('../../settings');
 
 
 function update (request, reply) {
@@ -13,10 +14,58 @@ function update (request, reply) {
   // the account of the replay owner
   const account = request.auth.credentials.id;
 
-  // set the public flag
-  Replays.setPublic(id, account, request.payload.public, (err, body) => {
+  // first, get the replay with the given
+  // id because we need the aws key
+  Replays.get(id, account, (err, replay) => {
 
-    
+    if (err) {
+      return reply(Boom.notFound());
+    }
+
+    let s3 = new aws.S3({
+      region: Settings.AWS_REGION
+    });
+
+    let params = {
+      Key: replay.aws_key,
+      Bucket: Settings.AWS_S3_BUCKET,
+      ACL: request.payload.public == true ? "public-read" : "private"
+    };
+
+    // second, update the object's acl settings
+    // on aws side of things
+    s3.putObjectAcl(params, (err, result) => {
+
+      if (err) {
+        return reply(Boom.badImplementation());
+      } else if (result == null) {
+        return reply(Boom.badImplementation());
+      }
+
+      const operation = request.payload.public == true ?
+                        Replays.enableSharing :
+                        Replays.disableSharing;
+
+      // third, we can now safely update the public
+      // setting in our local database
+      operation(id, account, (err, result) => {
+
+        if (err) {
+          return reply(Boom.badImplementation());
+        } else if (result != true) {
+          return reply(Boom.badImplementation());
+        }
+
+        const payload = {
+          id: id,
+          success: true
+        };
+
+        return reply(payload);
+
+      });
+
+    });
 
   });
 

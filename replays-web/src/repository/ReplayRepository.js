@@ -21,6 +21,23 @@ function remove (session, id) {
 };
 
 
+function toggleSharing (session, id, shared) {
+
+  let replays = api("replay", {
+    headers: {
+      "Authorization": `Bearer ${session.token}`
+    }
+  });
+
+  const payload = {
+    public: shared
+  };
+
+  return replays(id).patch(payload);
+
+};
+
+
 function getById (session, id) {
 
   let replays = api("replay", {
@@ -105,6 +122,7 @@ export default {
   remove: remove,
   getAll: getAll,
   getById: getById,
+  toggleSharing: toggleSharing,
   putToDestination: putToDestination,
   getDownloadSource: getDownloadSource,
   getUploadDestination: getUploadDestination

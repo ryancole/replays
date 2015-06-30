@@ -33,7 +33,8 @@ export default class ReplayTable extends React.Component {
         <ReplayTableRow
           key={replay.id}
           replay={replay}
-          onDelete={this.props.onDelete} />
+          onDelete={this.props.onDelete}
+          onToggleSharing={this.props.onToggleSharing} />
       );
     });
 

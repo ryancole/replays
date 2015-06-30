@@ -32,4 +32,21 @@ export default class ReplayActions extends Actions {
 
   }
 
+  async toggleSharing (session, id, shared) {
+
+    let response = await Replays.toggleSharing(session, id, shared);
+
+    if (response.success == true) {
+
+      const payload = {
+        id: id,
+        shared: shared
+      };
+
+      return payload;
+      
+    }
+
+  }
+
 }

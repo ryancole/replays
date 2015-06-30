@@ -9,12 +9,23 @@ export default class ReplayTableRow extends React.Component {
     super();
 
     this._handleDeleteClick = this._handleDeleteClick.bind(this);
+    this._handleToggleSharingClick = this._handleToggleSharingClick.bind(this);
 
   }
 
   render () {
 
     const replay = this.props.replay;
+
+    let shareIcon = (
+      <span className="glyphicon glyphicon glyphicon-eye-open"></span>
+    );
+
+    if (replay.public == true) {
+      shareIcon = (
+        <span className="glyphicon glyphicon glyphicon-eye-close"></span>
+      );
+    }
 
     return (
       <tr className="replayTableRow">
@@ -30,7 +41,10 @@ export default class ReplayTableRow extends React.Component {
         </td>
         <td>
           <div className="btn-group">
-            <button type="button" className="btn btn-default" onClick={this._handleDeleteClick}>
+            <button type="button" className="btn btn-default" onClick={this._handleToggleSharingClick}>
+              {shareIcon}
+            </button>
+            <button type="button" className="btn btn-danger" onClick={this._handleDeleteClick}>
               <span className="glyphicon glyphicon-remove-circle"></span>
             </button>
           </div>
@@ -41,9 +55,11 @@ export default class ReplayTableRow extends React.Component {
   }
 
   _handleDeleteClick (event) {
-    
     this.props.onDelete(this.props.replay);
+  }
 
+  _handleToggleSharingClick (event) {
+    this.props.onToggleSharing(this.props.replay);
   }
 
 }
