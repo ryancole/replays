@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-fetch';
 import fetchival from 'fetchival';
 import settings from '../AppSettings';
 

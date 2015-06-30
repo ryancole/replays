@@ -10,9 +10,18 @@ module.exports = {
   },
   module: {
     loaders: [{
-      test: /\.js?$/,
+      test: /\.jsx?$/,
       loader: 'babel',
-      include: path.resolve(__dirname, 'src')
+      exclude: /(node_modules|bower_components)/,
+      query: {
+        stage: 0,
+        optional: ['runtime']
+      }
+    },
+    {
+      test: /\.json$/,
+      loader: 'json',
+      exclude: /(node_modules|bower_components)/
     }]
   }
 }
