@@ -5,6 +5,24 @@ var Boom = require('boom');
 var Replays = require('../repository/replay');
 
 
+function update (request, reply) {
+
+  // the id of the replay to look up
+  const id = request.params.id;
+
+  // the account of the replay owner
+  const account = request.auth.credentials.id;
+
+  // set the public flag
+  Replays.setPublic(id, account, request.payload.public, (err, body) => {
+
+    
+
+  });
+
+};
+
+
 function index (request, reply) {
 
   // the account id of the user to fetch
@@ -232,6 +250,11 @@ module.exports = [
     path: '/replay/{id}',
     method: 'DELETE',
     handler: remove
+  },
+  {
+    path: '/replay/{id}',
+    method: 'PATCH',
+    handler: update
   },
   {
     path: '/replay/{id}/download',

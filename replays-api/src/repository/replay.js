@@ -5,6 +5,49 @@ var settings = require('../../settings');
 
 
 /**
+ * set public flag
+ */
+
+exports.setPublic = function setPublic (id, account, public, callback) {
+
+  pg.connect(settings.AWS_SQL, (err, db, done) => {
+
+    if (err) {
+      return callback(err);
+    }
+
+    const query = `
+      UPDATE replays
+      SET public = $1
+      WHERE id = $2 AND account_id = $3
+    `;
+
+    const params = [
+      public,
+      id,
+      account
+    ];
+
+    db.query(query, params, (err, result) => {
+
+      if (err) {
+        return callback(err);
+      } else if (result.rowCount != 1) {
+        return callback(Error("failed to update"));
+      }
+
+      done();
+
+      return callback(null, true);
+
+    });
+
+  });
+
+};
+
+
+/**
  * remove a replay
  */
 
@@ -104,10 +147,9 @@ exports.get = function get (id, account, callback) {
     }
 
     const query = `
-      SELECT r.*, a.username
-      FROM replays AS r
-      JOIN accounts AS a ON r.account_id = a.id
-      WHERE r.id = $1 AND r.account_id = $2
+      SELECT *
+      FROM replays
+      WHERE id = $1 AND account_id = $2
     `;
 
     const params = [
@@ -147,11 +189,10 @@ exports.getAllByAccountId = function getAllByAccountId (id, callback) {
     }
 
     const query = `
-      SELECT r.*, a.username
-      FROM replays AS r
-      JOIN accounts AS a ON r.account_id = a.id
-      WHERE r.account_id = $1
-      ORDER BY r.id DESC
+      SELECT *
+      FROM replays
+      WHERE account_id = $1
+      ORDER BY id DESC
     `;
 
     const params = [
