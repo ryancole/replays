@@ -14,11 +14,6 @@ export default class ApplicationNavbar extends React.Component {
                 Replays
               </Link>
             </li>
-            <li>
-              <Link to="links">
-                Links
-              </Link>
-            </li>
           </ul>
         </div>
       </div>
