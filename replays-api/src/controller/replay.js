@@ -137,12 +137,12 @@ function remove (request, reply) {
     }
 
     let s3 = new aws.S3({
-      region: 'us-west-2'
+      region: Settings.AWS_REGION
     });
 
     let params = {
       Key: replay.aws_key,
-      Bucket: "dankgg"
+      Bucket: Settings.AWS_S3_BUCKET
     };
 
     // second, delete the replay file from
@@ -191,7 +191,7 @@ function upload (request, reply) {
   const account = request.auth.credentials.id;
 
   let s3 = new aws.S3({
-    region: 'us-west-2'
+    region: Settings.AWS_REGION
   });
 
   // format the object key
@@ -202,7 +202,7 @@ function upload (request, reply) {
   // same content-type when using PUT
   let params = {
     Key: key,
-    Bucket: "dankgg",
+    Bucket: Settings.AWS_S3_BUCKET,
     Expires: 60,
     ContentType: "binary/octet-stream",
     ContentDisposition: "attachment",
@@ -247,7 +247,7 @@ function download (request, reply) {
     }
 
     let s3 = new aws.S3({
-      region: 'us-west-2'
+      region: Settings.AWS_REGION
     });
 
     // prepare the signature payload, remember
@@ -255,7 +255,7 @@ function download (request, reply) {
     // same ACL and content-type when using PUT
     let params = {
       Key: body.aws_key,
-      Bucket: "dankgg",
+      Bucket: Settings.AWS_S3_BUCKET,
       Expires: 60
     };
 
