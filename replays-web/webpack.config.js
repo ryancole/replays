@@ -8,6 +8,9 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     filename: 'app.js'
   },
+  resolve: {
+    extensions: ['', '.js', '.jsx', '.json']
+  },
   module: {
     loaders: [{
       test: /\.jsx?$/,
@@ -23,5 +26,8 @@ module.exports = {
       loader: 'json',
       exclude: /(node_modules|bower_components)/
     }]
+  },
+  devServer: {
+    port: 8081
   }
 }
