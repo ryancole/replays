@@ -1,8 +1,8 @@
 import fetchival from 'fetchival';
-import settings from '../AppSettings';
+import Settings from '../../settings';
 
 
-const api = fetchival(settings.get("API_ADDR"), {
+const api = fetchival(Settings.API_ADDR, {
   mode: "cors"
 });
 

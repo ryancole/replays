@@ -16,11 +16,13 @@
     "babel-loader": "^5.2.2",
     "babel-runtime": "^5.6.15",
     "json-loader": "^0.5.2",
+    "react-hot-loader": "^1.2.7",
     "webpack": "^1.10.0",
     "webpack-dev-server": "^1.10.1"
   },
   "scripts": {
-    "watch": "webpack-dev-server",
-    "build-debug": "webpack --progress --colors --devtool source-map --debug --output-pathinfo"
+    "start": "set \"NODE_ENV=development\" && node server.js",
+    "build": "set \"NODE_ENV=production\" && webpack -p --progress --colors",
+    "build-debug": "set \"NODE_ENV=development\" && webpack -d --progress --colors"
   }
 }

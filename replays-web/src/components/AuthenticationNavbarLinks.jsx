@@ -7,7 +7,7 @@ export default class AuthenticationNavbarLinks extends React.Component {
   render() {
     
     // if signed in, show signed in links
-    if (this.props.isAuthenticated == true) {
+    if (this.props.isAuthenticated === true) {
       return this._getSignedInLinks();
     }
 
