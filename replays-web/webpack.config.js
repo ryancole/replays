@@ -7,7 +7,7 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:8081',
     'webpack/hot/only-dev-server',
-    './src/AppBootstrap.jsx'
+    path.resolve(__dirname, 'src', 'scripts', 'AppBootstrap.jsx')
   ],
   plugins: [
     new webpack.DefinePlugin({
@@ -18,12 +18,12 @@ module.exports = {
   ],
   output: {
     path: process.env.NODE_ENV === 'production' ?
-          path.resolve(__dirname, 'build', 'release') :
-          path.resolve(__dirname, 'build', 'debug'),
+          path.resolve(__dirname, 'build', 'release', 'public') :
+          path.resolve(__dirname, 'build', 'debug', 'public'),
     filename: 'app.js'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', '.json']
+    extensions: ['', '.js', '.jsx', '.json', '.css']
   },
   module: {
     loaders: [
@@ -33,16 +33,17 @@ module.exports = {
           'react-hot',
           'babel'
         ],
-        include: path.resolve(__dirname, 'src')
+        include: path.resolve(__dirname, 'src', 'scripts')
       },
       {
         test: /\.json$/,
         loader: 'json',
-        exclude: /(node_modules|bower_components)/
+        include: path.resolve(__dirname, 'src')
       },
       {
         test: /\.css$/,
-        loaders: ['style', 'css']
+        loaders: ['style', 'css'],
+        include: path.resolve(__dirname, 'src', 'styles')
       }
     ]
   }

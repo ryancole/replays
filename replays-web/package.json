@@ -21,7 +21,7 @@
     "webpack-dev-server": "^1.10.1"
   },
   "scripts": {
-    "start": "set \"NODE_ENV=development\" && node server.js",
+    "start": "set \"NODE_ENV=development\" && node src/server.js",
     "build": "set \"NODE_ENV=production\" && webpack -p --progress --colors",
     "build-debug": "set \"NODE_ENV=development\" && webpack -d --progress --colors"
   }

@@ -1,7 +1,3 @@
-/**
- * Module dependencies
- */
-
 import React from 'react';
 import Router from 'react-router';
 import FluxComponent from 'flummox/component';
