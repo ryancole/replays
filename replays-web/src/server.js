@@ -1,5 +1,6 @@
 'use strict';
 
+var path = require('path');
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('../webpack.config');
@@ -8,9 +9,13 @@ var config = require('../webpack.config');
 let server = new WebpackDevServer(webpack(config), {
 
   hot: true,
-  colors: true,
-  inline: true,
-  contentBase: '../build/debug',
+  stats: {
+    colors: true
+  },
+  publicPath: config.output.publicPath,
+  contentBase: process.env.NODE_ENV === 'production' ?
+               path.resolve(__dirname, '..', 'build', 'release') :
+               path.resolve(__dirname, '..', 'build', 'debug'),
   historyApiFallback: true
 
 });

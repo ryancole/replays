@@ -18,9 +18,10 @@ module.exports = {
   ],
   output: {
     path: process.env.NODE_ENV === 'production' ?
-          path.resolve(__dirname, 'build', 'release', 'public') :
-          path.resolve(__dirname, 'build', 'debug', 'public'),
-    filename: 'app.js'
+          path.resolve(__dirname, 'build', 'release', 'static') :
+          path.resolve(__dirname, 'build', 'debug', 'static'),
+    filename: 'app.js',
+    publicPath: '/static/'
   },
   resolve: {
     extensions: ['', '.js', '.jsx', '.json', '.css']
