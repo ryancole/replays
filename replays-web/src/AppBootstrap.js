@@ -1,8 +1,17 @@
 import React from 'react';
 import Router from 'react-router';
 import FluxComponent from 'flummox/component';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
 import AppFlux from './AppFlux';
 import AppRouter from './AppRouter';
+
+
+/**
+ * needed by material ui
+ */
+
+injectTapEventPlugin();
 
 
 /**

@@ -7,44 +7,46 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:8081',
     'webpack/hot/only-dev-server',
-    path.resolve(__dirname, 'src', 'scripts', 'AppBootstrap.jsx')
+    path.resolve(__dirname, 'src', 'AppBootstrap.js')
   ],
   plugins: [
+    new webpack.NoErrorsPlugin,
+    new webpack.HotModuleReplacementPlugin,
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    })
   ],
+  resolve: {
+    alias: {
+      bootstrap: 'bootstrap/dist/css/bootstrap.css'
+    }
+  },
   output: {
     path: process.env.NODE_ENV === 'production' ?
           path.resolve(__dirname, 'build', 'release', 'static') :
           path.resolve(__dirname, 'build', 'debug', 'static'),
-    filename: 'app.js',
-    publicPath: '/static/'
+    filename: 'app.js'
   },
-  resolve: {
-    extensions: ['', '.js', '.jsx', '.json', '.css']
+  devServer: {
+    hot: true,
+    port: 8081,
+    colors: true,
+    publicPath: '/static/'
   },
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
+        test: /\.js$/,
         loaders: [
           'react-hot',
           'babel'
         ],
-        include: path.resolve(__dirname, 'src', 'scripts')
+        include: path.resolve(__dirname, 'src')
       },
       {
         test: /\.json$/,
         loader: 'json',
-        include: path.resolve(__dirname, 'src')
-      },
-      {
-        test: /\.css$/,
-        loaders: ['style', 'css'],
-        include: path.resolve(__dirname, 'src', 'styles')
+        exclude: /node_modules/
       }
     ]
   }
