@@ -1,8 +1,6 @@
 import fetchival from 'fetchival';
-import Settings from '../../settings';
+import Settings from '../../dank.config';
 
-
-console.log(Settings.API_ADDR);
 
 const api = fetchival(Settings.API_ADDR, {
   mode: "cors"

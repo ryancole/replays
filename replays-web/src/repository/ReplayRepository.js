@@ -1,5 +1,5 @@
 import fetchival from 'fetchival';
-import Settings from '../../settings';
+import Settings from '../../dank.config';
 
 
 const api = fetchival(Settings.API_ADDR, {

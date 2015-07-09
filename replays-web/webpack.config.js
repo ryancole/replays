@@ -25,7 +25,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      bootstrap: 'bootstrap/dist'
+      'bootstrap': 'bootstrap/dist'
     }
   },
   devtool: 'eval',
