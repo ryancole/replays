@@ -2,7 +2,7 @@ import React from 'react';
 import AuthenticationNavbarLinks from './AuthenticationNavbarLinks';
 
 
-export default class AuthenticationNavbar extends React.Component {
+class AuthenticationNavbar extends React.Component {
 
   render() {
     return (
@@ -13,3 +13,5 @@ export default class AuthenticationNavbar extends React.Component {
   }
 
 }
+
+export default AuthenticationNavbar;

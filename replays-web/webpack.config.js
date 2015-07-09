@@ -16,17 +16,19 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     })
   ],
-  resolve: {
-    alias: {
-      bootstrap: 'bootstrap/dist/css/bootstrap.css'
-    }
-  },
   output: {
     path: process.env.NODE_ENV === 'production' ?
           path.resolve(__dirname, 'build', 'release', 'static') :
           path.resolve(__dirname, 'build', 'debug', 'static'),
-    filename: 'app.js'
+    filename: 'app.js',
+    publicPath: '/static/'
   },
+  resolve: {
+    alias: {
+      bootstrap: 'bootstrap/dist'
+    }
+  },
+  devtool: 'eval',
   devServer: {
     hot: true,
     port: 8081,
@@ -47,6 +49,21 @@ module.exports = {
         test: /\.json$/,
         loader: 'json',
         exclude: /node_modules/
+      },
+      {
+        test: /\.css/,
+        loaders: [
+          'style',
+          'css'
+        ]
+      },
+      {
+        test: /\.woff2?$/,
+        loader: "url-loader?limit=10000&mimetype=application/font-woff"
+      },
+      {
+        test: /(\.ttf|\.eot|\.svg)$/,
+        loader: "file-loader"
       }
     ]
   }

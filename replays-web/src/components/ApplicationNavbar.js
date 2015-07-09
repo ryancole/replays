@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 
-export default class ApplicationNavbar extends React.Component {
+class ApplicationNavbar extends React.Component {
 
   render() {
     return (
@@ -21,3 +21,5 @@ export default class ApplicationNavbar extends React.Component {
   }
 
 }
+
+export default ApplicationNavbar;

@@ -2,6 +2,8 @@ import fetchival from 'fetchival';
 import Settings from '../../settings';
 
 
+console.log(Settings.API_ADDR);
+
 const api = fetchival(Settings.API_ADDR, {
   mode: "cors"
 });
