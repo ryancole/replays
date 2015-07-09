@@ -68,7 +68,7 @@ export default class HomeReplayViewWrapper extends React.Component {
 
       const store = this.props.flux.getStore("replays");
 
-      if (store.has(this.state.id) == false) {
+      if (store.has(this.state.id) === false) {
 
         const replays = this.props.flux.getActions("replays");
 

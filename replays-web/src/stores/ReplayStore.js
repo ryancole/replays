@@ -37,7 +37,7 @@ export default class ReplayStore extends Store {
   }
 
   _handleRemove (result) {
-    if (result.success == true) {
+    if (result.success === true) {
       this.setState({
         replays: this.state.replays.delete(result.id)
       });

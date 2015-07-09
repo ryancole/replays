@@ -1,18 +1,9 @@
-
-/**
- * babel polyfill
- */
-
-require("babelify/polyfill");
-
-
-/**
- * Module dependencies
- */
+import 'bootstrap/css/bootstrap.css';
 
 import React from 'react';
 import Router from 'react-router';
 import FluxComponent from 'flummox/component';
+
 import AppFlux from './AppFlux';
 import AppRouter from './AppRouter';
 

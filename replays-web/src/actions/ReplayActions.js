@@ -24,7 +24,7 @@ export default class ReplayActions extends Actions {
 
     let response = await Replays.remove(session, id);
 
-    if (response.success == true) {
+    if (response.success === true) {
 
       return response;
 
@@ -36,7 +36,7 @@ export default class ReplayActions extends Actions {
 
     let response = await Replays.toggleSharing(session, id, shared);
 
-    if (response.success == true) {
+    if (response.success === true) {
 
       const payload = {
         id: id,

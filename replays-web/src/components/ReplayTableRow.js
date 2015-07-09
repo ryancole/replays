@@ -21,7 +21,7 @@ export default class ReplayTableRow extends React.Component {
       <span className="glyphicon glyphicon glyphicon-eye-open"></span>
     );
 
-    if (replay.public == true) {
+    if (replay.public === true) {
       shareIcon = (
         <span className="glyphicon glyphicon glyphicon-eye-close"></span>
       );
