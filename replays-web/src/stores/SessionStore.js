@@ -1,8 +1,21 @@
 import jwt from 'jsonwebtoken';
-import { Store } from 'flummox';
 
 
-export default class SessionStore extends Store {
+function sessions (state = [], action) {
+
+  switch (action.type) {
+
+    default:
+      return state;
+
+  }
+
+};
+
+export default sessions;
+
+
+class SessionStore extends Store {
 
   constructor (flux) {
 
@@ -105,3 +118,5 @@ export default class SessionStore extends Store {
   }
 
 }
+
+export default SessionStore;

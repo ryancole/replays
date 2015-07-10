@@ -1,5 +1,4 @@
 import React from 'react';
-import FluxComponent from 'flummox/component';
 import { RouteHandler } from 'react-router';
 
 import ApplicationLogo from '../../components/ApplicationLogo';
@@ -7,7 +6,7 @@ import ApplicationNavbar from '../../components/ApplicationNavbar';
 import AuthenticationNavbar from '../../components/AuthenticationNavbar';
 
 
-export default class ApplicationView extends React.Component {
+class ApplicationView extends React.Component {
 
   static get contextTypes () {
     return {
@@ -39,12 +38,7 @@ export default class ApplicationView extends React.Component {
               isAuthenticated={this.props.isAuthenticated} />
           </div>
           <div className="col-sm-10">
-            <FluxComponent
-              params={this.props.params}
-              activeSession={this.props.activeSession}
-              isAuthenticated={this.props.isAuthenticated}>
-              <RouteHandler />
-            </FluxComponent>
+            <RouteHandler />
           </div>
         </div>
       </div>
@@ -70,3 +64,5 @@ export default class ApplicationView extends React.Component {
   }
 
 }
+
+export default ApplicationView;
