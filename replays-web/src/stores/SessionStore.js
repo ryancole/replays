@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 
-
 function sessions (state = [], action) {
 
   switch (action.type) {
