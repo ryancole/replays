@@ -1,92 +1,19 @@
-import { Store } from 'flummox';
 import { OrderedMap } from 'immutable';
+import { REPLAY_MERGE, REPLAY_DELETE, REPLAY_UPDATE } from '../constants/ActionTypes';
 
 
-export default class ReplayStore extends Store {
+const initialState = OrderedMap();
 
-  constructor (flux) {
+export default function replays (state = initialState, action) {
 
-    super();
+  switch (action.type) {
 
-    // fetch action ids
-    const replayActionIds = flux.getActionIds('replays');
+    case REPLAY_MERGE:
+      return Object.assign(state, action.replays);
 
-    // register action handlers
-    this.register(replayActionIds.remove, this._handleRemove);
-    this.register(replayActionIds.getAll, this._handleGetAll);
-    this.register(replayActionIds.getById, this._handleGetById);
-    this.register(replayActionIds.toggleSharing, this._handleToggleSharing);
-
-    // set initial state
-    this.state = {
-      replays: OrderedMap()
-    };
+    default:
+      return state;
 
   }
 
-  has (id) {
-    return this.state.replays.has(id);
-  }
-
-  get (id) {
-    return this.state.replays.get(id);
-  }
-
-  getAll () {
-    return this.state.replays.toArray();
-  }
-
-  _handleRemove (result) {
-    if (result.success === true) {
-      this.setState({
-        replays: this.state.replays.delete(result.id)
-      });
-    }
-  }
-
-  _handleGetAll (replays) {
-
-    // convert array of replays to map
-    let hash = replays.reduce((prev, curr) => {
-      return prev.set(curr.id, curr);
-    }, OrderedMap());
-
-    // update store state
-    this.setState({
-      replays: this.state.replays.merge(hash)
-    });
-
-  }
-
-  _handleGetById (replay) {
-    this.setState({
-      replays: this.state.replays.set(
-        replay.id,
-        replay
-      )
-    });
-  }
-
-  _handleToggleSharing (result) {
-
-    if (this.has(result.id)) {
-
-      // get the adjusted replay
-      let replay = this.get(result.id);
-
-      // set the proper public value
-      replay.public = result.shared;
-
-      // update store state
-      this.setState({
-        replays: this.state.replays.set(
-          replay.id,
-          replay
-        )
-      });
-
-    }
-
-  }
-
-}
+};

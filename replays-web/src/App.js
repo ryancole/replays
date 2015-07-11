@@ -2,23 +2,26 @@ import 'bootstrap/css/bootstrap.css';
 
 import React from 'react';
 import Router from 'react-router';
-
 import { Provider } from 'redux/react';
 import { createRedux } from 'redux';
 
-import AppFlux from './AppFlux';
-import AppRouter from './AppRouter';
+import Router from './Router';
+import Replays from './stores/ReplayStore';
+import Sessions from './stores/SessionStore';
 
 
 /**
- * global redux instance
+ * instanciate redux
  */
 
-const redux = creatRedux();
+const redux = createRedux({
+  replays: Replays,
+  sessions: Sessions
+});
 
 
 /**
- * render application
+ * run the application
  */
 
 Router.run(AppRouter, (Handler, State) => {

@@ -1,14 +1,5 @@
-/**
- * Module dependencies
- */
-
 import React from 'react';
 import { Route, DefaultRoute } from 'react-router';
-
-
-/**
- * Components
- */
 
 import HomeView from './views/home/HomeView';
 import HomeReplayView from './views/home/HomeReplayView';
@@ -20,10 +11,6 @@ import AuthenticationView from './views/authentication/AuthenticationView';
 import AuthenticationSigninView from './views/authentication/AuthenticationSigninView';
 import AuthenticationSignupView from './views/authentication/AuthenticationSignupView';
 
-
-/**
- * Instanciate the application router
- */
 
 const AppRouter = (
   <Route name="application" path="/" handler={ApplicationView}>
@@ -37,10 +24,5 @@ const AppRouter = (
     </Route>
   </Route>
 );
-
-
-/**
- * Module exports
- */
 
 export default AppRouter;

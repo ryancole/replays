@@ -1,52 +1,117 @@
-import { Actions } from 'flummox';
-import Replays from '../repository/ReplayRepository';
+import 'whatwg-fetch';
+import Settings from '../../dank.config';
+import { REPLAY_MERGE } from '../constants/ActionTypes';
 
 
-export default class ReplayActions extends Actions {
-
-  async getAll (session) {
-
-    let response = await Replays.getAll(session);
-
-    return response.replays;
-
-  }
-
-  async getById (session, id) {
-
-    let response = await Replays.getById(session, id);
-
-    return response;
-
-  }
-
-  async remove (session, id) {
-
-    let response = await Replays.remove(session, id);
-
-    if (response.success === true) {
-
-      return response;
-
+export function fetchAllReplays () {
+  return (dispatch, getState) => {
+    const { session } = getState();
+    if (session.token != null) {
+      fetch(`${Settings.API_ADDR}/replay`, {
+        headers: {
+          "Authorization": `Bearer ${session.token}`
+        }
+      })
+      .then(response => response.json())
+      .then(response => dispatch({
+        type: REPLAY_MERGE,
+        replays: response.replays
+      }));
     }
+  };
+};
 
-  }
-
-  async toggleSharing (session, id, shared) {
-
-    let response = await Replays.toggleSharing(session, id, shared);
-
-    if (response.success === true) {
-
-      const payload = {
-        id: id,
-        shared: shared
-      };
-
-      return payload;
-      
+export function fetchReplayById (id) {
+  return (dispatch, getState) => {
+    const { session } = getState();
+    if (session.token != null) {
+      fetch(`${Settings.API_ADDR}/replay/${id}`, {
+        headers: {
+          "Authorization": `Bearer ${session.token}`
+        }
+      })
+      .then(response => response.json())
+      .then(response => dispatch({
+        type: REPLAY_MERGE,
+        replays: [response]
+      }));
     }
+  };
+};
 
-  }
+export function deleteReplay (id) {
+  return (dispatch, getState) => {
+    const { session } = getState();
+    if (session.token != null) {
+      fetch(`${Settings.API_ADDR}/replay/${id}`, {
+        method: 'delete',
+        headers: {
+          "Authorization": `Bearer ${session.token}`
+        }
+      })
+      .then(response => response.json())
+      .then(response => {
+        if (response.success == true) {
+          dispatch({
+            type: REPLAY_DELETE,
+            id: response.id
+          });
+        }
+      });
+    }
+  };
+};
 
-}
+export function makeReplayPublic (id) {
+  return (dispatch, getState) => {
+    const { session } = getState();
+    if (session.token != null) {
+      fetch(`${Settings.API_ADDR}/replay/${id}`, {
+        method: 'patch',
+        headers: {
+          "Authorization": `Bearer ${session.token}`
+        },
+        body: {
+          public: true
+        }
+      })
+      .then(response => response.json())
+      .then(response => {
+        if (response.success == true) {
+          dispatch({
+            type: REPLAY_UPDATE,
+            id: response.id,
+            public: true
+          });
+        }
+      });
+    }
+  };
+};
+
+export function makeReplayPrivate (id) {
+  return (dispatch, getState) => {
+    const { session } = getState();
+    if (session.token != null) {
+      fetch(`${Settings.API_ADDR}/replay/${id}`, {
+        method: 'patch',
+        headers: {
+          "Authorization": `Bearer ${session.token}`
+        },
+        body: {
+          public: false
+        }
+      })
+      .then(response => response.json())
+      .then(response => {
+        if (response.success == true) {
+          dispatch({
+            type: REPLAY_UPDATE,
+            id: response.id,
+            public: false
+          });
+        }
+      });
+    }
+  };
+};
