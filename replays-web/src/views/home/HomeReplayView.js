@@ -1,5 +1,4 @@
 import React from 'react';
-import FluxComponent from 'flummox/component';
 import SectionNavbar from '../../components/SectionNavbar';
 import ReplayDetail from '../../components/ReplayDetail';
 import ReplayDetailNavbar from '../../components/ReplayDetailNavbar';
@@ -53,13 +52,7 @@ export default class HomeReplayViewWrapper extends React.Component {
 
   render () {
     return (
-      <FluxComponent connectToStores={{
-        replays: store => ({
-          replay: store.get(this.state.id)
-        })
-      }}>
-        <HomeReplayView {...this.props} />
-      </FluxComponent>
+      <HomeReplayView {...this.props} />
     );
   }
 

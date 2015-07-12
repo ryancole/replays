@@ -1,5 +1,4 @@
 import React from 'react';
-import FluxComponent from 'flummox/component';
 import { RouteHandler } from 'react-router';
 
 
@@ -7,9 +6,7 @@ class HomeView extends React.Component {
 
   render () {
     return (
-      <FluxComponent>
-        <RouteHandler {...this.props} />
-      </FluxComponent>
+      <RouteHandler {...this.props} />
     );
   }
 
@@ -25,9 +22,7 @@ export default class HomeViewWrapper extends React.Component {
 
   render () {
     return (
-      <FluxComponent>
-        <HomeView {...this.props} />
-      </FluxComponent>
+      <HomeView {...this.props} />
     );
 
   }

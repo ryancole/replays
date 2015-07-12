@@ -1,7 +1,7 @@
 import { ACCOUNT_SET } from '../constants/ActionTypes';
 
 
-export default function session (state = {}, action) {
+export default function account (state = {}, action) {
 
   switch (action.type) {
 

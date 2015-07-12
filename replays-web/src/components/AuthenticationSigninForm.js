@@ -1,4 +1,5 @@
 import React from 'react';
+import { fetchNewSession } from '../actions/SessionActions';
 
 
 export default class AuthenticationSigninForm extends React.Component {
@@ -44,7 +45,7 @@ export default class AuthenticationSigninForm extends React.Component {
     React.findDOMNode(this.refs.password).value = "";
 
     // handle the signin attempt
-    this.props.onSignin(username, password);
+    fetchNewSession(username, password);
 
   }
 

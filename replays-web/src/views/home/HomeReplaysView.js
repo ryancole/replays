@@ -1,5 +1,4 @@
 import React from 'react';
-import FluxComponent from 'flummox/component';
 import ReplayTable from '../../components/ReplayTable';
 import SectionNavbar from '../../components/SectionNavbar';
 import ReplayHomeNavbar from '../../components/ReplayHomeNavbar';
@@ -13,10 +12,8 @@ class HomeReplaysView extends React.Component {
         <div className="row">
           <div className="col-sm-12">
             <SectionNavbar label="Replays">
-              <FluxComponent>
-                <ReplayHomeNavbar
-                  activeSession={this.props.activeSession} />
-              </FluxComponent>
+              <ReplayHomeNavbar
+                activeSession={this.props.activeSession} />
             </SectionNavbar>
           </div>
         </div>
@@ -47,15 +44,9 @@ export default class HomeReplaysViewWrapper extends React.Component {
 
   render () {
     return (
-      <FluxComponent connectToStores={{
-        replays: store => ({
-          replays: store.getAll()
-        })
-      }}>
-        <HomeReplaysView {...this.props}
-          onDelete={this._handleDelete}
-          onToggleSharing={this._handleToggleSharing} />
-      </FluxComponent>
+      <HomeReplaysView {...this.props}
+        onDelete={this._handleDelete}
+        onToggleSharing={this._handleToggleSharing} />
     );
   }
 

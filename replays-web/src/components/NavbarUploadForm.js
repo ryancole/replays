@@ -1,5 +1,4 @@
 import React from 'react';
-import Replays from '../repository/ReplayRepository';
 
 
 export default class NavbarUploadForm extends React.Component {
@@ -114,27 +113,31 @@ export default class NavbarUploadForm extends React.Component {
   async _handleUploadAttempt (file) {
 
     // fetch the signed upload request
-    let signed = await Replays.getUploadDestination(
-      this.props.activeSession,
-      file
-    );
+    // let signed = await Replays.getUploadDestination(
+    //   this.props.activeSession,
+    //   file
+    // );
 
     // update component state with new info
-    this.setState({
-      file: file,
-      phase: 1,
-      signed: signed
-    });
+    // this.setState({
+    //   file: file,
+    //   phase: 1,
+    //   signed: signed
+    // });
 
   }
 
   async _beginAwsTransfer (file, signed) {
 
     // upload the file to aws
-    let result = await Replays.putToDestination(
-      file,
-      signed
-    );
+    // let result = await Replays.putToDestination(
+    //   file,
+    //   signed
+    // );
+
+    var result = {
+      ok: false
+    };
 
     if (result.ok === true) {
 

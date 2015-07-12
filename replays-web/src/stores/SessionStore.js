@@ -1,12 +1,7 @@
 import { SESSION_SET, SESSION_CLEAR } from '../constants/ActionTypes';
 
 
-const initialState = {
-  token: null,
-  details: null
-};
-
-export default function session (state = initialState, action) {
+export default function session (state = {}, action) {
 
   switch (action.type) {
 
@@ -14,10 +9,7 @@ export default function session (state = initialState, action) {
       return action;
 
     case SESSION_CLEAR:
-      return {
-        token: null,
-        details: null
-      };
+      return null;
 
     default:
       return state;
