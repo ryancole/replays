@@ -8,10 +8,10 @@ export async function createAccount (username, password) {
 
   const payload = {
     method: 'post',
-    body: {
+    body: JSON.stringify({
       username: username,
       password: password
-    }
+    })
   };
 
   // create the account

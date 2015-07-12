@@ -14,9 +14,12 @@ export function fetchNewSession (username, password) {
   return dispatch => {
     fetch(`${Settings.API_ADDR}/session`, {
       method: 'post',
-      body: {
+      body: JSON.stringify({
         username: username,
         password: password
+      }),
+      headers: {
+        'Content-Type': 'application/json'
       }
     })
     .then(response => response.json())

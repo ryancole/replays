@@ -71,9 +71,9 @@ export function makeReplayPublic (id) {
         headers: {
           "Authorization": `Bearer ${session.token}`
         },
-        body: {
+        body: JSON.stringify({
           public: true
-        }
+        })
       })
       .then(response => response.json())
       .then(response => {
@@ -98,9 +98,9 @@ export function makeReplayPrivate (id) {
         headers: {
           "Authorization": `Bearer ${session.token}`
         },
-        body: {
+        body: JSON.stringify({
           public: false
-        }
+        })
       })
       .then(response => response.json())
       .then(response => {

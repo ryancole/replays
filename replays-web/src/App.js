@@ -10,16 +10,15 @@ import Replays from './stores/ReplayStore';
 import Accounts from './stores/AccountStore';
 import Sessions from './stores/SessionStore';
 
-
 /**
  * instanciate redux
  */
 
 const redux = createRedux({
   replays: Replays,
+  accounts: Accounts,
   sessions: Sessions
 });
-
 
 /**
  * run the application

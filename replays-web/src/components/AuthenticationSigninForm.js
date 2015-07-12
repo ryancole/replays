@@ -1,8 +1,12 @@
 import React from 'react';
-import { fetchNewSession } from '../actions/SessionActions';
-
 
 export default class AuthenticationSigninForm extends React.Component {
+
+  static get propTypes () {
+    return {
+      onSignin: React.PropTypes.func.isRequired
+    };
+  }
 
   constructor () {
 
@@ -45,7 +49,7 @@ export default class AuthenticationSigninForm extends React.Component {
     React.findDOMNode(this.refs.password).value = "";
 
     // handle the signin attempt
-    fetchNewSession(username, password);
+    this.props.onSignin(username, password);
 
   }
 
