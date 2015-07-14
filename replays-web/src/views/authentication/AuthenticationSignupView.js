@@ -2,7 +2,7 @@ import React from 'react';
 import AuthenticationSignupForm from '../../components/AuthenticationSignupForm';
 
 
-class AuthenticationSignupView extends React.Component {
+export default class AuthenticationSignupView extends React.Component {
 
   render() {
     return (
@@ -12,16 +12,6 @@ class AuthenticationSignupView extends React.Component {
             onSignup={this.props.onSignup} />
         </div>
       </div>
-    );
-  }
-
-}
-
-export default class AuthenticationSignupViewWrapper extends React.Component {
-
-  render () {
-    return (
-      <AuthenticationSignupView {...this.props} />
     );
   }
 

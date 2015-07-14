@@ -27,10 +27,4 @@ export default class HomeViewWrapper extends React.Component {
 
   }
 
-  componentWillMount () {
-    if (this.props.isAuthenticated !== true) {
-      this.context.router.transitionTo("signin");
-    }
-  }
-
 }

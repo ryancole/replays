@@ -1,29 +1,18 @@
 import React from 'react';
-import { connect } from 'redux/react';
+import { connect } from 'react-redux';
 import { RouteHandler } from 'react-router';
 import { bindActionCreators } from 'redux';
-
-
-/**
- * react components
- */
 
 import ApplicationLogo from '../../components/ApplicationLogo';
 import ApplicationNavbar from '../../components/ApplicationNavbar';
 import AuthenticationNavbar from '../../components/AuthenticationNavbar';
 
-
-/**
- * action creators
- */
-
-import * as AccountActions from '../../actions/AccountActions';
 import * as SessionActions from '../../actions/SessionActions';
 
 
 @connect(state => ({
-  activeSession: state.session,
-  isAuthenticated: state.session != null
+  activeSession: state.sessions,
+  isAuthenticated: state.sessions != null
 }))
 export default class ApplicationView extends React.Component {
 
@@ -41,7 +30,6 @@ export default class ApplicationView extends React.Component {
   }
 
   render () {
-    console.log(this.props);
     return (
       <div className="container">
         <AuthenticationNavbar
@@ -66,8 +54,6 @@ export default class ApplicationView extends React.Component {
   }
 
   componentWillReceiveProps (props) {
-
-    console.log('new props', props);
 
     // whether the user just logged in
     const justLoggedIn = (this.props.isAuthenticated == false &&
