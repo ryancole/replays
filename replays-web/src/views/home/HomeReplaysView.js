@@ -10,6 +10,14 @@ import ReplayHomeNavbar from '../../components/ReplayHomeNavbar';
 }))
 export default class HomeReplaysView extends React.Component {
 
+  static get propTypes () {
+    return {
+      actions: React.PropTypes.object.isRequired,
+      replays: React.PropTypes.array.isRequired,
+      activeSession: React.PropTypes.object.isRequired
+    };
+  }
+
   render () {
     return (
       <div>
@@ -17,7 +25,8 @@ export default class HomeReplaysView extends React.Component {
           <div className="col-sm-12">
             <SectionNavbar label="Replays">
               <ReplayHomeNavbar
-                activeSession={this.props.activeSession} />
+                activeSession={this.props.activeSession}
+                fetchAllReplays={this.props.actions.fetchAllReplays} />
             </SectionNavbar>
           </div>
         </div>
@@ -25,12 +34,16 @@ export default class HomeReplaysView extends React.Component {
           <div className="col-sm-12">
             <ReplayTable 
               replays={this.props.replays}
-              onDelete={this.props.onDelete}
+              onDelete={this.props.actions.deleteReplay}
               onToggleSharing={this.props.onToggleSharing} />
           </div>
         </div>
       </div>
     );
+  }
+
+  componentDidMount () {
+    this.props.actions.fetchAllReplays();
   }
 
 }

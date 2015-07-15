@@ -1,6 +1,6 @@
 import 'whatwg-fetch';
 import Settings from '../../dank.config';
-import { REPLAY_MERGE } from '../constants/ActionTypes';
+import { REPLAY_MERGE, REPLAY_DELETE } from '../constants/ActionTypes';
 
 
 export function fetchAllReplays () {

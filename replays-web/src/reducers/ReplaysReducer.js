@@ -15,7 +15,7 @@ export default function replays (state = initialState, action) {
       return state.merge(replays);
 
     case REPLAY_DELETE:
-      return state;
+      return state.delete(action.id);
 
     case REPLAY_UPDATE:
       return state;

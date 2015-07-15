@@ -6,6 +6,12 @@ import ReplayDetailNavbar from '../../components/ReplayDetailNavbar';
 
 class HomeReplayView extends React.Component {
 
+  static get propTypes () {
+    return {
+      activeSession: React.PropTypes.object.isRequired
+    };
+  }
+
   render () {
 
     // TODO: loading spinner

@@ -4,6 +4,13 @@ import { Link } from 'react-router';
 
 export default class ReplayTableRow extends React.Component {
 
+  static get propTypes () {
+    return {
+      replay: React.PropTypes.object.isRequired,
+      onDelete: React.PropTypes.func.isRequired
+    };
+  }
+
   constructor () {
 
     super();
@@ -55,7 +62,7 @@ export default class ReplayTableRow extends React.Component {
   }
 
   _handleDeleteClick (event) {
-    this.props.onDelete(this.props.replay);
+    this.props.onDelete(this.props.replay.id);
   }
 
   _handleToggleSharingClick (event) {

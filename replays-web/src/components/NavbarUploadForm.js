@@ -1,7 +1,15 @@
 import React from 'react';
+import Replays from '../repositories/ReplayRepository';
 
 
 export default class NavbarUploadForm extends React.Component {
+
+  static get propTypes () {
+    return {
+      activeSession: React.PropTypes.object.isRequired,
+      fetchAllReplays: React.PropTypes.func.isRequired
+    };
+  }
 
   constructor () {
 
@@ -102,9 +110,7 @@ export default class NavbarUploadForm extends React.Component {
         signed: null
       });
 
-      const actions = this.props.flux.getActions("replays");
-      
-      actions.getAll(this.props.activeSession);
+      this.props.fetchAllReplays();
 
     });
 
@@ -113,31 +119,30 @@ export default class NavbarUploadForm extends React.Component {
   async _handleUploadAttempt (file) {
 
     // fetch the signed upload request
-    // let signed = await Replays.getUploadDestination(
-    //   this.props.activeSession,
-    //   file
-    // );
+    let signed = await Replays.getUploadDestination(
+      this.props.activeSession,
+      file
+    );
 
     // update component state with new info
-    // this.setState({
-    //   file: file,
-    //   phase: 1,
-    //   signed: signed
-    // });
+    this.setState({
+      file: file,
+      phase: 1,
+      signed: signed
+    });
 
   }
 
   async _beginAwsTransfer (file, signed) {
 
-    // upload the file to aws
-    // let result = await Replays.putToDestination(
-    //   file,
-    //   signed
-    // );
+    console.log(file);
+    console.log(signed);
 
-    var result = {
-      ok: false
-    };
+    // upload the file to aws
+    let result = await Replays.putToDestination(
+      file,
+      signed
+    );
 
     if (result.ok === true) {
 
