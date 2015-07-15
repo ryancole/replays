@@ -6,7 +6,7 @@ export default class AuthenticationSigninView extends React.Component {
 
   static get propTypes () {
     return {
-      fetchNewSession: React.PropTypes.func.isRequired
+      actions: React.PropTypes.object.isRequired
     };
   }
 
@@ -15,13 +15,13 @@ export default class AuthenticationSigninView extends React.Component {
       <div>
         <div className="row">
           <div className="col-sm-12">
-            <SectionNavbar />
+            <SectionNavbar label="Sign In" />
           </div>
         </div>
         <div className="row">
           <div className="col-sm-4 col-sm-offset-3">
             <AuthenticationSigninForm
-              onSignin={this.props.fetchNewSession} />
+              onSignin={this.props.actions.fetchNewSession} />
           </div>
         </div>
       </div>

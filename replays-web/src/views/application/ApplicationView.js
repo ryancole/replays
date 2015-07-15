@@ -3,16 +3,18 @@ import { connect } from 'react-redux';
 import { RouteHandler } from 'react-router';
 import { bindActionCreators } from 'redux';
 
+// action creators
+import * as actions from '../../actions';
+
+// ui components
 import ApplicationLogo from '../../components/ApplicationLogo';
 import ApplicationNavbar from '../../components/ApplicationNavbar';
 import AuthenticationNavbar from '../../components/AuthenticationNavbar';
 
-import * as SessionActions from '../../actions/SessionActions';
-
 
 @connect(state => ({
-  activeSession: state.sessions,
-  isAuthenticated: state.sessions != null
+  activeSession: state.session,
+  isAuthenticated: state.session != null
 }))
 export default class ApplicationView extends React.Component {
 
@@ -44,9 +46,9 @@ export default class ApplicationView extends React.Component {
           </div>
           <div className="col-sm-10">
             <RouteHandler
+              actions={bindActionCreators(actions, this.props.dispatch)}
               activeSession={this.props.activeSession}
-              isAuthenticated={this.props.isAuthenticated}
-              {...bindActionCreators(SessionActions, this.props.dispatch)} />
+              isAuthenticated={this.props.isAuthenticated} />
           </div>
         </div>
       </div>
