@@ -8,7 +8,7 @@ import ReplayHomeNavbar from '../../components/ReplayHomeNavbar';
 @connect(state => ({
   replays: state.replays.toArray()
 }))
-export default class HomeReplaysView extends React.Component {
+export default class ReplayIndexView extends React.Component {
 
   static get propTypes () {
     return {

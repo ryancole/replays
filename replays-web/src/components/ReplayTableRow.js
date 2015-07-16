@@ -37,7 +37,7 @@ export default class ReplayTableRow extends React.Component {
     return (
       <tr className="replayTableRow">
         <td>
-          <Link to="replay" params={{
+          <Link to="replay-detail" params={{
             id: replay.id
           }}>
             {replay.filename}

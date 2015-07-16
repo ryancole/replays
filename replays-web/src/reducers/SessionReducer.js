@@ -17,6 +17,7 @@ export default function session (state = initialState, action) {
       return session;
 
     case SESSION_CLEAR:
+    localStorage.removeItem("dank");
       return null;
 
     default:

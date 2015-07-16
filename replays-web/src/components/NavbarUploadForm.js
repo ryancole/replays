@@ -112,7 +112,7 @@ export default class NavbarUploadForm extends React.Component {
 
       this.props.fetchAllReplays();
 
-    });
+    }, 3000);
 
   }
 
@@ -134,9 +134,6 @@ export default class NavbarUploadForm extends React.Component {
   }
 
   async _beginAwsTransfer (file, signed) {
-
-    console.log(file);
-    console.log(signed);
 
     // upload the file to aws
     let result = await Replays.putToDestination(

@@ -1,20 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import SectionNavbar from '../../components/SectionNavbar';
 import ReplayDetail from '../../components/ReplayDetail';
 import ReplayDetailNavbar from '../../components/ReplayDetailNavbar';
 
 
-class HomeReplayView extends React.Component {
+export default class ReplayDetailView extends React.Component {
 
   static get propTypes () {
     return {
+      actions: React.PropTypes.object.isRequired,
       activeSession: React.PropTypes.object.isRequired
     };
   }
 
   render () {
 
-    // TODO: loading spinner
     if (!this.props.replay) {
       return null;
     }
@@ -40,45 +41,6 @@ class HomeReplayView extends React.Component {
       </div>
     );
 
-  }
-
-}
-
-export default class HomeReplayViewWrapper extends React.Component {
-
-  constructor (props) {
-
-    super(props);
-
-    this.state = {
-      id: parseInt(props.params.id)
-    };
-
-  }
-
-  render () {
-    return (
-      <HomeReplayView {...this.props} />
-    );
-  }
-
-  componentDidMount () {
-    setTimeout(() => {
-
-      const store = this.props.flux.getStore("replays");
-
-      if (store.has(this.state.id) === false) {
-
-        const replays = this.props.flux.getActions("replays");
-
-        replays.getById(
-          this.props.activeSession,
-          this.state.id
-        );
-
-      }
-
-    });
   }
 
 }
