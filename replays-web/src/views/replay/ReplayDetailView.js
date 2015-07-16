@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import SectionNavbar from '../../components/SectionNavbar';
 import ReplayDetail from '../../components/ReplayDetail';
+import SectionNavbar from '../../components/SectionNavbar';
 import ReplayDetailNavbar from '../../components/ReplayDetailNavbar';
+import * as ReplayActions from '../../actions/ReplayActions';
 
 
 @connect(state => ({
-  replay: state.replays.get(parseInt(state.router.params.id))
+  replay: state.replays.get(parseInt(state.router.params.id)),
+  activeSession: state.session
 }))
 export default class ReplayDetailView extends React.Component {
 
@@ -37,6 +39,22 @@ export default class ReplayDetailView extends React.Component {
       </div>
     );
 
+  }
+
+  componentDidMount () {
+
+    // if there's no replay available then
+    // we need to fetch it from the server
+    if (this.props.replay == null) {
+
+      // fetch the specific replay from the server
+      const replay = ReplayActions.fetchReplayById(this.props.params.id);
+
+      // dispatch the action
+      this.props.dispatch(replay);
+
+    }
+    
   }
 
 }

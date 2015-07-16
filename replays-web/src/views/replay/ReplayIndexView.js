@@ -51,7 +51,7 @@ export default class ReplayIndexView extends React.Component {
     );
   }
 
-  componentDidMount () {
+  componentWillMount () {
     this.actions.fetchAllReplays();
   }
 
