@@ -1,15 +1,18 @@
-/**
- * Module dependencies
- */
-
 import React from 'react';
 
+export default class SectionNavbar extends React.Component {
 
-/**
- * Component definition
- */ 
+  static get propTypes () {
+    return {
+      label: React.PropTypes.string
+    };
+  }
 
-class SectionNavbar extends React.Component {
+  static get defaultProps () {
+    return {
+      label: ''
+    };
+  }
 
   render() {
     return (
@@ -25,10 +28,3 @@ class SectionNavbar extends React.Component {
   }
 
 }
-
-
-/**
- * Module exports
- */
-
-export default SectionNavbar;

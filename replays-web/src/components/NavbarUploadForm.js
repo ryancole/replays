@@ -1,8 +1,15 @@
 import React from 'react';
-import Replays from '../repository/ReplayRepository';
+import Replays from '../repositories/ReplayRepository';
 
 
 export default class NavbarUploadForm extends React.Component {
+
+  static get propTypes () {
+    return {
+      activeSession: React.PropTypes.object.isRequired,
+      fetchAllReplays: React.PropTypes.func.isRequired
+    };
+  }
 
   constructor () {
 
@@ -103,11 +110,9 @@ export default class NavbarUploadForm extends React.Component {
         signed: null
       });
 
-      const actions = this.props.flux.getActions("replays");
-      
-      actions.getAll(this.props.activeSession);
+      this.props.fetchAllReplays();
 
-    });
+    }, 3000);
 
   }
 

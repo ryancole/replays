@@ -1,32 +1,43 @@
-import { Actions } from 'flummox';
-import Sessions from '../repository/SessionRepository';
+import 'whatwg-fetch';
+import jwt from 'jsonwebtoken';
+import Settings from '../../dank.config';
+import { SESSION_SET, SESSION_CLEAR } from '../constants/ActionTypes';
 
 
-export default class SessionActions extends Actions {
+export function clearSession () {
+  return {
+    type: SESSION_CLEAR
+  };
+};
 
-  /**
-   * fetch a new session
-   */
+export function fetchNewSession (username, password) {
+  return dispatch => {
+    fetch(`${Settings.API_ADDR}/session`, {
+      method: 'post',
+      body: JSON.stringify({
+        username: username,
+        password: password
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(response => dispatch({
+      type: SESSION_SET,
+      token: response.token,
+      details: jwt.decode(response.token)
+    }));
+  };
+};
 
-  async create (username, password) {
-
-    // fetch a session token
-    let session = await Sessions.create(username, password);
-
-    // dispatch session token
-    return session.token;
-
+export function fetchExistingSession () {
+  const session = checkLocalStorage();
+  if (session === null) {
+    return clearSession();
   }
-
-
-  /**
-   * kill the current session
-   */
-
-  signout () {
-
-    return null;
-    
-  }
-
-}
+  return {
+    ...session,
+    type: SESSION_SET
+  };
+};

@@ -24,7 +24,7 @@ export default class AuthenticationNavbarLinks extends React.Component {
         </p>
         <ul className="nav navbar-nav">
           <li>
-            <a onClick={this.props.onSignout}>Sign Out</a>
+            <Link to="signout">Sign Out</Link>
           </li>
         </ul>
       </div>

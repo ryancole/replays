@@ -6,6 +6,7 @@ let settings = {
   "DOWNLOAD_PREFIX": "https://cdn.dank.gg"
 };
 
+// production settings
 if (process.env.NODE_ENV == 'production') {
   settings = {
     "API_ADDR": "http://api.dank.gg",

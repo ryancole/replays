@@ -1,7 +1,12 @@
 import React from 'react';
 
-
 export default class AuthenticationSigninForm extends React.Component {
+
+  static get propTypes () {
+    return {
+      onSignin: React.PropTypes.func.isRequired
+    };
+  }
 
   constructor () {
 

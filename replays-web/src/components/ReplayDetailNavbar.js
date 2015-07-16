@@ -1,5 +1,4 @@
 import React from 'react';
-import Replays from '../repository/ReplayRepository';
 
 
 export default class ReplayDetailNavbar extends React.Component {
@@ -26,15 +25,15 @@ export default class ReplayDetailNavbar extends React.Component {
 
     event.preventDefault();
 
-    let source = await Replays.getDownloadSource(
-      this.props.activeSession,
-      this.props.replay.id
-    );
+    // let source = await Replays.getDownloadSource(
+    //   this.props.activeSession,
+    //   this.props.replay.id
+    // );
 
-    window.open(
-      source.url,
-      "_blank"
-    );
+    // window.open(
+    //   source.url,
+    //   "_blank"
+    // );
 
   }
 

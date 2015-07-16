@@ -1,42 +1,57 @@
-/**
- * Module dependencies
- */
-
-import { Actions } from 'flummox';
-import Accounts from '../repository/AccountRepository';
-import Sessions from '../repository/SessionRepository';
+import 'whatwg-fetch';
+import jwt from 'jsonwebtoken';
+import Settings from '../../dank.config';
+import { ACCOUNT_SET, SESSION_SET } from '../constants/ActionTypes';
 
 
-class AccountActions extends Actions {
+export function createAccount (username, password) {
+  return async dispatch => {
 
-  // create a new account and respond
-  // with a session for that account
-  async create (username, password) {
+    const payload = {
+      method: 'post',
+      body: JSON.stringify({
+        username: username,
+        password: password
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
 
     // create the account
-    let account = await Accounts.create(username, password);
+    let account = await fetch(`${Settings.API_ADDR}/account`, payload).then(res => res.json());
 
-    if (account.id > 0) {
-
-      // create a session for the account
-      let session = await Sessions.create(username, password);
-
-      // dispatch the session token
-      return session.token;
-
+    if (account.id <= 0) {
+      return;
     }
 
-  }
+    // create the session
+    let session = await fetch(`${Settings.API_ADDR}/session`, payload).then(res => res.json());
 
-  async getByActiveSession (session) {
-    return await Accounts.getByActiveSession(session);
-  }
+    // dispatch the session details
+    dispatch({
+      type: SESSION_SET,
+      token: session.token,
+      details: jwt.decode(session.token)
+    });
 
-}
+  };
+};
 
-
-/**
- * Module exports
- */
-
-export default AccountActions;
+export function getAccountBySession () {
+  return (dispatch, getState) => {
+    const { session } = getState();
+    if (session.token != null) {
+      fetch(`${Settings.API_ADDR}/account/${session.account.id}`, {
+        headers: {
+          "Authorization": `Bearer ${session.token}`
+        }
+      })
+      .then(response => response.json())
+      .then(response => dispatch({
+        type: ACCOUNT_SET,
+        account: response
+      }));
+    }
+  };
+};

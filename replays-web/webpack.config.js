@@ -7,7 +7,7 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:8081',
     'webpack/hot/only-dev-server',
-    path.resolve(__dirname, 'src', 'AppBootstrap.js')
+    path.resolve(__dirname, 'src', 'App.js')
   ],
   plugins: [
     new webpack.NoErrorsPlugin,

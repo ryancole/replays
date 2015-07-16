@@ -4,6 +4,12 @@ import ReplayTableRow from './ReplayTableRow';
 
 export default class ReplayTable extends React.Component {
 
+  static get propTypes () {
+    return {
+      onDelete: React.PropTypes.func.isRequired
+    };
+  }
+
   render () {
 
     // table rows
