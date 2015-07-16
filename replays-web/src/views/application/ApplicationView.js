@@ -9,7 +9,8 @@ import AuthenticationNavbar from '../../components/AuthenticationNavbar';
 
 
 @connect(state => ({
-  activeSession: state.session
+  activeSession: state.session,
+  isAuthenticated: state.session != null
 }))
 export default class ApplicationView extends React.Component {
 
@@ -52,9 +53,9 @@ export default class ApplicationView extends React.Component {
 
     // transition based on auth state change
     if (justLoggedIn == true) {
-      dispatch(transitionTo("/replay"));
+      this.props.dispatch(transitionTo("/replay"));
     } else if (justLoggedOut == true) {
-      dispatch(transitionTo("/"));
+      this.props.dispatch(transitionTo("/"));
     }
 
   }

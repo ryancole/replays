@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 export default class AuthenticationSigninForm extends React.Component {
 
@@ -38,15 +39,15 @@ export default class AuthenticationSigninForm extends React.Component {
     event.preventDefault();
     
     // santitize form inputs
-    var username = React.findDOMNode(this.refs.username).value.trim();
-    var password = React.findDOMNode(this.refs.password).value.trim();
+    var username = ReactDOM.findDOMNode(this.refs.username).value.trim();
+    var password = ReactDOM.findDOMNode(this.refs.password).value.trim();
 
     if (!username || !password) {
       return;
     }
 
     // clear password input
-    React.findDOMNode(this.refs.password).value = "";
+    ReactDOM.findDOMNode(this.refs.password).value = "";
 
     // handle the signin attempt
     this.props.onSignin(username, password);

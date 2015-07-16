@@ -5,14 +5,10 @@ import ReplayDetail from '../../components/ReplayDetail';
 import ReplayDetailNavbar from '../../components/ReplayDetailNavbar';
 
 
+@connect(state => ({
+  replay: state.replays.get(parseInt(state.router.params.id))
+}))
 export default class ReplayDetailView extends React.Component {
-
-  static get propTypes () {
-    return {
-      actions: React.PropTypes.object.isRequired,
-      activeSession: React.PropTypes.object.isRequired
-    };
-  }
 
   render () {
 

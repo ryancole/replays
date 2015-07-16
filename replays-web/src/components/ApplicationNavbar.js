@@ -10,7 +10,7 @@ class ApplicationNavbar extends React.Component {
         <div className="col-sm-12">
           <ul className="nav">
             <li>
-              <Link to="replay-index">
+              <Link to="/replay">
                 Replays
               </Link>
             </li>

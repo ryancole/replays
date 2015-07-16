@@ -1,21 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as ReplayActions from '../../actions/ReplayActions';
+
 import ReplayTable from '../../components/ReplayTable';
 import SectionNavbar from '../../components/SectionNavbar';
 import ReplayHomeNavbar from '../../components/ReplayHomeNavbar';
 
 
 @connect(state => ({
-  replays: state.replays.toArray()
+  replays: state.replays.toArray(),
+  activeSession: state.session
 }))
 export default class ReplayIndexView extends React.Component {
 
   static get propTypes () {
     return {
-      actions: React.PropTypes.object.isRequired,
       replays: React.PropTypes.array.isRequired,
       activeSession: React.PropTypes.object.isRequired
     };
+  }
+
+  constructor (props) {
+    super(props);
+    this.actions = bindActionCreators(ReplayActions, props.dispatch);
   }
 
   render () {
@@ -26,7 +35,7 @@ export default class ReplayIndexView extends React.Component {
             <SectionNavbar label="Replays">
               <ReplayHomeNavbar
                 activeSession={this.props.activeSession}
-                fetchAllReplays={this.props.actions.fetchAllReplays} />
+                fetchAllReplays={this.actions.fetchAllReplays} />
             </SectionNavbar>
           </div>
         </div>
@@ -34,7 +43,7 @@ export default class ReplayIndexView extends React.Component {
           <div className="col-sm-12">
             <ReplayTable 
               replays={this.props.replays}
-              onDelete={this.props.actions.deleteReplay}
+              onDelete={this.actions.deleteReplay}
               onToggleSharing={this.props.onToggleSharing} />
           </div>
         </div>
@@ -43,7 +52,7 @@ export default class ReplayIndexView extends React.Component {
   }
 
   componentDidMount () {
-    this.props.actions.fetchAllReplays();
+    this.actions.fetchAllReplays();
   }
 
 }
