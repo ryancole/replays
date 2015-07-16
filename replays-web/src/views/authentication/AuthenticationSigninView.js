@@ -1,13 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as SessionActions from '../../actions/SessionActions';
+
 import SectionNavbar from '../../components/SectionNavbar';
 import AuthenticationSigninForm from '../../components/AuthenticationSigninForm';
 
+@connect(state => ({}))
 export default class AuthenticationSigninView extends React.Component {
 
-  static get propTypes () {
-    return {
-      actions: React.PropTypes.object.isRequired
-    };
+  constructor (props) {
+    super(props);
+    this.actions = bindActionCreators(SessionActions, props.dispatch);
   }
 
   render() {
@@ -21,7 +26,7 @@ export default class AuthenticationSigninView extends React.Component {
         <div className="row">
           <div className="col-sm-4 col-sm-offset-3">
             <AuthenticationSigninForm
-              onSignin={this.props.actions.fetchNewSession} />
+              onSignin={this.actions.fetchNewSession} />
           </div>
         </div>
       </div>

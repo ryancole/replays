@@ -33,7 +33,8 @@ module.exports = {
     hot: true,
     port: 8081,
     colors: true,
-    publicPath: '/static/'
+    publicPath: '/static/',
+    historyApiFallback: true
   },
   module: {
     loaders: [

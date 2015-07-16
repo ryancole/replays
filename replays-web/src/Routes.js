@@ -1,5 +1,9 @@
 import React from 'react';
-import { Route, DefaultRoute } from 'react-router';
+import { history } from 'react-router/lib/BrowserHistory';
+import { reduxRouteComponent } from 'redux-react-router';
+import { Route, Router, DefaultRoute } from 'react-router';
+
+import { reducer, createStore } from './reducers';
 
 import ReplayIndexView from './views/replay/ReplayIndexView';
 import ReplayDetailView from './views/replay/ReplayDetailView';
@@ -11,17 +15,19 @@ import AuthenticationSignupView from './views/authentication/AuthenticationSignu
 import AuthenticationSignoutView from './views/authentication/AuthenticationSignoutView';
 
 
+// redux store
+const store = createStore(reducer);
+
 export default (
-  <Route path="/" handler={ApplicationView}>
-    <Route name="auth">
-      <Route name="signin" handler={AuthenticationSigninView} />
-      <Route name="signup" handler={AuthenticationSignupView} />
-      <Route name="signout" handler={AuthenticationSignoutView} />
+  <Router history={history}>
+    <Route component={reduxRouteComponent(store)}>
+      <Route path="/" component={ApplicationView}>
+        <Route path="signin" component={AuthenticationSigninView} />
+        <Route path="signup" component={AuthenticationSignupView} />
+        <Route path="signout" component={AuthenticationSignoutView} />
+        <Route path="replay" component={ReplayIndexView} />
+        <Route path="replay/:id" component={ReplayDetailView} />
+      </Route>
     </Route>
-    <Route name="replay">
-      <Route name="replay-detail" path=":id" handler={ReplayDetailView} />
-      <DefaultRoute name="replay-index" handler={ReplayIndexView} />
-    </Route>
-    <DefaultRoute handler={ReplayIndexView} />
-  </Route>
+  </Router>
 );
