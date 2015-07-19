@@ -28,7 +28,7 @@ module.exports = {
       'bootstrap': 'bootstrap/dist'
     }
   },
-  devtool: 'eval',
+  devtool: 'source-map',
   devServer: {
     hot: true,
     port: 8081,

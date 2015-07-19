@@ -24,6 +24,8 @@ export default class ReplayIndexView extends React.Component {
 
   constructor (props) {
     super(props);
+    this._handleDeleteReplay = this._handleDeleteReplay.bind(this);
+    this._handleToggleSharing = this._handleToggleSharing.bind(this);
     this.actions = bindActionCreators(ReplayActions, props.dispatch);
   }
 
@@ -43,8 +45,8 @@ export default class ReplayIndexView extends React.Component {
           <div className="col-sm-12">
             <ReplayTable 
               replays={this.props.replays}
-              onDelete={this.actions.deleteReplay}
-              onToggleSharing={this.props.onToggleSharing} />
+              onDelete={this._handleDeleteReplay}
+              onToggleSharing={this._handleToggleSharing} />
           </div>
         </div>
       </div>
@@ -53,6 +55,18 @@ export default class ReplayIndexView extends React.Component {
 
   componentWillMount () {
     this.actions.fetchAllReplays();
+  }
+
+  _handleDeleteReplay (replay) {
+    this.actions.deleteReplay(replay.id);
+  }
+
+  _handleToggleSharing (replay) {
+    if (replay.public === false) {
+      this.actions.makeReplayPublic(replay.id);
+    } else {
+      this.actions.makeReplayPrivate(replay.id);
+    }
   }
 
 }

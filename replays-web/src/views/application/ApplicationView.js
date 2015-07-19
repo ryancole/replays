@@ -21,6 +21,7 @@ export default class ApplicationView extends React.Component {
   }
 
   render () {
+    console.log(this.props.children);
     return (
       <div className="container">
         <AuthenticationNavbar
@@ -41,15 +42,21 @@ export default class ApplicationView extends React.Component {
     );
   }
 
+  componentWillMount() {
+    if (this.props.isAuthenticated === false) {
+      this.props.dispatch(transitionTo("/auth/signin"));
+    }
+  }
+
   componentWillReceiveProps (props) {
 
     // whether the user just logged in
-    const justLoggedIn = (this.props.activeSession === null &&
-                          props.activeSession !== null);
+    const justLoggedIn = (this.props.isAuthenticated === false &&
+                          props.isAuthenticated === true);
 
     // whether the user just logged out
-    const justLoggedOut = (this.props.activeSession !== null &&
-                           props.activeSession === null);
+    const justLoggedOut = (this.props.isAuthenticated === true &&
+                           props.isAuthenticated === false);
 
     // transition based on auth state change
     if (justLoggedIn == true) {

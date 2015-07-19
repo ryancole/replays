@@ -45,7 +45,7 @@ export default class ReplayTableRow extends React.Component {
           {replay.date_created}
         </td>
         <td>
-          <div className="btn-group">
+          <div className="btn-group pull-right">
             <button type="button" className="btn btn-default" onClick={this._handleToggleSharingClick}>
               {shareIcon}
             </button>
@@ -60,7 +60,7 @@ export default class ReplayTableRow extends React.Component {
   }
 
   _handleDeleteClick (event) {
-    this.props.onDelete(this.props.replay.id);
+    this.props.onDelete(this.props.replay);
   }
 
   _handleToggleSharingClick (event) {

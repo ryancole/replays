@@ -15,19 +15,36 @@ import AuthenticationSignupView from './views/authentication/AuthenticationSignu
 import AuthenticationSignoutView from './views/authentication/AuthenticationSignoutView';
 
 
-// redux store
+// initialize the single redux store
 const store = createStore(reducer);
 
 export default (
   <Router history={history}>
     <Route component={reduxRouteComponent(store)}>
       <Route path="/" component={ApplicationView}>
-        <Route path="signin" component={AuthenticationSigninView} />
-        <Route path="signup" component={AuthenticationSignupView} />
-        <Route path="signout" component={AuthenticationSignoutView} />
-        <Route path="replay" component={ReplayIndexView} />
-        <Route path="replay/:id" component={ReplayDetailView} />
+        <Route path="auth">
+          <Route path="signin" component={AuthenticationSigninView} />
+          <Route path="signup" component={AuthenticationSignupView} />
+          <Route path="signout" component={AuthenticationSignoutView} />
+        </Route>
+        <Route path="replay">
+          <Route path="/" component={ReplayIndexView} onEnter={handleOnEnter} />
+          <Route path=":id" component={ReplayDetailView} onEnter={handleOnEnter} />
+        </Route>
       </Route>
     </Route>
   </Router>
 );
+
+// prevent entering a route that needs auth
+function handleOnEnter (nextState, transition) {
+  
+  const state = store.getState();
+
+  if (state.session === null) {
+
+    transition.to("/auth/signin");
+
+  }
+
+}

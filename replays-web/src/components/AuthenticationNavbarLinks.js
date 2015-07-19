@@ -24,7 +24,7 @@ export default class AuthenticationNavbarLinks extends React.Component {
         </p>
         <ul className="nav navbar-nav">
           <li>
-            <Link to="signout">Sign Out</Link>
+            <Link to="/auth/signout">Sign Out</Link>
           </li>
         </ul>
       </div>
@@ -36,10 +36,10 @@ export default class AuthenticationNavbarLinks extends React.Component {
       <div className="navbar-right">
         <ul className="nav navbar-nav">
           <li>
-            <Link to="signin">Sign In</Link>
+            <Link to="/auth/signin">Sign In</Link>
           </li>
           <li>
-            <Link to="signup">Sign Up</Link>
+            <Link to="/auth/signup">Sign Up</Link>
           </li>
         </ul>
       </div>
