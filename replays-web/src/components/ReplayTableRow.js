@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React from "react";
+import { Link } from "react-router";
 
 
 export default class ReplayTableRow extends React.Component {
@@ -15,8 +15,8 @@ export default class ReplayTableRow extends React.Component {
 
     super();
 
-    this._handleDeleteClick = this._handleDeleteClick.bind(this);
-    this._handleToggleSharingClick = this._handleToggleSharingClick.bind(this);
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.handleToggleSharingClick = this.handleToggleSharingClick.bind(this);
 
   }
 
@@ -46,10 +46,10 @@ export default class ReplayTableRow extends React.Component {
         </td>
         <td>
           <div className="btn-group pull-right">
-            <button type="button" className="btn btn-default" onClick={this._handleToggleSharingClick}>
+            <button type="button" className="btn btn-default" onClick={this.handleToggleSharingClick}>
               {shareIcon}
             </button>
-            <button type="button" className="btn btn-danger" onClick={this._handleDeleteClick}>
+            <button type="button" className="btn btn-danger" onClick={this.handleDeleteClick}>
               <span className="glyphicon glyphicon-remove-circle"></span>
             </button>
           </div>
@@ -59,11 +59,11 @@ export default class ReplayTableRow extends React.Component {
 
   }
 
-  _handleDeleteClick (event) {
+  handleDeleteClick () {
     this.props.onDelete(this.props.replay);
   }
 
-  _handleToggleSharingClick (event) {
+  handleToggleSharingClick () {
     this.props.onToggleSharing(this.props.replay);
   }
 

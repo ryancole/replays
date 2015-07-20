@@ -1,8 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React from "react";
+import { Link } from "react-router";
 
-
-class ApplicationNavbar extends React.Component {
+export default class ApplicationNavbar extends React.Component {
 
   render() {
     return (
@@ -21,5 +20,3 @@ class ApplicationNavbar extends React.Component {
   }
 
 }
-
-export default ApplicationNavbar;

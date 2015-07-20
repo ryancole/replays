@@ -1,12 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-import * as ReplayActions from '../../actions/ReplayActions';
+import * as ReplayActions from "../../actions/ReplayActions";
 
-import ReplayTable from '../../components/ReplayTable';
-import SectionNavbar from '../../components/SectionNavbar';
-import ReplayHomeNavbar from '../../components/ReplayHomeNavbar';
+import ReplayTable from "../../components/ReplayTable";
+import SectionNavbar from "../../components/SectionNavbar";
+import ReplayHomeNavbar from "../../components/ReplayHomeNavbar";
 
 
 @connect(state => ({
@@ -24,8 +24,8 @@ export default class ReplayIndexView extends React.Component {
 
   constructor (props) {
     super(props);
-    this._handleDeleteReplay = this._handleDeleteReplay.bind(this);
-    this._handleToggleSharing = this._handleToggleSharing.bind(this);
+    this.handleDeleteReplay = this.handleDeleteReplay.bind(this);
+    this.handleToggleSharing = this.handleToggleSharing.bind(this);
     this.actions = bindActionCreators(ReplayActions, props.dispatch);
   }
 
@@ -43,10 +43,10 @@ export default class ReplayIndexView extends React.Component {
         </div>
         <div className="row">
           <div className="col-sm-12">
-            <ReplayTable 
+            <ReplayTable
               replays={this.props.replays}
-              onDelete={this._handleDeleteReplay}
-              onToggleSharing={this._handleToggleSharing} />
+              onDelete={this.handleDeleteReplay}
+              onToggleSharing={this.handleToggleSharing} />
           </div>
         </div>
       </div>
@@ -57,11 +57,11 @@ export default class ReplayIndexView extends React.Component {
     this.actions.fetchAllReplays();
   }
 
-  _handleDeleteReplay (replay) {
+  handleDeleteReplay (replay) {
     this.actions.deleteReplay(replay.id);
   }
 
-  _handleToggleSharing (replay) {
+  handleToggleSharing (replay) {
     if (replay.public === false) {
       this.actions.makeReplayPublic(replay.id);
     } else {

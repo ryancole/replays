@@ -10,7 +10,6 @@ module.exports = {
     path.resolve(__dirname, 'src', 'App.js')
   ],
   plugins: [
-    new webpack.NoErrorsPlugin,
     new webpack.HotModuleReplacementPlugin,
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
@@ -37,6 +36,13 @@ module.exports = {
     historyApiFallback: true
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loader: "eslint-loader",
+        include: path.resolve(__dirname, 'src')
+      }
+    ],
     loaders: [
       {
         test: /\.js$/,

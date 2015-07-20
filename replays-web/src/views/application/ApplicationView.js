@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { transitionTo } from 'redux-react-router';
+import React from "react";
+import { connect } from "react-redux";
+import { transitionTo } from "redux-react-router";
 
 // ui components
-import ApplicationLogo from '../../components/ApplicationLogo';
-import ApplicationNavbar from '../../components/ApplicationNavbar';
-import AuthenticationNavbar from '../../components/AuthenticationNavbar';
+import ApplicationLogo from "../../components/ApplicationLogo";
+import ApplicationNavbar from "../../components/ApplicationNavbar";
+import AuthenticationNavbar from "../../components/AuthenticationNavbar";
 
 
 @connect(state => ({
@@ -21,7 +21,6 @@ export default class ApplicationView extends React.Component {
   }
 
   render () {
-    console.log(this.props.children);
     return (
       <div className="container">
         <AuthenticationNavbar
@@ -59,9 +58,9 @@ export default class ApplicationView extends React.Component {
                            props.isAuthenticated === false);
 
     // transition based on auth state change
-    if (justLoggedIn == true) {
+    if (justLoggedIn === true) {
       this.props.dispatch(transitionTo("/replay"));
-    } else if (justLoggedOut == true) {
+    } else if (justLoggedOut === true) {
       this.props.dispatch(transitionTo("/"));
     }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 
 export default class AuthenticationSignupForm extends React.Component {
@@ -8,13 +8,13 @@ export default class AuthenticationSignupForm extends React.Component {
     super();
 
     // pre bind event handlers
-    this._handleSubmit = this._handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
   }
 
   render () {
     return (
-      <form onSubmit={this._handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
         <div className="form-group">
           <label htmlFor="username">Username</label>
           <input className="form-control" type="text" ref="username" />
@@ -35,7 +35,7 @@ export default class AuthenticationSignupForm extends React.Component {
   _handleSubmit (event) {
 
     event.preventDefault();
-    
+
     // santitize form inputs
     let username = React.findDOMNode(this.refs.username).value.trim();
     let password = React.findDOMNode(this.refs.password).value.trim();
@@ -45,7 +45,7 @@ export default class AuthenticationSignupForm extends React.Component {
       return;
     }
 
-    if (password != passwordConfirm) {
+    if (password !== passwordConfirm) {
       return;
     }
 

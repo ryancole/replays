@@ -1,9 +1,9 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import ReplayDetail from '../../components/ReplayDetail';
-import SectionNavbar from '../../components/SectionNavbar';
-import ReplayDetailNavbar from '../../components/ReplayDetailNavbar';
-import * as ReplayActions from '../../actions/ReplayActions';
+import React from "react";
+import { connect } from "react-redux";
+import ReplayDetail from "../../components/ReplayDetail";
+import SectionNavbar from "../../components/SectionNavbar";
+import ReplayDetailNavbar from "../../components/ReplayDetailNavbar";
+import * as ReplayActions from "../../actions/ReplayActions";
 
 
 @connect(state => ({
@@ -54,7 +54,7 @@ export default class ReplayDetailView extends React.Component {
       this.props.dispatch(replay);
 
     }
-    
+
   }
 
 }

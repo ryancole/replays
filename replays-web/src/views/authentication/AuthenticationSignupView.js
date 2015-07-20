@@ -1,14 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-import * as SessionActions from '../../actions/SessionActions';
+import * as SessionActions from "../../actions/SessionActions";
 
-import SectionNavbar from '../../components/SectionNavbar';
-import AuthenticationSignupForm from '../../components/AuthenticationSignupForm';
+import SectionNavbar from "../../components/SectionNavbar";
+import AuthenticationSignupForm from "../../components/AuthenticationSignupForm";
 
 
-@connect(state => ({}))
+@connect()
 export default class AuthenticationSignupView extends React.Component {
 
   constructor (props) {

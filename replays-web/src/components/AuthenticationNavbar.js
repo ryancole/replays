@@ -1,5 +1,5 @@
-import React from 'react';
-import AuthenticationNavbarLinks from './AuthenticationNavbarLinks';
+import React from "react";
+import AuthenticationNavbarLinks from "./AuthenticationNavbarLinks";
 
 
 export default class AuthenticationNavbar extends React.Component {
@@ -9,9 +9,9 @@ export default class AuthenticationNavbar extends React.Component {
     super();
 
     this.style = {
-      marginTop: '20px'
+      marginTop: "20px"
     };
-    
+
   }
 
   render() {

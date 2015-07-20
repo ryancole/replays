@@ -1,5 +1,5 @@
-import React from 'react';
-import Replays from '../repositories/ReplayRepository';
+import React from "react";
+import Replays from "../repositories/ReplayRepository";
 
 
 export default class ReplayDetailNavbar extends React.Component {
@@ -15,7 +15,7 @@ export default class ReplayDetailNavbar extends React.Component {
 
     super();
 
-    this._handleDownloadClick = this._handleDownloadClick.bind(this);
+    this.handleDownloadClick = this.handleDownloadClick.bind(this);
 
   }
 
@@ -23,7 +23,7 @@ export default class ReplayDetailNavbar extends React.Component {
     return (
       <ul className="nav navbar-nav navbar-right">
         <li>
-          <a onClick={this._handleDownloadClick}>Download</a>
+          <a onClick={this.handleDownloadClick}>Download</a>
         </li>
       </ul>
     );

@@ -1,5 +1,5 @@
-import React from 'react';
-import Replays from '../repositories/ReplayRepository';
+import React from "react";
+import Replays from "../repositories/ReplayRepository";
 
 
 export default class NavbarUploadForm extends React.Component {
@@ -16,7 +16,7 @@ export default class NavbarUploadForm extends React.Component {
     super();
 
     // event handler binding
-    this._handleSubmit = this._handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
     // initial state
     this.state = {
@@ -29,21 +29,21 @@ export default class NavbarUploadForm extends React.Component {
 
   render () {
 
-    if (this.state.phase == 1) {
+    if (this.state.phase === 1) {
       return (
         <div className="navbar-right">
           <p className="navbar-text">Uploading ...</p>
         </div>
       );
     }
-    else if (this.state.phase == 2) {
+    else if (this.state.phase === 2) {
       return (
         <div className="navbar-right">
           <p className="navbar-text">Success!</p>
         </div>
       );
     }
-    else if (this.state.phase == 3) {
+    else if (this.state.phase === 3) {
       return (
         <div className="navbar-right">
           <p className="navbar-text">Failure!</p>
@@ -52,7 +52,7 @@ export default class NavbarUploadForm extends React.Component {
     }
 
     return (
-      <form className="navbar-form" onSubmit={this._handleSubmit}>
+      <form className="navbar-form" onSubmit={this.handleSubmit}>
         <div className="form-group">
           <input className="form-control" type="file" ref="filename" />
         </div>
@@ -61,7 +61,7 @@ export default class NavbarUploadForm extends React.Component {
         </button>
       </form>
     );
-    
+
   }
 
   componentDidUpdate () {
@@ -69,7 +69,7 @@ export default class NavbarUploadForm extends React.Component {
     switch (this.state.phase) {
 
       case 1:
-        this._beginAwsTransfer(
+        this.beginAwsTransfer(
           this.state.file,
           this.state.signed
         );
@@ -77,7 +77,7 @@ export default class NavbarUploadForm extends React.Component {
 
       case 2:
       case 3:
-      this._handleResetPhase();
+      this.handleResetPhase();
         break;
 
     }
@@ -91,12 +91,12 @@ export default class NavbarUploadForm extends React.Component {
     // extract list of selected files
     let files = React.findDOMNode(this.refs.filename).files;
 
-    if (files.length == 0) {
+    if (files.length === 0) {
       return;
     }
 
     // trigger the upload attempt
-    this._handleUploadAttempt(files[0]);
+    this.handleUploadAttempt(files[0]);
 
   }
 

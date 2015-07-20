@@ -1,22 +1,22 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React from "react";
+import { Link } from "react-router";
 
 
 export default class AuthenticationNavbarLinks extends React.Component {
 
   render() {
-    
+
     // if signed in, show signed in links
     if (this.props.isAuthenticated === true) {
-      return this._getSignedInLinks();
+      return this.getSignedInLinks();
     }
 
     // default to signed out links
-    return this._getSignedOutLinks();
+    return this.getSignedOutLinks();
 
   }
 
-  _getSignedInLinks () {
+  getSignedInLinks () {
     return (
       <div className="navbar-right">
         <p className="navbar-text">
@@ -31,7 +31,7 @@ export default class AuthenticationNavbarLinks extends React.Component {
     );
   }
 
-  _getSignedOutLinks () {
+  getSignedOutLinks () {
     return (
       <div className="navbar-right">
         <ul className="nav navbar-nav">

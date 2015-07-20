@@ -1,22 +1,35 @@
-import React from 'react';
-import { history } from 'react-router/lib/BrowserHistory';
-import { reduxRouteComponent } from 'redux-react-router';
-import { Route, Router, DefaultRoute } from 'react-router';
+import { history } from "react-router/lib/BrowserHistory";
+import { Route, Router } from "react-router";
+import { reduxRouteComponent } from "redux-react-router";
 
-import { reducer, createStore } from './reducers';
+import { reducer, createStore } from "./reducers";
 
-import ReplayIndexView from './views/replay/ReplayIndexView';
-import ReplayDetailView from './views/replay/ReplayDetailView';
+import ReplayIndexView from "./views/replay/ReplayIndexView";
+import ReplayDetailView from "./views/replay/ReplayDetailView";
 
-import ApplicationView from './views/application/ApplicationView';
+import ApplicationView from "./views/application/ApplicationView";
 
-import AuthenticationSigninView from './views/authentication/AuthenticationSigninView';
-import AuthenticationSignupView from './views/authentication/AuthenticationSignupView';
-import AuthenticationSignoutView from './views/authentication/AuthenticationSignoutView';
+import AuthenticationSigninView from "./views/authentication/AuthenticationSigninView";
+import AuthenticationSignupView from "./views/authentication/AuthenticationSignupView";
+import AuthenticationSignoutView from "./views/authentication/AuthenticationSignoutView";
 
 
 // initialize the single redux store
 const store = createStore(reducer);
+
+// enforce active session prior to accessing
+// a specified route
+function requireSession (nextState, transition) {
+
+  // fetch session from store
+  const { session } = store.getState();
+
+  // redirect to signin if no session
+  if (session === null) {
+    transition.to("/auth/signin");
+  }
+
+}
 
 export default (
   <Router history={history}>
@@ -28,23 +41,10 @@ export default (
           <Route path="signout" component={AuthenticationSignoutView} />
         </Route>
         <Route path="replay">
-          <Route path="/" component={ReplayIndexView} onEnter={handleOnEnter} />
-          <Route path=":id" component={ReplayDetailView} onEnter={handleOnEnter} />
+          <Route path="/" component={ReplayIndexView} onEnter={requireSession} />
+          <Route path=":id" component={ReplayDetailView} onEnter={requireSession} />
         </Route>
       </Route>
     </Route>
   </Router>
 );
-
-// prevent entering a route that needs auth
-function handleOnEnter (nextState, transition) {
-  
-  const state = store.getState();
-
-  if (state.session === null) {
-
-    transition.to("/auth/signin");
-
-  }
-
-}
