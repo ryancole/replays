@@ -1,13 +1,14 @@
+import React from "react";
 import { history } from "react-router/lib/BrowserHistory";
 import { Route, Router } from "react-router";
 import { reduxRouteComponent } from "redux-react-router";
 
 import { reducer, createStore } from "./reducers";
 
+import ApplicationView from "./views/application/ApplicationView";
+
 import ReplayIndexView from "./views/replay/ReplayIndexView";
 import ReplayDetailView from "./views/replay/ReplayDetailView";
-
-import ApplicationView from "./views/application/ApplicationView";
 
 import AuthenticationSigninView from "./views/authentication/AuthenticationSigninView";
 import AuthenticationSignupView from "./views/authentication/AuthenticationSignupView";

@@ -31,7 +31,7 @@ export default class ReplayTable extends React.Component {
 
   }
 
-  _buildTableRows (replays) {
+  buildTableRows (replays) {
 
     // build the table rows
     let nodes = replays.map(replay => {

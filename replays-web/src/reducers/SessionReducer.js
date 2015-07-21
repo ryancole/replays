@@ -10,10 +10,10 @@ function checkLocalStorage () {
     try {
 
       // attempt to parse session body
-      existingSession = JSON.parse(session);
+      existingSession = JSON.parse(existingSession);
 
       // check for expired session
-      if (session.details.exp < Math.floor(Date.now() / 1000)) {
+      if (existingSession.details.exp < Math.floor(Date.now() / 1000)) {
 
         // we need to return null
         existingSession = null;

@@ -84,7 +84,7 @@ export default class NavbarUploadForm extends React.Component {
 
   }
 
-  _handleSubmit (event) {
+  handleSubmit (event) {
 
     event.preventDefault();
 
@@ -100,7 +100,7 @@ export default class NavbarUploadForm extends React.Component {
 
   }
 
-  _handleResetPhase () {
+  handleResetPhase () {
 
     setTimeout(() => {
 
@@ -116,7 +116,7 @@ export default class NavbarUploadForm extends React.Component {
 
   }
 
-  async _handleUploadAttempt (file) {
+  async handleUploadAttempt (file) {
 
     // fetch the signed upload request
     let signed = await Replays.getUploadDestination(
@@ -133,7 +133,7 @@ export default class NavbarUploadForm extends React.Component {
 
   }
 
-  async _beginAwsTransfer (file, signed) {
+  async beginAwsTransfer (file, signed) {
 
     // upload the file to aws
     let result = await Replays.putToDestination(

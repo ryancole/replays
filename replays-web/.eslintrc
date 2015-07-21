@@ -10,7 +10,8 @@
   },
   "parser": "babel-eslint",
   "rules": {
-    "new-cap": 0
+    "new-cap": 0,
+    "react/jsx-uses-react": 1
   },
   "plugins": [
     "react"

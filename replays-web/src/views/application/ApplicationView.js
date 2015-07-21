@@ -34,11 +34,19 @@ export default class ApplicationView extends React.Component {
               isAuthenticated={this.props.isAuthenticated} />
           </div>
           <div className="col-sm-10">
-            {this.props.children}
+            {this.renderChildren()}
           </div>
         </div>
       </div>
     );
+  }
+
+  renderChildren () {
+    return React.Children.map(this.props.children, child => {
+      return React.cloneElement(child, {
+        dispatch: this.props.dispatch
+      });
+    });
   }
 
   componentWillMount() {

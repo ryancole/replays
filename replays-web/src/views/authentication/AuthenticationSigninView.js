@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import * as SessionActions from "../../actions/SessionActions";
@@ -7,7 +6,7 @@ import * as SessionActions from "../../actions/SessionActions";
 import SectionNavbar from "../../components/SectionNavbar";
 import AuthenticationSigninForm from "../../components/AuthenticationSigninForm";
 
-@connect()
+
 export default class AuthenticationSigninView extends React.Component {
 
   constructor (props) {

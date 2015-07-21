@@ -32,7 +32,7 @@ export default class AuthenticationSignupForm extends React.Component {
     );
   }
 
-  _handleSubmit (event) {
+  handleSubmit (event) {
 
     event.preventDefault();
 

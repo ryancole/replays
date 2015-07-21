@@ -34,7 +34,7 @@ export default class AuthenticationSigninForm extends React.Component {
     );
   }
 
-  _handleSubmit (event) {
+  handleSubmit (event) {
 
     event.preventDefault();
 

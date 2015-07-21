@@ -29,7 +29,7 @@ export default class ReplayDetailNavbar extends React.Component {
     );
   }
 
-  async _handleDownloadClick (event) {
+  async handleDownloadClick (event) {
 
     event.preventDefault();
 
