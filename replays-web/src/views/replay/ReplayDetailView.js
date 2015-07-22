@@ -1,18 +1,16 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import SectionNavbar from '../../components/SectionNavbar';
-import ReplayDetail from '../../components/ReplayDetail';
-import ReplayDetailNavbar from '../../components/ReplayDetailNavbar';
+import React from "react";
+import { connect } from "react-redux";
+import ReplayDetail from "../../components/ReplayDetail";
+import SectionNavbar from "../../components/SectionNavbar";
+import ReplayDetailNavbar from "../../components/ReplayDetailNavbar";
+import * as ReplayActions from "../../actions/ReplayActions";
 
 
+@connect(state => ({
+  replay: state.replays.get(parseInt(state.router.params.id)),
+  activeSession: state.session
+}))
 export default class ReplayDetailView extends React.Component {
-
-  static get propTypes () {
-    return {
-      actions: React.PropTypes.object.isRequired,
-      activeSession: React.PropTypes.object.isRequired
-    };
-  }
 
   render () {
 
@@ -40,6 +38,22 @@ export default class ReplayDetailView extends React.Component {
         </div>
       </div>
     );
+
+  }
+
+  componentDidMount () {
+
+    // if there's no replay available then
+    // we need to fetch it from the server
+    if (this.props.replay == null) {
+
+      // fetch the specific replay from the server
+      const replay = ReplayActions.fetchReplayById(this.props.params.id);
+
+      // dispatch the action
+      this.props.dispatch(replay);
+
+    }
 
   }
 

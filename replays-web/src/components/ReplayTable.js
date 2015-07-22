@@ -1,5 +1,5 @@
-import React from 'react';
-import ReplayTableRow from './ReplayTableRow';
+import React from "react";
+import ReplayTableRow from "./ReplayTableRow";
 
 
 export default class ReplayTable extends React.Component {
@@ -13,7 +13,7 @@ export default class ReplayTable extends React.Component {
   render () {
 
     // table rows
-    const rows = this._buildTableRows(this.props.replays);
+    const rows = this.buildTableRows(this.props.replays);
 
     return (
       <table className="table table-striped table-hover">
@@ -31,7 +31,7 @@ export default class ReplayTable extends React.Component {
 
   }
 
-  _buildTableRows (replays) {
+  buildTableRows (replays) {
 
     // build the table rows
     let nodes = replays.map(replay => {
@@ -45,7 +45,7 @@ export default class ReplayTable extends React.Component {
     });
 
     // show a no rows message if empty
-    if (nodes.length == 0) {
+    if (nodes.length === 0) {
       nodes = (
         <tr>
           <td colSpan="2" className="text-muted text-center">

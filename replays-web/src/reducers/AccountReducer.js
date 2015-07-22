@@ -1,4 +1,4 @@
-import { ACCOUNT_SET } from '../constants/ActionTypes';
+import { ACCOUNT_SET } from "../constants/ActionTypes";
 
 
 export default function account (state = null, action) {
@@ -13,4 +13,4 @@ export default function account (state = null, action) {
 
   }
 
-};
+}

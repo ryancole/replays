@@ -1,16 +1,10 @@
-import React from 'react';
+import React from "react";
 
 export default class SectionNavbar extends React.Component {
 
   static get propTypes () {
     return {
       label: React.PropTypes.string
-    };
-  }
-
-  static get defaultProps () {
-    return {
-      label: ''
     };
   }
 

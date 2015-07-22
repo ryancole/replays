@@ -1,6 +1,6 @@
-import 'whatwg-fetch';
-import Settings from '../../dank.config';
-import { REPLAY_MERGE, REPLAY_DELETE } from '../constants/ActionTypes';
+import "whatwg-fetch";
+import Settings from "../../dank.config";
+import { REPLAY_MERGE, REPLAY_DELETE, REPLAY_UPDATE } from "../constants/ActionTypes";
 
 
 export function fetchAllReplays () {
@@ -19,7 +19,7 @@ export function fetchAllReplays () {
       }));
     }
   };
-};
+}
 
 export function fetchReplayById (id) {
   return (dispatch, getState) => {
@@ -37,21 +37,21 @@ export function fetchReplayById (id) {
       }));
     }
   };
-};
+}
 
 export function deleteReplay (id) {
   return (dispatch, getState) => {
     const { session } = getState();
     if (session.token != null) {
       fetch(`${Settings.API_ADDR}/replay/${id}`, {
-        method: 'delete',
+        method: "delete",
         headers: {
           "Authorization": `Bearer ${session.token}`
         }
       })
       .then(response => response.json())
       .then(response => {
-        if (response.success == true) {
+        if (response.success === true) {
           dispatch({
             type: REPLAY_DELETE,
             id: response.id
@@ -60,14 +60,14 @@ export function deleteReplay (id) {
       });
     }
   };
-};
+}
 
 export function makeReplayPublic (id) {
   return (dispatch, getState) => {
     const { session } = getState();
     if (session.token != null) {
       fetch(`${Settings.API_ADDR}/replay/${id}`, {
-        method: 'patch',
+        method: "PATCH",
         headers: {
           "Authorization": `Bearer ${session.token}`
         },
@@ -77,7 +77,7 @@ export function makeReplayPublic (id) {
       })
       .then(response => response.json())
       .then(response => {
-        if (response.success == true) {
+        if (response.success === true) {
           dispatch({
             type: REPLAY_UPDATE,
             id: response.id,
@@ -87,14 +87,14 @@ export function makeReplayPublic (id) {
       });
     }
   };
-};
+}
 
 export function makeReplayPrivate (id) {
   return (dispatch, getState) => {
     const { session } = getState();
     if (session.token != null) {
       fetch(`${Settings.API_ADDR}/replay/${id}`, {
-        method: 'patch',
+        method: "PATCH",
         headers: {
           "Authorization": `Bearer ${session.token}`
         },
@@ -104,7 +104,7 @@ export function makeReplayPrivate (id) {
       })
       .then(response => response.json())
       .then(response => {
-        if (response.success == true) {
+        if (response.success === true) {
           dispatch({
             type: REPLAY_UPDATE,
             id: response.id,
@@ -114,4 +114,4 @@ export function makeReplayPrivate (id) {
       });
     }
   };
-};
+}

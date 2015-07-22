@@ -1,21 +1,32 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import ReplayTable from '../../components/ReplayTable';
-import SectionNavbar from '../../components/SectionNavbar';
-import ReplayHomeNavbar from '../../components/ReplayHomeNavbar';
+import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+import * as ReplayActions from "../../actions/ReplayActions";
+
+import ReplayTable from "../../components/ReplayTable";
+import SectionNavbar from "../../components/SectionNavbar";
+import ReplayHomeNavbar from "../../components/ReplayHomeNavbar";
 
 
 @connect(state => ({
-  replays: state.replays.toArray()
+  replays: state.replays.toArray().map(replay => replay.toObject()),
+  activeSession: state.session
 }))
 export default class ReplayIndexView extends React.Component {
 
   static get propTypes () {
     return {
-      actions: React.PropTypes.object.isRequired,
       replays: React.PropTypes.array.isRequired,
       activeSession: React.PropTypes.object.isRequired
     };
+  }
+
+  constructor (props) {
+    super(props);
+    this.actions = bindActionCreators(ReplayActions, props.dispatch);
+    this.handleDeleteReplay = this.handleDeleteReplay.bind(this);
+    this.handleToggleSharing = this.handleToggleSharing.bind(this);
   }
 
   render () {
@@ -26,24 +37,36 @@ export default class ReplayIndexView extends React.Component {
             <SectionNavbar label="Replays">
               <ReplayHomeNavbar
                 activeSession={this.props.activeSession}
-                fetchAllReplays={this.props.actions.fetchAllReplays} />
+                fetchAllReplays={this.actions.fetchAllReplays} />
             </SectionNavbar>
           </div>
         </div>
         <div className="row">
           <div className="col-sm-12">
-            <ReplayTable 
+            <ReplayTable
               replays={this.props.replays}
-              onDelete={this.props.actions.deleteReplay}
-              onToggleSharing={this.props.onToggleSharing} />
+              onDelete={this.handleDeleteReplay}
+              onToggleSharing={this.handleToggleSharing} />
           </div>
         </div>
       </div>
     );
   }
 
-  componentDidMount () {
-    this.props.actions.fetchAllReplays();
+  componentWillMount () {
+    this.actions.fetchAllReplays();
+  }
+
+  handleDeleteReplay (replay) {
+    this.actions.deleteReplay(replay.id);
+  }
+
+  handleToggleSharing (replay) {
+    if (replay.public === false) {
+      this.actions.makeReplayPublic(replay.id);
+    } else {
+      this.actions.makeReplayPrivate(replay.id);
+    }
   }
 
 }

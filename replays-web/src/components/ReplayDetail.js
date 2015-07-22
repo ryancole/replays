@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
 
 export default class ReplayDetail extends React.Component {
 
   render () {
 
-    const replay = this.props.replay;
+    const { replay } = this.props;
 
     return (
       <dl className="dl-horizontal">

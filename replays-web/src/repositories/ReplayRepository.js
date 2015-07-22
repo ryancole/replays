@@ -1,5 +1,5 @@
-import 'whatwg-fetch';
-import Settings from '../../dank.config';
+import "whatwg-fetch";
+import Settings from "../../dank.config";
 
 
 function getDownloadSource (session, id) {
@@ -11,7 +11,7 @@ function getDownloadSource (session, id) {
   })
   .then(response => response.json());
 
-};
+}
 
 
 function getUploadDestination (session, file) {
@@ -23,7 +23,7 @@ function getUploadDestination (session, file) {
 
   return fetch(`${Settings.API_ADDR}/replay`, {
     body: JSON.stringify(payload),
-    method: 'post',
+    method: "post",
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${session.token}`
@@ -31,7 +31,7 @@ function getUploadDestination (session, file) {
   })
   .then(response => response.json());
 
-};
+}
 
 
 function putToDestination (file, signed) {
@@ -42,13 +42,13 @@ function putToDestination (file, signed) {
   // included in the signature body
   return fetch(signed.url, {
     body: file,
-    method: 'put',
+    method: "put",
     headers: {
       "Content-Type": "binary/octet-stream"
     }
   });
 
-};
+}
 
 
 export default {

@@ -1,20 +1,20 @@
-import 'whatwg-fetch';
-import jwt from 'jsonwebtoken';
-import Settings from '../../dank.config';
-import { ACCOUNT_SET, SESSION_SET } from '../constants/ActionTypes';
+import "whatwg-fetch";
+import jwt from "jsonwebtoken";
+import Settings from "../../dank.config";
+import { ACCOUNT_SET, SESSION_SET } from "../constants/ActionTypes";
 
 
 export function createAccount (username, password) {
   return async dispatch => {
 
     const payload = {
-      method: 'post',
+      method: "post",
       body: JSON.stringify({
         username: username,
         password: password
       }),
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       }
     };
 
@@ -36,7 +36,7 @@ export function createAccount (username, password) {
     });
 
   };
-};
+}
 
 export function getAccountBySession () {
   return (dispatch, getState) => {
@@ -54,4 +54,4 @@ export function getAccountBySession () {
       }));
     }
   };
-};
+}

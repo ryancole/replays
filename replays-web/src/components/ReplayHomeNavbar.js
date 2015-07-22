@@ -1,5 +1,5 @@
-import React from 'react';
-import NavbarUploadForm from './NavbarUploadForm';
+import React from "react";
+import NavbarUploadForm from "./NavbarUploadForm";
 
 
 export default class ReplayHomeNavbar extends React.Component {
@@ -20,5 +20,5 @@ export default class ReplayHomeNavbar extends React.Component {
       </div>
     );
   }
-  
+
 }

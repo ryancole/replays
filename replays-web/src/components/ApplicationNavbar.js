@@ -1,8 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React from "react";
+import { Link } from "react-router";
 
-
-class ApplicationNavbar extends React.Component {
+export default class ApplicationNavbar extends React.Component {
 
   render() {
     return (
@@ -10,7 +9,7 @@ class ApplicationNavbar extends React.Component {
         <div className="col-sm-12">
           <ul className="nav">
             <li>
-              <Link to="replay-index">
+              <Link to="/replay">
                 Replays
               </Link>
             </li>
@@ -21,5 +20,3 @@ class ApplicationNavbar extends React.Component {
   }
 
 }
-
-export default ApplicationNavbar;

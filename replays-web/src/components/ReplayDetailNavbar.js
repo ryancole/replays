@@ -1,13 +1,21 @@
-import React from 'react';
+import React from "react";
+import Replays from "../repositories/ReplayRepository";
 
 
 export default class ReplayDetailNavbar extends React.Component {
+
+  static get propTypes () {
+    return {
+      replay: React.PropTypes.object.isRequired,
+      activeSession: React.PropTypes.object.isRequired
+    };
+  }
 
   constructor () {
 
     super();
 
-    this._handleDownloadClick = this._handleDownloadClick.bind(this);
+    this.handleDownloadClick = this.handleDownloadClick.bind(this);
 
   }
 
@@ -15,25 +23,25 @@ export default class ReplayDetailNavbar extends React.Component {
     return (
       <ul className="nav navbar-nav navbar-right">
         <li>
-          <a onClick={this._handleDownloadClick}>Download</a>
+          <a onClick={this.handleDownloadClick}>Download</a>
         </li>
       </ul>
     );
   }
 
-  async _handleDownloadClick (event) {
+  async handleDownloadClick (event) {
 
     event.preventDefault();
 
-    // let source = await Replays.getDownloadSource(
-    //   this.props.activeSession,
-    //   this.props.replay.id
-    // );
+    let source = await Replays.getDownloadSource(
+      this.props.activeSession,
+      this.props.replay.id
+    );
 
-    // window.open(
-    //   source.url,
-    //   "_blank"
-    // );
+    window.open(
+      source.url,
+      "_blank"
+    );
 
   }
 

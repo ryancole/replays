@@ -1,11 +1,14 @@
-import React from 'react';
+import React from "react";
+import { bindActionCreators } from "redux";
+
+import * as SessionActions from "../../actions/SessionActions";
+
 
 export default class AuthenticationSignoutView extends React.Component {
 
-  static get propTypes () {
-    return {
-      actions: React.PropTypes.object.isRequired
-    };
+  constructor (props) {
+    super(props);
+    this.actions = bindActionCreators(SessionActions, props.dispatch);
   }
 
   render() {
@@ -13,7 +16,7 @@ export default class AuthenticationSignoutView extends React.Component {
   }
 
   componentDidMount () {
-    this.props.actions.clearSession();
+    this.actions.clearSession();
   }
 
 }
