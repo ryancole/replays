@@ -41,10 +41,8 @@ export default (
           <Route path="signup" component={AuthenticationSignupView} />
           <Route path="signout" component={AuthenticationSignoutView} />
         </Route>
-        <Route path="replay">
-          <Route path="/" component={ReplayIndexView} onEnter={requireSession} />
-          <Route path=":id" component={ReplayDetailView} onEnter={requireSession} />
-        </Route>
+        <Route path="replay" component={ReplayIndexView} onEnter={requireSession} />
+        <Route path="replay/:id" component={ReplayDetailView} onEnter={requireSession} />
       </Route>
     </Route>
   </Router>

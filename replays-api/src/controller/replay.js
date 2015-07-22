@@ -9,7 +9,7 @@ var Settings = require('../../settings');
 function update (request, reply) {
 
   // the id of the replay to look up
-  const id = request.params.id;
+  const id = parseInt(request.params.id);
 
   // the account of the replay owner
   const account = request.auth.credentials.id;

@@ -10,7 +10,7 @@ import ReplayHomeNavbar from "../../components/ReplayHomeNavbar";
 
 
 @connect(state => ({
-  replays: state.replays.toArray(),
+  replays: state.replays.toArray().map(replay => replay.toObject()),
   activeSession: state.session
 }))
 export default class ReplayIndexView extends React.Component {
@@ -24,9 +24,9 @@ export default class ReplayIndexView extends React.Component {
 
   constructor (props) {
     super(props);
+    this.actions = bindActionCreators(ReplayActions, props.dispatch);
     this.handleDeleteReplay = this.handleDeleteReplay.bind(this);
     this.handleToggleSharing = this.handleToggleSharing.bind(this);
-    this.actions = bindActionCreators(ReplayActions, props.dispatch);
   }
 
   render () {

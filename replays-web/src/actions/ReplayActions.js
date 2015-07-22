@@ -67,7 +67,7 @@ export function makeReplayPublic (id) {
     const { session } = getState();
     if (session.token != null) {
       fetch(`${Settings.API_ADDR}/replay/${id}`, {
-        method: "patch",
+        method: "PATCH",
         headers: {
           "Authorization": `Bearer ${session.token}`
         },
@@ -94,7 +94,7 @@ export function makeReplayPrivate (id) {
     const { session } = getState();
     if (session.token != null) {
       fetch(`${Settings.API_ADDR}/replay/${id}`, {
-        method: "patch",
+        method: "PATCH",
         headers: {
           "Authorization": `Bearer ${session.token}`
         },

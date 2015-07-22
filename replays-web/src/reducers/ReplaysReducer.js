@@ -1,4 +1,4 @@
-import { OrderedMap } from "immutable";
+import { Map, OrderedMap } from "immutable";
 import { REPLAY_MERGE, REPLAY_DELETE, REPLAY_UPDATE } from "../constants/ActionTypes";
 
 
@@ -10,7 +10,7 @@ export default function replays (state = initialState, action) {
 
     case REPLAY_MERGE:
       const newReplays = action.replays.reduce((prev, curr) => {
-        return prev.set(curr.id, curr);
+        return prev.set(curr.id, Map(curr));
       }, OrderedMap());
       return state.merge(newReplays);
 
@@ -18,7 +18,7 @@ export default function replays (state = initialState, action) {
       return state.delete(action.id);
 
     case REPLAY_UPDATE:
-      return state;
+      return state.update(action.id, x => x.set("public", action.public));
 
     default:
       return state;
