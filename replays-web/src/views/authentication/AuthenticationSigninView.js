@@ -1,10 +1,10 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 
-import * as SessionActions from "../../actions/SessionActions";
-
 import SectionNavbar from "../../components/SectionNavbar";
 import AuthenticationSigninForm from "../../components/AuthenticationSigninForm";
+
+import * as SessionActions from "../../actions/SessionActions";
 
 
 export default class AuthenticationSigninView extends React.Component {

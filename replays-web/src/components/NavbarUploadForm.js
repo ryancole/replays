@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import Replays from "../repositories/ReplayRepository";
 
 
@@ -89,7 +90,7 @@ export default class NavbarUploadForm extends React.Component {
     event.preventDefault();
 
     // extract list of selected files
-    let files = React.findDOMNode(this.refs.filename).files;
+    let files = ReactDOM.findDOMNode(this.refs.filename).files;
 
     if (files.length === 0) {
       return;

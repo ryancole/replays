@@ -1,7 +1,14 @@
 import React from "react";
+import ReactDOM from "react-dom";
 
 
 export default class AuthenticationSignupForm extends React.Component {
+
+  static get propTypes () {
+    return {
+      onSignup: React.PropTypes.func.isRequired
+    };
+  }
 
   constructor () {
 
@@ -37,9 +44,9 @@ export default class AuthenticationSignupForm extends React.Component {
     event.preventDefault();
 
     // santitize form inputs
-    let username = React.findDOMNode(this.refs.username).value.trim();
-    let password = React.findDOMNode(this.refs.password).value.trim();
-    let passwordConfirm = React.findDOMNode(this.refs.passwordConfirm).value.trim();
+    let username = ReactDOM.findDOMNode(this.refs.username).value.trim();
+    let password = ReactDOM.findDOMNode(this.refs.password).value.trim();
+    let passwordConfirm = ReactDOM.findDOMNode(this.refs.passwordConfirm).value.trim();
 
     if (!username || !password) {
       return;
@@ -50,8 +57,8 @@ export default class AuthenticationSignupForm extends React.Component {
     }
 
     // clear password inputs
-    React.findDOMNode(this.refs.password).value = "";
-    React.findDOMNode(this.refs.passwordConfirm).value = "";
+    ReactDOM.findDOMNode(this.refs.password).value = "";
+    ReactDOM.findDOMNode(this.refs.passwordConfirm).value = "";
 
     // handle the signin attempt
     this.props.onSignup(username, password);

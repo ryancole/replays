@@ -1,17 +1,17 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 
-import * as SessionActions from "../../actions/SessionActions";
-
 import SectionNavbar from "../../components/SectionNavbar";
 import AuthenticationSignupForm from "../../components/AuthenticationSignupForm";
+
+import * as AccountActions from "../../actions/AccountActions";
 
 
 export default class AuthenticationSignupView extends React.Component {
 
   constructor (props) {
     super(props);
-    this.actions = bindActionCreators(SessionActions, props.dispatch);
+    this.actions = bindActionCreators(AccountActions, props.dispatch);
   }
 
   render() {
