@@ -1,3 +1,4 @@
+export const REPLAY_CLEAR = "REPLAY_CLEAR";
 export const REPLAY_MERGE = "REPLAY_MERGE";
 export const REPLAY_DELETE = "REPLAY_DELETE";
 export const REPLAY_UPDATE = "REPLAY_UPDATE";
@@ -6,3 +7,15 @@ export const SESSION_SET = "SESSION_SET";
 export const SESSION_CLEAR = "SESSION_CLEAR";
 
 export const ACCOUNT_SET = "ACCOUNT_SET";
+export const ACCOUNT_CLEAR = "ACCOUNT_CLEAR";
+
+export default {
+  REPLAY_CLEAR,
+  REPLAY_MERGE,
+  REPLAY_DELETE,
+  REPLAY_UPDATE,
+  SESSION_SET,
+  SESSION_CLEAR,
+  ACCOUNT_SET,
+  ACCOUNT_CLEAR
+};

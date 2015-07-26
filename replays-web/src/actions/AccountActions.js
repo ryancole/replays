@@ -1,9 +1,19 @@
 import "whatwg-fetch";
 import jwt from "jsonwebtoken";
 import Settings from "../../dank.config";
-import { ACCOUNT_SET, SESSION_SET } from "../constants/ActionTypes";
+import { Account, Session } from "../entities";
+import { ACCOUNT_SET, ACCOUNT_CLEAR, SESSION_SET } from "../constants/ActionTypes";
 
 
+// clear the existing account data
+export function clearAccount () {
+  return {
+    type: ACCOUNT_CLEAR
+  };
+}
+
+// query to create a new account and provide
+// a new session token in response
 export function createAccount (username, password) {
   return async dispatch => {
 
@@ -31,27 +41,50 @@ export function createAccount (username, password) {
     // dispatch the session details
     dispatch({
       type: SESSION_SET,
-      token: session.token,
-      details: jwt.decode(session.token)
+      payload: new Session({
+        token: session.token,
+        ...jwt.decode(session.token)
+      })
     });
 
   };
 }
 
+// query for account details pertaining
+// to the current active user
 export function getAccountBySession () {
   return (dispatch, getState) => {
+
     const { session } = getState();
-    if (session.token != null) {
-      fetch(`${Settings.API_ADDR}/account/${session.account.id}`, {
-        headers: {
-          "Authorization": `Bearer ${session.token}`
-        }
-      })
-      .then(response => response.json())
-      .then(response => dispatch({
-        type: ACCOUNT_SET,
-        account: response
-      }));
+
+    // this action requires an valid
+    // existing session
+    if (session.token.length === 0) {
+      return;
     }
+
+    fetch(`${Settings.API_ADDR}/account/${session.account.id}`, {
+      headers: {
+        "Authorization": `Bearer ${session.token}`
+      }
+    })
+    .then(response => response.json())
+    .then(response => {
+
+      // convert response data into
+      // immutable record
+      const account = new Account({
+        id: response.id,
+        username: response.username,
+        dateCreated: response.date_created
+      });
+
+      dispatch({
+        type: ACCOUNT_SET,
+        payload: account
+      });
+
+    });
+
   };
 }

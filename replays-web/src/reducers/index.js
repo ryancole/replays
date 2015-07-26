@@ -8,7 +8,7 @@ import Replays from "./ReplaysReducer";
 import Account from "./AccountReducer";
 import Session from "./SessionReducer";
 
-// single redux reducer
+// combined redux reducer
 export const reducer = combineReducers({
   router: routerStateReducer,
   replays: Replays,
@@ -16,5 +16,5 @@ export const reducer = combineReducers({
   session: Session
 });
 
-// middleware-enabled store creator
+// middleware-enabled store creator function
 export const createStore = applyMiddleware(thunk)(createReduxStore);
