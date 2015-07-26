@@ -12,7 +12,7 @@ export default class SectionNavbar extends React.Component {
     return (
       <div className="navbar">
         <div className="navbar-header">
-          <span className="navbar-brand">
+          <span className="navbar-brand" style={this.style}>
             {this.props.label}
           </span>
         </div>

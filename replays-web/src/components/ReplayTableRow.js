@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import { Link } from "react-router";
 
 
@@ -23,6 +24,7 @@ export default class ReplayTableRow extends React.Component {
   render () {
 
     const replay = this.props.replay;
+    const dateCreated = moment(replay.dateCreated);
 
     let shareIcon = (
       <span className="glyphicon glyphicon glyphicon-eye-open"></span>
@@ -42,14 +44,14 @@ export default class ReplayTableRow extends React.Component {
           </Link>
         </td>
         <td>
-          {replay.date_created}
+          {dateCreated.format("LLL")}
         </td>
         <td>
           <div className="btn-group pull-right">
-            <button type="button" className="btn btn-default" onClick={this.handleToggleSharingClick}>
+            <button type="button" className="btn btn-xs btn-default" onClick={this.handleToggleSharingClick}>
               {shareIcon}
             </button>
-            <button type="button" className="btn btn-danger" onClick={this.handleDeleteClick}>
+            <button type="button" className="btn btn-xs btn-danger" onClick={this.handleDeleteClick}>
               <span className="glyphicon glyphicon-remove-circle"></span>
             </button>
           </div>

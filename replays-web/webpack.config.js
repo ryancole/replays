@@ -1,38 +1,36 @@
-'use strict';
-
-var path = require('path');
-var webpack = require('webpack');
+var path = require("path");
+var webpack = require("webpack");
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://localhost:8081',
-    'webpack/hot/only-dev-server',
-    path.resolve(__dirname, 'src', 'App.js')
+    "webpack-dev-server/client?http://localhost:8081",
+    "webpack/hot/only-dev-server",
+    path.resolve(__dirname, "src", "App.js")
   ],
   plugins: [
-    new webpack.HotModuleReplacementPlugin,
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
     })
   ],
   output: {
-    path: process.env.NODE_ENV === 'production' ?
-          path.resolve(__dirname, 'build', 'release', 'static') :
-          path.resolve(__dirname, 'build', 'debug', 'static'),
-    filename: 'app.js',
-    publicPath: '/static/'
+    path: process.env.NODE_ENV === "production" ?
+          path.resolve(__dirname, "build", "release", "static") :
+          path.resolve(__dirname, "build", "debug", "static"),
+    filename: "app.js",
+    publicPath: "/static/"
   },
   resolve: {
     alias: {
-      'bootstrap': 'bootstrap/dist'
+      "bootstrap": "bootstrap/dist"
     }
   },
-  devtool: 'source-map',
+  devtool: "source-map",
   devServer: {
     hot: true,
     port: 8081,
     colors: true,
-    publicPath: '/static/',
+    publicPath: "/static/",
     historyApiFallback: true
   },
   module: {
@@ -40,28 +38,28 @@ module.exports = {
       {
         test: /\.js$/,
         loader: "eslint-loader",
-        include: path.resolve(__dirname, 'src')
+        include: path.resolve(__dirname, "src")
       }
     ],
     loaders: [
       {
         test: /\.js$/,
         loaders: [
-          'react-hot',
-          'babel'
+          "react-hot",
+          "babel"
         ],
-        include: path.resolve(__dirname, 'src')
+        include: path.resolve(__dirname, "src")
       },
       {
         test: /\.json$/,
-        loader: 'json',
+        loader: "json",
         exclude: /node_modules/
       },
       {
         test: /\.css/,
         loaders: [
-          'style',
-          'css'
+          "style",
+          "css"
         ]
       },
       {
