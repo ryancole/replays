@@ -18,20 +18,6 @@ import AuthenticationSignoutView from "./views/authentication/AuthenticationSign
 // initialize the single redux store
 const store = createStore(reducer);
 
-// enforce active session prior to accessing
-// a specified route
-function requireSession (nextState, transition) {
-
-  // fetch session from store
-  const { session } = store.getState();
-
-  // redirect to signin if no session
-  if (session === null) {
-    transition.to("/auth/signin");
-  }
-
-}
-
 export default (
   <Router history={history}>
     <Route component={reduxRouteComponent(store)}>
@@ -41,8 +27,8 @@ export default (
           <Route path="signup" component={AuthenticationSignupView} />
           <Route path="signout" component={AuthenticationSignoutView} />
         </Route>
-        <Route path="replay" component={ReplayIndexView} onEnter={requireSession} />
-        <Route path="replay/:id" component={ReplayDetailView} onEnter={requireSession} />
+        <Route path=":username" component={ReplayIndexView} />
+        <Route path=":username/:id" component={ReplayDetailView} />
       </Route>
     </Route>
   </Router>

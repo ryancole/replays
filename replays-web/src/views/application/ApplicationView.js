@@ -16,7 +16,8 @@ export default class ApplicationView extends React.Component {
 
   static get propTypes () {
     return {
-      activeSession: React.PropTypes.object
+      activeSession: React.PropTypes.object,
+      isAuthenticated: React.PropTypes.bool.isRequired
     };
   }
 
@@ -44,7 +45,9 @@ export default class ApplicationView extends React.Component {
   renderChildren () {
     return React.Children.map(this.props.children, child => {
       return React.cloneElement(child, {
-        dispatch: this.props.dispatch
+        dispatch: this.props.dispatch,
+        activeSession: this.props.activeSession,
+        isAuthenticated: this.props.isAuthenticated
       });
     });
   }

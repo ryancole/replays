@@ -74,13 +74,9 @@ function update (request, reply) {
 
 function index (request, reply) {
 
-  // the account id of the user to fetch
-  // replays for, since we assume you can
-  // only fetch replays for the auth'd user
-  const id = request.auth.credentials.id;
-
-  // fetch replays for the authenticated user
-  Replays.getAllByAccountId(id, (err, body) => {
+  // function for handling query results
+  // regardless of query used
+  function handleIndexResult (err, body) {
 
     if (err) {
       return reply(Boom.notFound());
@@ -93,7 +89,23 @@ function index (request, reply) {
 
     return reply(payload);
 
-  });
+  }
+
+  // whether or not we should include the current
+  // active user's private replays in the results
+  const includePrivate = request.auth.isAuthenticated &&
+                         request.auth.credentials.username === request.query.username;
+
+  // make the database query
+  if (request.query.username) {
+    Replays.getAllByAccountUsername(
+      request.query.username,
+      includePrivate,
+      handleIndexResult
+    );
+  } else {
+    Replays.getAll(handleIndexResult);
+  }
 
 };
 
@@ -282,6 +294,9 @@ function download (request, reply) {
 module.exports = [
   {
     path: '/replay',
+    config: {
+      auth: false
+    },
     method: 'GET',
     handler: index
   },

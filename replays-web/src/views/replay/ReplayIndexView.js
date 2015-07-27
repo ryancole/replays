@@ -2,31 +2,37 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import * as ReplayActions from "../../actions/ReplayActions";
-
 import ReplayTable from "../../components/ReplayTable";
 import SectionNavbar from "../../components/SectionNavbar";
 import ReplayHomeNavbar from "../../components/ReplayHomeNavbar";
 
+import * as ReplayActions from "../../actions/ReplayActions";
+
 
 @connect(state => ({
-  replays: state.replays.toArray().map(replay => replay.toObject()),
-  activeSession: state.session
+  replays: state.replays.toArray()
 }))
 export default class ReplayIndexView extends React.Component {
 
   static get propTypes () {
     return {
       replays: React.PropTypes.array.isRequired,
-      activeSession: React.PropTypes.object.isRequired
+      activeSession: React.PropTypes.object,
+      isAuthenticated: React.PropTypes.bool.isRequired
     };
   }
 
   constructor (props) {
+
     super(props);
+
+    // bind the action handlers
     this.actions = bindActionCreators(ReplayActions, props.dispatch);
+
+    // bind event handlers
     this.handleDeleteReplay = this.handleDeleteReplay.bind(this);
     this.handleToggleSharing = this.handleToggleSharing.bind(this);
+
   }
 
   render () {

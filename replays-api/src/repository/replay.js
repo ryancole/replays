@@ -218,10 +218,10 @@ exports.get = function get (id, account, callback) {
 
 
 /**
- * fetch all replays with an account id
+ * fetch all replays
  */
 
-exports.getAllByAccountId = function getAllByAccountId (id, callback) {
+exports.getAll = function getAll (callback) {
 
   pg.connect(settings.AWS_SQL, (err, db, done) => {
 
@@ -232,12 +232,50 @@ exports.getAllByAccountId = function getAllByAccountId (id, callback) {
     const query = `
       SELECT *
       FROM replays
-      WHERE account_id = $1
+      WHERE public != true
       ORDER BY id DESC
     `;
 
+    db.query(query, (err, result) => {
+
+      if (err) {
+        return callback(err);
+      }
+
+      done();
+
+      return callback(null, result.rows);
+
+    });
+
+  });
+
+}
+
+
+/**
+ * fetch all replays with an account username
+ */
+
+exports.getAllByAccountUsername = function getAllByAccountId (accountUsername, includePrivate, callback) {
+
+  pg.connect(settings.AWS_SQL, (err, db, done) => {
+
+    if (err) {
+      return callback(err);
+    }
+
+    const query = `
+      SELECT r.*
+      FROM replays AS r
+      JOIN accounts AS a ON a.id = r.account_id
+      WHERE LOWER(a.username) = $1 AND (r.public = true OR r.public = $2)
+      ORDER BY r.id DESC
+    `;
+
     const params = [
-      id
+      accountUsername.toLowerCase(),
+      includePrivate
     ];
 
     db.query(query, params, (err, result) => {
