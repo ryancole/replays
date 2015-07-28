@@ -2,6 +2,7 @@ import "whatwg-fetch";
 import Immutable from "immutable";
 import Replay from "../entities/Replay";
 import Settings from "../../dank.config";
+import * as Replays from "../repositories/ReplayRepository";
 import { REPLAY_CLEAR, REPLAY_MERGE, REPLAY_DELETE, REPLAY_UPDATE } from "../constants/ActionTypes";
 
 
@@ -13,29 +14,19 @@ export function clearReplays () {
   };
 }
 
-// query for all replays that pertain
-// to the current active user
-export function fetchAllReplays () {
+// query for all replays, possibly including
+// the current active user's private replays
+export function fetchAllReplays (username) {
   return (dispatch, getState) => {
 
+    // get possible active session
     const { session } = getState();
 
-    // this action requires an valid
-    // existing session
-    if (session.token.length === 0) {
-      return;
-    }
+    // fetch replays from the server
+    Replays.getAll(session, username).then(response => {
 
-    fetch(`${Settings.API_ADDR}/replay`, {
-      headers: {
-        "Authorization": `Bearer ${session.token}`
-      }
-    })
-    .then(response => response.json())
-    .then(response => {
-
-      // convert response data into immutable
-      // replay records
+      // convert response into immutable
+      // data records
       const replays = response.replays.reduce((prev, curr) => {
         const replay = new Replay({
           id: curr.id,
@@ -49,12 +40,14 @@ export function fetchAllReplays () {
         return prev.set(replay.id, replay);
       }, Immutable.OrderedMap());
 
+      // dispatch merge action
       dispatch({
         type: REPLAY_MERGE,
         payload: replays
       });
 
     });
+
   };
 }
 

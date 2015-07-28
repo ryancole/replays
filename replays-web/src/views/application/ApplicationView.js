@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { transitionTo } from "redux-react-router";
 
 // ui components
 import ApplicationLogo from "../../components/ApplicationLogo";
@@ -50,31 +49,6 @@ export default class ApplicationView extends React.Component {
         isAuthenticated: this.props.isAuthenticated
       });
     });
-  }
-
-  componentWillMount() {
-    if (this.props.isAuthenticated === false) {
-      this.props.dispatch(transitionTo("/auth/signin"));
-    }
-  }
-
-  componentWillReceiveProps (props) {
-
-    // whether the user just logged in
-    const justLoggedIn = (this.props.isAuthenticated === false &&
-                          props.isAuthenticated === true);
-
-    // whether the user just logged out
-    const justLoggedOut = (this.props.isAuthenticated === true &&
-                           props.isAuthenticated === false);
-
-    // transition based on auth state change
-    if (justLoggedIn === true) {
-      this.props.dispatch(transitionTo("/replay"));
-    } else if (justLoggedOut === true) {
-      this.props.dispatch(transitionTo("/"));
-    }
-
   }
 
 }

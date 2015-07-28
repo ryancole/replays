@@ -17,8 +17,7 @@ export default class ReplayIndexView extends React.Component {
   static get propTypes () {
     return {
       replays: React.PropTypes.array.isRequired,
-      activeSession: React.PropTypes.object,
-      isAuthenticated: React.PropTypes.bool.isRequired
+      activeSession: React.PropTypes.object
     };
   }
 
@@ -59,8 +58,9 @@ export default class ReplayIndexView extends React.Component {
     );
   }
 
-  componentWillMount () {
-    this.actions.fetchAllReplays();
+  componentDidMount () {
+    const { username } = this.props.params;
+    this.actions.fetchAllReplays(username);
   }
 
   handleDeleteReplay (replay) {

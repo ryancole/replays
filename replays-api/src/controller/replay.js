@@ -77,18 +77,12 @@ function index (request, reply) {
   // function for handling query results
   // regardless of query used
   function handleIndexResult (err, body) {
-
     if (err) {
       return reply(Boom.notFound());
     }
-
-    // response payload
-    const payload = {
+    return reply({
       replays: body
-    };
-
-    return reply(payload);
-
+    });
   }
 
   // whether or not we should include the current
