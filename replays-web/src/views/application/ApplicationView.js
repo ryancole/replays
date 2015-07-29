@@ -8,15 +8,13 @@ import AuthenticationNavbar from "../../components/AuthenticationNavbar";
 
 
 @connect(state => ({
-  activeSession: state.session,
-  isAuthenticated: state.session != null
+  activeSession: state.session
 }))
 export default class ApplicationView extends React.Component {
 
   static get propTypes () {
     return {
-      activeSession: React.PropTypes.object,
-      isAuthenticated: React.PropTypes.bool.isRequired
+      activeSession: React.PropTypes.object
     };
   }
 
@@ -45,8 +43,7 @@ export default class ApplicationView extends React.Component {
     return React.Children.map(this.props.children, child => {
       return React.cloneElement(child, {
         dispatch: this.props.dispatch,
-        activeSession: this.props.activeSession,
-        isAuthenticated: this.props.isAuthenticated
+        activeSession: this.props.activeSession
       });
     });
   }

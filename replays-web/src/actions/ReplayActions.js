@@ -6,8 +6,7 @@ import * as Replays from "../repositories/ReplayRepository";
 import { REPLAY_CLEAR, REPLAY_MERGE, REPLAY_DELETE, REPLAY_UPDATE } from "../constants/ActionTypes";
 
 
-// clear the existing cache of
-// replay data
+// clear the store of all replay data
 export function clearReplays () {
   return {
     type: REPLAY_CLEAR
@@ -86,7 +85,7 @@ export function fetchReplayById (id) {
 
       dispatch({
         type: REPLAY_MERGE,
-        payload: Immutable.OrderedMap([[replay.id, replay]])
+        payload: Immutable.Map([[replay.id, replay]])
       });
 
     });

@@ -5,15 +5,15 @@ import { applyMiddleware, combineReducers } from "redux";
 
 // individual reducers
 import Replays from "./ReplaysReducer";
-import Account from "./AccountReducer";
 import Session from "./SessionReducer";
+import Accounts from "./AccountsReducer";
 
 // combined redux reducer
 export const reducer = combineReducers({
   router: routerStateReducer,
   replays: Replays,
-  account: Account,
-  session: Session
+  session: Session,
+  accounts: Accounts
 });
 
 // middleware-enabled store creator function
