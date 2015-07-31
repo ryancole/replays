@@ -7,5 +7,6 @@ export default Immutable.Record({
   filename: "",
   filesize: 0,
   accountId: undefined,
-  dateCreated: new Date()
+  dateCreated: new Date(),
+  accountUsername: ""
 });

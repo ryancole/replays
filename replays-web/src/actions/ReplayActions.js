@@ -3,7 +3,7 @@ import Immutable from "immutable";
 import Replay from "../entities/Replay";
 import Settings from "../../dank.config";
 import * as Replays from "../repositories/ReplayRepository";
-import { REPLAY_CLEAR, REPLAY_MERGE, REPLAY_DELETE, REPLAY_UPDATE } from "../constants/ActionTypes";
+import { REPLAY_SET, REPLAY_CLEAR, REPLAY_MERGE, REPLAY_DELETE, REPLAY_UPDATE } from "../constants/ActionTypes";
 
 
 // clear the store of all replay data
@@ -34,7 +34,8 @@ export function fetchAllReplays (username) {
           filename: curr.filename,
           filesize: curr.size,
           accountId: curr.account_id,
-          dateCreated: curr.date_created
+          dateCreated: curr.date_created,
+          accountUsername: curr.account_username
         });
         return prev.set(replay.id, replay);
       }, Immutable.OrderedMap());
@@ -50,43 +51,34 @@ export function fetchAllReplays (username) {
   };
 }
 
-// query for a single replay that pertains
-// to the current active user
+// query for a single replay, taking into
+// consideration private replays for the
+// current active user
 export function fetchReplayById (id) {
   return (dispatch, getState) => {
 
+    // get possible active session
     const { session } = getState();
 
-    // this action requires a valid
-    // existing session
-    if (session.token.length === 0) {
-      return;
-    }
+    // fetch replay from the server
+    Replays.getById(session, id).then(response => {
 
-    fetch(`${Settings.API_ADDR}/replay/${id}`, {
-      headers: {
-        "Authorization": `Bearer ${session.token}`
-      }
-    })
-    .then(response => response.json())
-    .then(response => {
+        const replay = new Replay({
+          id: response.id,
+          awsKey: response.aws_key,
+          public: response.public,
+          filename: response.filename,
+          filesize: response.size,
+          accountId: response.account_id,
+          dateCreated: response.date_created,
+          accountUsername: response.account_username
+        });
 
-      // convert response data into
-      // immutable replay record
-      const replay = new Replay({
-        id: response.id,
-        size: response.size,
-        awsKey: response.aws_key,
-        public: response.public,
-        filename: response.filename,
-        accountId: response.account_id,
-        dateCreated: response.date_created
-      });
-
-      dispatch({
-        type: REPLAY_MERGE,
-        payload: Immutable.Map([[replay.id, replay]])
-      });
+        // dispatch set action
+        dispatch({
+          type: REPLAY_SET,
+          payload: replay
+        });
 
     });
 

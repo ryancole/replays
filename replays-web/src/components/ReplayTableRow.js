@@ -8,7 +8,7 @@ export default class ReplayTableRow extends React.Component {
   static get propTypes () {
     return {
       replay: React.PropTypes.object.isRequired,
-      onDelete: React.PropTypes.func.isRequired
+      onDelete: React.PropTypes.func
     };
   }
 
@@ -23,8 +23,11 @@ export default class ReplayTableRow extends React.Component {
 
   render () {
 
+    // the replay for this table row
     const replay = this.props.replay;
-    const dateCreated = moment(replay.dateCreated);
+
+    // the formatted date
+    const dateCreated = moment(replay.dateCreated).format("LLL");
 
     let shareIcon = (
       <span className="glyphicon glyphicon glyphicon-eye-open"></span>
@@ -39,12 +42,12 @@ export default class ReplayTableRow extends React.Component {
     return (
       <tr className="replayTableRow">
         <td>
-          <Link to={`/replay/${replay.id}`}>
+          <Link to={`/${replay.accountUsername}/${replay.id}`}>
             {replay.filename}
           </Link>
         </td>
         <td>
-          {dateCreated.format("LLL")}
+          {dateCreated}
         </td>
         <td>
           <div className="btn-group pull-right">

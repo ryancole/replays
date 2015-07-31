@@ -1,5 +1,5 @@
 import Immutable from "immutable";
-import { REPLAY_CLEAR, REPLAY_MERGE, REPLAY_DELETE, REPLAY_UPDATE } from "../constants/ActionTypes";
+import { REPLAY_SET, REPLAY_CLEAR, REPLAY_MERGE, REPLAY_DELETE, REPLAY_UPDATE } from "../constants/ActionTypes";
 
 
 // initial state is an empty map
@@ -9,6 +9,14 @@ const initialState = Immutable.OrderedMap();
 export default function replays (state = initialState, action) {
 
   switch (action.type) {
+
+    // set the specific replay id key
+    // to the specified replay
+    case REPLAY_SET:
+      return state.set(
+        action.payload.id,
+        action.payload
+      );
 
     // merge a map of replays into the
     // existing map of replays

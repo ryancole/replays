@@ -20,6 +20,20 @@ export function getAll (session, username) {
   .then(response => response.json());
 }
 
+// get a single replay, possibly taking into
+// consideration the current active user and
+// their private replays
+export function getById (session, id) {
+  let headers = {};
+  if (session) {
+    headers.Authorization = `Bearer ${session.token}`;
+  }
+  return fetch(`${Settings.API_ADDR}/replay/${id}`, {
+    headers: headers
+  })
+  .then(response => response.json());
+}
+
 // get the pre-signed aws download url
 // for the specific replay file
 export function getDownloadSource (session, id) {

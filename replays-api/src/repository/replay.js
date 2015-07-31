@@ -179,7 +179,7 @@ exports.insert = function insert (replay, callback) {
  * fetch single replay by id
  */
 
-exports.get = function get (id, account, callback) {
+exports.get = function get (id, callback) {
 
   pg.connect(settings.AWS_SQL, (err, db, done) => {
 
@@ -188,14 +188,14 @@ exports.get = function get (id, account, callback) {
     }
 
     const query = `
-      SELECT *
-      FROM replays
-      WHERE id = $1 AND account_id = $2
+      SELECT r.*, a.username AS account_username
+      FROM replays AS r
+      JOIN accounts AS a ON a.id = r.account_id
+      WHERE r.id = $1
     `;
 
     const params = [
-      id,
-      account
+      id
     ];
 
     db.query(query, params, (err, result) => {
@@ -230,9 +230,10 @@ exports.getAll = function getAll (callback) {
     }
 
     const query = `
-      SELECT *
-      FROM replays
-      WHERE public != true
+      SELECT r.*, a.username AS account_username
+      FROM replays AS r
+      JOIN accounts AS a ON a.id = r.account_id
+      WHERE public = true
       ORDER BY id DESC
     `;
 
@@ -257,7 +258,7 @@ exports.getAll = function getAll (callback) {
  * fetch all replays with an account username
  */
 
-exports.getAllByAccountUsername = function getAllByAccountId (accountUsername, includePrivate, callback) {
+exports.getAllByAccountUsername = function getAllByAccountUsername (accountUsername, includePrivate, callback) {
 
   pg.connect(settings.AWS_SQL, (err, db, done) => {
 
@@ -266,7 +267,7 @@ exports.getAllByAccountUsername = function getAllByAccountId (accountUsername, i
     }
 
     const query = `
-      SELECT r.*
+      SELECT r.*, a.username AS account_username
       FROM replays AS r
       JOIN accounts AS a ON a.id = r.account_id
       WHERE LOWER(a.username) = $1 AND (r.public = true OR r.public = $2)
@@ -275,7 +276,7 @@ exports.getAllByAccountUsername = function getAllByAccountId (accountUsername, i
 
     const params = [
       accountUsername.toLowerCase(),
-      includePrivate
+      !includePrivate
     ];
 
     db.query(query, params, (err, result) => {

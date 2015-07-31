@@ -1,70 +1,34 @@
 import React from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 
 import ReplayTable from "../../components/ReplayTable";
 import SectionNavbar from "../../components/SectionNavbar";
-import ReplayHomeNavbar from "../../components/ReplayHomeNavbar";
 
 import * as ReplayActions from "../../actions/ReplayActions";
-import * as AccountActions from "../../actions/AccountActions";
 
 
 @connect(state => ({
-  replays: state.replays.toArray(),
-  account: state.accounts.get(state.router.params.username)
+  replays: state.replays.toArray()
 }))
 export default class ReplayIndexView extends React.Component {
 
   static get propTypes () {
     return {
-      replays: React.PropTypes.array,
-      account: React.PropTypes.object,
-      activeSession: React.PropTypes.object
+      replays: React.PropTypes.array
     };
   }
 
-  constructor (props) {
-
-    super(props);
-
-    // bind the action creators
-    this.actions = bindActionCreators(ReplayActions, props.dispatch);
-
-    // bind event handlers
-    this.handleDeleteReplay = this.handleDeleteReplay.bind(this);
-    this.handleToggleSharing = this.handleToggleSharing.bind(this);
-
-  }
-
   render () {
-
-    // it's possible the account has not been
-    // fetched from the server yet, no need
-    // to render until we have it
-    if (!this.props.account) {
-      return false;
-    }
-
     return (
       <div>
         <div className="row">
           <div className="col-sm-12">
-            <SectionNavbar
-              label={`${this.props.account.username}'s replays`}>
-              <ReplayHomeNavbar
-                account={this.props.account}
-                activeSession={this.props.activeSession}
-                fetchAllReplays={this.actions.fetchAllReplays} />
-            </SectionNavbar>
+            <SectionNavbar label="All Public Replays" />
           </div>
         </div>
         <div className="row">
           <div className="col-sm-12">
-            <ReplayTable
-              replays={this.props.replays}
-              onDelete={this.handleDeleteReplay}
-              onToggleSharing={this.handleToggleSharing} />
+            <ReplayTable replays={this.props.replays} />
           </div>
         </div>
       </div>
@@ -73,31 +37,9 @@ export default class ReplayIndexView extends React.Component {
 
   componentDidMount () {
 
-    const { username } = this.props.params;
+    // fetch all public replays
+    this.props.dispatch(ReplayActions.fetchAllReplays());
 
-    // fetch replays for the username
-    // specified in the url
-    this.props.dispatch(ReplayActions.fetchAllReplays(username));
-
-    // might also need to fetch the
-    // account details if they aren't
-    // already in the store
-    if (!this.props.account) {
-      this.props.dispatch(AccountActions.fetchAccountByUsername(username));
-    }
-
-  }
-
-  handleDeleteReplay (replay) {
-    this.props.dispatch(ReplayActions.deleteReplay(replay.id));
-  }
-
-  handleToggleSharing (replay) {
-    if (replay.public === false) {
-      this.props.dispatch(ReplayActions.makeReplayPublic(replay.id));
-    } else {
-      this.props.dispatch(ReplayActions.makeReplayPrivate(replay.id));
-    }
   }
 
 }

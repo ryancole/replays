@@ -107,16 +107,17 @@ function index (request, reply) {
 function detail (request, reply) {
 
   // the id of the replay to look up
-  const id = request.params.id;
-
-  // the account of the replay owner
-  const account = request.auth.credentials.id;
+  const id = parseInt(request.params.id);
 
   // fetch the replay from the database
-  Replays.get(id, account, function (err, body) {
+  Replays.get(id, function (err, body) {
 
     if (err) {
       return reply(Boom.notFound());
+    } else if (!body.public && !request.auth.isAuthenticated) {
+      return reply(Boom.unauthorized());
+    } else if (!body.public && body.account_id !== request.auth.credentials.id) {
+      return reply(Boom.unauthorized());
     }
 
     return reply(body);
@@ -301,6 +302,9 @@ module.exports = [
   },
   {
     path: '/replay/{id}',
+    config: {
+      auth: false
+    },
     method: 'GET',
     handler: detail
   },

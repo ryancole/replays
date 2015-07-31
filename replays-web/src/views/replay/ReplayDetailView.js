@@ -4,17 +4,27 @@ import ReplayDetail from "../../components/ReplayDetail";
 import SectionNavbar from "../../components/SectionNavbar";
 import ReplayDetailNavbar from "../../components/ReplayDetailNavbar";
 import * as ReplayActions from "../../actions/ReplayActions";
+import * as AccountActions from "../../actions/AccountActions";
 
 
 @connect(state => ({
   replay: state.replays.get(parseInt(state.router.params.id)),
+  account: state.accounts.get(state.router.params.username),
   activeSession: state.session
 }))
 export default class ReplayDetailView extends React.Component {
 
+  static get propTypes () {
+    return {
+      replay: React.PropTypes.object,
+      account: React.PropTypes.object,
+      activeSession: React.PropTypes.object
+    };
+  }
+
   render () {
 
-    if (!this.props.replay) {
+    if (!this.props.replay || !this.props.account) {
       return null;
     }
 
@@ -43,9 +53,21 @@ export default class ReplayDetailView extends React.Component {
 
   componentDidMount () {
 
+    // if there's no account available then
+    // we need to fetch it from the server
+    if (!this.props.account) {
+
+      // fetch the specific account from the server
+      const account = AccountActions.fetchAccountByUsername(this.props.params.username);
+
+      // dispatch the actions
+      this.props.dispatch(account);
+
+    }
+
     // if there's no replay available then
     // we need to fetch it from the server
-    if (this.props.replay == null) {
+    if (!this.props.replay) {
 
       // fetch the specific replay from the server
       const replay = ReplayActions.fetchReplayById(this.props.params.id);

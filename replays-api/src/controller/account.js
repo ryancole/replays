@@ -1,7 +1,7 @@
 "use strict";
 
 var Boom = require('boom');
-var accounts = require('../repository/account');
+var Accounts = require('../repository/account');
 
 
 function create (request, reply) {
@@ -13,7 +13,7 @@ function create (request, reply) {
   };
 
   // save account to database
-  accounts.insert(account, function (err, body) {
+  Accounts.insert(account, function (err, body) {
 
     if (err) {
       return reply(Boom.badImplementation());
@@ -33,7 +33,7 @@ function detail (request, reply) {
 
   // query the database for the desired
   // account information
-  accounts.getByUsername(username, function (err, body) {
+  Accounts.getByUsername(username, function (err, body) {
 
     if (err) {
       return reply(Boom.notFound());
