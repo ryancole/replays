@@ -9,8 +9,7 @@ import * as AccountActions from "../../actions/AccountActions";
 
 @connect(state => ({
   replay: state.replays.get(parseInt(state.router.params.id)),
-  account: state.accounts.get(state.router.params.username),
-  activeSession: state.session
+  account: state.accounts.get(state.router.params.username)
 }))
 export default class ReplayDetailView extends React.Component {
 

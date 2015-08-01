@@ -9,7 +9,9 @@ export function getAll (session, username) {
   let headers = {};
   let endpoint = `${Settings.API_ADDR}/replay`;
   if (session) {
-    headers.Authorization = `Bearer ${session.token}`;
+    headers = {
+      "Authorization": `Bearer ${session.token}`
+    };
   }
   if (username) {
     endpoint += `?username=${username}`;
@@ -26,7 +28,9 @@ export function getAll (session, username) {
 export function getById (session, id) {
   let headers = {};
   if (session) {
-    headers.Authorization = `Bearer ${session.token}`;
+    headers = {
+      "Authorization": `Bearer ${session.token}`
+    };
   }
   return fetch(`${Settings.API_ADDR}/replay/${id}`, {
     headers: headers

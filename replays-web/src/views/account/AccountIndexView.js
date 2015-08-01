@@ -11,7 +11,7 @@ import * as AccountActions from "../../actions/AccountActions";
 
 
 @connect(state => ({
-  replays: state.replays.toArray(),
+  replays: state.replays.filter(r => r.accountUsername === state.router.params.username).toArray(),
   account: state.accounts.get(state.router.params.username)
 }))
 export default class AccountIndexView extends React.Component {
@@ -65,6 +65,7 @@ export default class AccountIndexView extends React.Component {
               account={this.props.account}
               replays={this.props.replays}
               onDelete={this.handleDeleteReplay}
+              activeSession={this.props.activeSession}
               onToggleSharing={this.handleToggleSharing} />
           </div>
         </div>

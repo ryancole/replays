@@ -2,14 +2,21 @@ import "whatwg-fetch";
 import Immutable from "immutable";
 import Replay from "../entities/Replay";
 import Settings from "../../dank.config";
+import ActionTypes from "../constants/ActionTypes";
 import * as Replays from "../repositories/ReplayRepository";
-import { REPLAY_SET, REPLAY_CLEAR, REPLAY_MERGE, REPLAY_DELETE, REPLAY_UPDATE } from "../constants/ActionTypes";
 
 
 // clear the store of all replay data
 export function clearReplays () {
   return {
-    type: REPLAY_CLEAR
+    type: ActionTypes.REPLAY_CLEAR
+  };
+}
+
+// clear the store of all private replay data
+export function clearPrivateReplays () {
+  return {
+    type: ActionTypes.REPLAY_CLEAR_PRIVATE
   };
 }
 
@@ -42,7 +49,7 @@ export function fetchAllReplays (username) {
 
       // dispatch merge action
       dispatch({
-        type: REPLAY_MERGE,
+        type: ActionTypes.REPLAY_MERGE,
         payload: replays
       });
 
@@ -76,7 +83,7 @@ export function fetchReplayById (id) {
 
         // dispatch set action
         dispatch({
-          type: REPLAY_SET,
+          type: ActionTypes.REPLAY_SET,
           payload: replay
         });
 
@@ -108,7 +115,7 @@ export function deleteReplay (id) {
     .then(response => {
       if (response.success === true) {
         dispatch({
-          type: REPLAY_DELETE,
+          type: ActionTypes.REPLAY_DELETE,
           payload: response.id
         });
       }
@@ -143,7 +150,7 @@ export function makeReplayPublic (id) {
     .then(response => {
       if (response.success === true) {
         dispatch({
-          type: REPLAY_UPDATE,
+          type: ActionTypes.REPLAY_UPDATE,
           payload: {
             id: response.id,
             public: true
@@ -181,7 +188,7 @@ export function makeReplayPrivate (id) {
     .then(response => {
       if (response.success === true) {
         dispatch({
-          type: REPLAY_UPDATE,
+          type: ActionTypes.REPLAY_UPDATE,
           payload: {
             id: response.id,
             public: false

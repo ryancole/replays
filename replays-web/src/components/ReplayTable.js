@@ -7,7 +7,8 @@ export default class ReplayTable extends React.Component {
   static get propTypes () {
     return {
       replays: React.PropTypes.array.isRequired,
-      onDelete: React.PropTypes.func
+      onDelete: React.PropTypes.func,
+      activeSession: React.PropTypes.object
     };
   }
 
@@ -36,6 +37,7 @@ export default class ReplayTable extends React.Component {
           key={replay.id}
           replay={replay}
           onDelete={this.props.onDelete}
+          activeSession={this.props.activeSession}
           onToggleSharing={this.props.onToggleSharing} />
       );
     });

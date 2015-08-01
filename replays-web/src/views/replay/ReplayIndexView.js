@@ -14,7 +14,8 @@ export default class ReplayIndexView extends React.Component {
 
   static get propTypes () {
     return {
-      replays: React.PropTypes.array
+      replays: React.PropTypes.array,
+      activeSession: React.PropTypes.object
     };
   }
 
@@ -28,7 +29,9 @@ export default class ReplayIndexView extends React.Component {
         </div>
         <div className="row">
           <div className="col-sm-12">
-            <ReplayTable replays={this.props.replays} />
+            <ReplayTable
+              replays={this.props.replays}
+              activeSession={this.props.activeSession} />
           </div>
         </div>
       </div>

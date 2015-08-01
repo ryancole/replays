@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import { transitionTo } from "redux-react-router";
 
-// ui components
 import ApplicationLogo from "../../components/ApplicationLogo";
 import ApplicationNavbar from "../../components/ApplicationNavbar";
 import AuthenticationNavbar from "../../components/AuthenticationNavbar";
@@ -22,14 +22,12 @@ export default class ApplicationView extends React.Component {
     return (
       <div className="container">
         <AuthenticationNavbar
-          activeSession={this.props.activeSession}
-          isAuthenticated={this.props.isAuthenticated} />
+          activeSession={this.props.activeSession} />
         <div className="row">
           <div className="col-sm-2">
             <ApplicationLogo />
             <ApplicationNavbar
-              activeSession={this.props.activeSession}
-              isAuthenticated={this.props.isAuthenticated} />
+              activeSession={this.props.activeSession} />
           </div>
           <div className="col-sm-10">
             {this.renderChildren()}
@@ -46,6 +44,28 @@ export default class ApplicationView extends React.Component {
         activeSession: this.props.activeSession
       });
     });
+  }
+
+  componentWillReceiveProps (props) {
+
+    // we detect signing in or out by observing
+    // changes to the current active session
+    if (!this.props.activeSession && props.activeSession) {
+
+      // in the case where we just signed in, go ahead
+      // and transition to the user's replay page
+      this.props.dispatch(
+        transitionTo(`/${props.activeSession.username}`)
+      );
+
+    } else if (this.props.activeSession && !props.activeSession) {
+
+      // in the case where we just signed out, lets
+      // transition away from the signout view
+      this.props.dispatch(transitionTo("/"));
+
+    }
+
   }
 
 }

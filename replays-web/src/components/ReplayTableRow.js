@@ -8,7 +8,9 @@ export default class ReplayTableRow extends React.Component {
   static get propTypes () {
     return {
       replay: React.PropTypes.object.isRequired,
-      onDelete: React.PropTypes.func
+      onDelete: React.PropTypes.func,
+      activeSession: React.PropTypes.object,
+      onToggleSharing: React.PropTypes.func
     };
   }
 
@@ -29,16 +31,6 @@ export default class ReplayTableRow extends React.Component {
     // the formatted date
     const dateCreated = moment(replay.dateCreated).format("LLL");
 
-    let shareIcon = (
-      <span className="glyphicon glyphicon glyphicon-eye-open"></span>
-    );
-
-    if (replay.public === true) {
-      shareIcon = (
-        <span className="glyphicon glyphicon glyphicon-eye-close"></span>
-      );
-    }
-
     return (
       <tr className="replayTableRow">
         <td>
@@ -49,17 +41,41 @@ export default class ReplayTableRow extends React.Component {
         <td>
           {dateCreated}
         </td>
-        <td>
-          <div className="btn-group pull-right">
-            <button type="button" className="btn btn-xs btn-default" onClick={this.handleToggleSharingClick}>
-              {shareIcon}
-            </button>
-            <button type="button" className="btn btn-xs btn-danger" onClick={this.handleDeleteClick}>
-              <span className="glyphicon glyphicon-remove-circle"></span>
-            </button>
-          </div>
-        </td>
+        {this.renderActionButtons()}
       </tr>
+    );
+
+  }
+
+  renderActionButtons () {
+
+    if (!this.props.activeSession) {
+      return undefined;
+    } else if (this.props.activeSession.username !== this.props.replay.accountUsername) {
+      return undefined;
+    }
+
+    let shareIcon = (
+      <span className="glyphicon glyphicon glyphicon-eye-open"></span>
+    );
+
+    if (this.props.replay.public === true) {
+      shareIcon = (
+        <span className="glyphicon glyphicon glyphicon-eye-close"></span>
+      );
+    }
+
+    return (
+      <td>
+        <div className="btn-group pull-right">
+          <button type="button" className="btn btn-xs btn-default" onClick={this.handleToggleSharingClick}>
+            {shareIcon}
+          </button>
+          <button type="button" className="btn btn-xs btn-danger" onClick={this.handleDeleteClick}>
+            <span className="glyphicon glyphicon-remove-circle"></span>
+          </button>
+        </div>
+      </td>
     );
 
   }

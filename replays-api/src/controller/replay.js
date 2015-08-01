@@ -290,7 +290,9 @@ module.exports = [
   {
     path: '/replay',
     config: {
-      auth: false
+      auth: {
+        mode: "try"
+      }
     },
     method: 'GET',
     handler: index
@@ -303,7 +305,9 @@ module.exports = [
   {
     path: '/replay/{id}',
     config: {
-      auth: false
+      auth: {
+        mode: "try"
+      }
     },
     method: 'GET',
     handler: detail

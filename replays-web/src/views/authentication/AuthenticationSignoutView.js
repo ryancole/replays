@@ -13,7 +13,7 @@ export default class AuthenticationSignoutView extends React.Component {
 
   componentDidMount () {
     this.props.dispatch(ReplayActions.clearReplays());
-    this.props.dispatch(AccountActions.clearAccount());
+    this.props.dispatch(AccountActions.clearAccounts());
     this.props.dispatch(SessionActions.clearSession());
   }
 
