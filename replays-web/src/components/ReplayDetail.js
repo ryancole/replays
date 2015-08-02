@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import { Link } from "react-router";
 
 export default class ReplayDetail extends React.Component {
   render () {
@@ -12,6 +13,12 @@ export default class ReplayDetail extends React.Component {
         <dd>{this.props.replay.size} bytes</dd>
         <dt>Date Uploaded</dt>
         <dd>{dateCreated.format("LLL")}</dd>
+        <dt>Uploaded By</dt>
+        <dd>
+          <Link to={`/${this.props.replay.accountUsername}`}>
+            {this.props.replay.accountUsername}
+          </Link>
+        </dd>
       </dl>
     );
   }

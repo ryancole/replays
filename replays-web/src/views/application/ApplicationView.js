@@ -2,15 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import { transitionTo } from "redux-react-router";
 
-// ui components
 import ApplicationLogo from "../../components/ApplicationLogo";
 import ApplicationNavbar from "../../components/ApplicationNavbar";
 import AuthenticationNavbar from "../../components/AuthenticationNavbar";
 
 
 @connect(state => ({
-  activeSession: state.session,
-  isAuthenticated: state.session != null
+  activeSession: state.session
 }))
 export default class ApplicationView extends React.Component {
 
@@ -24,14 +22,12 @@ export default class ApplicationView extends React.Component {
     return (
       <div className="container">
         <AuthenticationNavbar
-          activeSession={this.props.activeSession}
-          isAuthenticated={this.props.isAuthenticated} />
+          activeSession={this.props.activeSession} />
         <div className="row">
           <div className="col-sm-2">
             <ApplicationLogo />
             <ApplicationNavbar
-              activeSession={this.props.activeSession}
-              isAuthenticated={this.props.isAuthenticated} />
+              activeSession={this.props.activeSession} />
           </div>
           <div className="col-sm-10">
             {this.renderChildren()}
@@ -44,32 +40,30 @@ export default class ApplicationView extends React.Component {
   renderChildren () {
     return React.Children.map(this.props.children, child => {
       return React.cloneElement(child, {
-        dispatch: this.props.dispatch
+        dispatch: this.props.dispatch,
+        activeSession: this.props.activeSession
       });
     });
   }
 
-  componentWillMount() {
-    if (this.props.isAuthenticated === false) {
-      this.props.dispatch(transitionTo("/auth/signin"));
-    }
-  }
-
   componentWillReceiveProps (props) {
 
-    // whether the user just logged in
-    const justLoggedIn = (this.props.isAuthenticated === false &&
-                          props.isAuthenticated === true);
+    // we detect signing in or out by observing
+    // changes to the current active session
+    if (!this.props.activeSession && props.activeSession) {
 
-    // whether the user just logged out
-    const justLoggedOut = (this.props.isAuthenticated === true &&
-                           props.isAuthenticated === false);
+      // in the case where we just signed in, go ahead
+      // and transition to the user's replay page
+      this.props.dispatch(
+        transitionTo(`/${props.activeSession.username}`)
+      );
 
-    // transition based on auth state change
-    if (justLoggedIn === true) {
-      this.props.dispatch(transitionTo("/replay"));
-    } else if (justLoggedOut === true) {
+    } else if (this.props.activeSession && !props.activeSession) {
+
+      // in the case where we just signed out, lets
+      // transition away from the signout view
       this.props.dispatch(transitionTo("/"));
+
     }
 
   }

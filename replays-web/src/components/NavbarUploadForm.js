@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Replays from "../repositories/ReplayRepository";
+import * as Replays from "../repositories/ReplayRepository";
 
 
 export default class NavbarUploadForm extends React.Component {
@@ -111,7 +111,9 @@ export default class NavbarUploadForm extends React.Component {
         signed: null
       });
 
-      this.props.fetchAllReplays();
+      this.props.fetchAllReplays(
+        this.props.activeSession.username
+      );
 
     }, 3000);
 

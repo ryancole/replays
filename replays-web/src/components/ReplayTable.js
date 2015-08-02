@@ -6,15 +6,13 @@ export default class ReplayTable extends React.Component {
 
   static get propTypes () {
     return {
-      onDelete: React.PropTypes.func.isRequired
+      replays: React.PropTypes.array.isRequired,
+      onDelete: React.PropTypes.func,
+      activeSession: React.PropTypes.object
     };
   }
 
   render () {
-
-    // table rows
-    const rows = this.buildTableRows(this.props.replays);
-
     return (
       <table className="table table-striped table-hover">
         <thead>
@@ -24,11 +22,10 @@ export default class ReplayTable extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {rows}
+          {this.buildTableRows(this.props.replays)}
         </tbody>
       </table>
     );
-
   }
 
   buildTableRows (replays) {
@@ -40,6 +37,7 @@ export default class ReplayTable extends React.Component {
           key={replay.id}
           replay={replay}
           onDelete={this.props.onDelete}
+          activeSession={this.props.activeSession}
           onToggleSharing={this.props.onToggleSharing} />
       );
     });

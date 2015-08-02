@@ -4,15 +4,20 @@ import { Link } from "react-router";
 
 export default class AuthenticationNavbarLinks extends React.Component {
 
+  static get propTypes () {
+    return {
+      activeSession: React.PropTypes.object
+    };
+  }
+
   render() {
 
     // if signed in, show signed in links
-    if (this.props.isAuthenticated === true) {
+    if (!this.props.activeSession) {
+      return this.getSignedOutLinks();
+    } else {
       return this.getSignedInLinks();
     }
-
-    // default to signed out links
-    return this.getSignedOutLinks();
 
   }
 

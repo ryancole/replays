@@ -2,40 +2,37 @@ import "whatwg-fetch";
 import Immutable from "immutable";
 import Replay from "../entities/Replay";
 import Settings from "../../dank.config";
-import { REPLAY_CLEAR, REPLAY_MERGE, REPLAY_DELETE, REPLAY_UPDATE } from "../constants/ActionTypes";
+import ActionTypes from "../constants/ActionTypes";
+import * as Replays from "../repositories/ReplayRepository";
 
 
-// clear the existing cache of
-// replay data
+// clear the store of all replay data
 export function clearReplays () {
   return {
-    type: REPLAY_CLEAR
+    type: ActionTypes.REPLAY_CLEAR
   };
 }
 
-// query for all replays that pertain
-// to the current active user
-export function fetchAllReplays () {
+// clear the store of all private replay data
+export function clearPrivateReplays () {
+  return {
+    type: ActionTypes.REPLAY_CLEAR_PRIVATE
+  };
+}
+
+// query for all replays, possibly including
+// the current active user's private replays
+export function fetchAllReplays (username) {
   return (dispatch, getState) => {
 
+    // get possible active session
     const { session } = getState();
 
-    // this action requires an valid
-    // existing session
-    if (session.token.length === 0) {
-      return;
-    }
+    // fetch replays from the server
+    Replays.getAll(session, username).then(response => {
 
-    fetch(`${Settings.API_ADDR}/replay`, {
-      headers: {
-        "Authorization": `Bearer ${session.token}`
-      }
-    })
-    .then(response => response.json())
-    .then(response => {
-
-      // convert response data into immutable
-      // replay records
+      // convert response into immutable
+      // data records
       const replays = response.replays.reduce((prev, curr) => {
         const replay = new Replay({
           id: curr.id,
@@ -44,57 +41,51 @@ export function fetchAllReplays () {
           filename: curr.filename,
           filesize: curr.size,
           accountId: curr.account_id,
-          dateCreated: curr.date_created
+          dateCreated: curr.date_created,
+          accountUsername: curr.account_username
         });
         return prev.set(replay.id, replay);
       }, Immutable.OrderedMap());
 
+      // dispatch merge action
       dispatch({
-        type: REPLAY_MERGE,
+        type: ActionTypes.REPLAY_MERGE,
         payload: replays
       });
 
     });
+
   };
 }
 
-// query for a single replay that pertains
-// to the current active user
+// query for a single replay, taking into
+// consideration private replays for the
+// current active user
 export function fetchReplayById (id) {
   return (dispatch, getState) => {
 
+    // get possible active session
     const { session } = getState();
 
-    // this action requires a valid
-    // existing session
-    if (session.token.length === 0) {
-      return;
-    }
+    // fetch replay from the server
+    Replays.getById(session, id).then(response => {
 
-    fetch(`${Settings.API_ADDR}/replay/${id}`, {
-      headers: {
-        "Authorization": `Bearer ${session.token}`
-      }
-    })
-    .then(response => response.json())
-    .then(response => {
+        const replay = new Replay({
+          id: response.id,
+          awsKey: response.aws_key,
+          public: response.public,
+          filename: response.filename,
+          filesize: response.size,
+          accountId: response.account_id,
+          dateCreated: response.date_created,
+          accountUsername: response.account_username
+        });
 
-      // convert response data into
-      // immutable replay record
-      const replay = new Replay({
-        id: response.id,
-        size: response.size,
-        awsKey: response.aws_key,
-        public: response.public,
-        filename: response.filename,
-        accountId: response.account_id,
-        dateCreated: response.date_created
-      });
-
-      dispatch({
-        type: REPLAY_MERGE,
-        payload: Immutable.OrderedMap([[replay.id, replay]])
-      });
+        // dispatch set action
+        dispatch({
+          type: ActionTypes.REPLAY_SET,
+          payload: replay
+        });
 
     });
 
@@ -108,9 +99,9 @@ export function deleteReplay (id) {
 
     const { session } = getState();
 
-    // this action requires a valid
-    // existing session
-    if (session.token.length === 0) {
+    // this action requires an
+    // active session
+    if (!session) {
       return;
     }
 
@@ -124,7 +115,7 @@ export function deleteReplay (id) {
     .then(response => {
       if (response.success === true) {
         dispatch({
-          type: REPLAY_DELETE,
+          type: ActionTypes.REPLAY_DELETE,
           payload: response.id
         });
       }
@@ -159,7 +150,7 @@ export function makeReplayPublic (id) {
     .then(response => {
       if (response.success === true) {
         dispatch({
-          type: REPLAY_UPDATE,
+          type: ActionTypes.REPLAY_UPDATE,
           payload: {
             id: response.id,
             public: true
@@ -197,7 +188,7 @@ export function makeReplayPrivate (id) {
     .then(response => {
       if (response.success === true) {
         dispatch({
-          type: REPLAY_UPDATE,
+          type: ActionTypes.REPLAY_UPDATE,
           payload: {
             id: response.id,
             public: false

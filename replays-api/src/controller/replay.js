@@ -74,26 +74,32 @@ function update (request, reply) {
 
 function index (request, reply) {
 
-  // the account id of the user to fetch
-  // replays for, since we assume you can
-  // only fetch replays for the auth'd user
-  const id = request.auth.credentials.id;
-
-  // fetch replays for the authenticated user
-  Replays.getAllByAccountId(id, (err, body) => {
-
+  // function for handling query results
+  // regardless of query used
+  function handleIndexResult (err, body) {
     if (err) {
       return reply(Boom.notFound());
     }
-
-    // response payload
-    const payload = {
+    return reply({
       replays: body
-    };
+    });
+  }
 
-    return reply(payload);
+  // whether or not we should include the current
+  // active user's private replays in the results
+  const includePrivate = request.auth.isAuthenticated &&
+                         request.auth.credentials.username === request.query.username;
 
-  });
+  // make the database query
+  if (request.query.username) {
+    Replays.getAllByAccountUsername(
+      request.query.username,
+      includePrivate,
+      handleIndexResult
+    );
+  } else {
+    Replays.getAll(handleIndexResult);
+  }
 
 };
 
@@ -101,16 +107,17 @@ function index (request, reply) {
 function detail (request, reply) {
 
   // the id of the replay to look up
-  const id = request.params.id;
-
-  // the account of the replay owner
-  const account = request.auth.credentials.id;
+  const id = parseInt(request.params.id);
 
   // fetch the replay from the database
-  Replays.get(id, account, function (err, body) {
+  Replays.get(id, function (err, body) {
 
     if (err) {
       return reply(Boom.notFound());
+    } else if (!body.public && !request.auth.isAuthenticated) {
+      return reply(Boom.unauthorized());
+    } else if (!body.public && body.account_id !== request.auth.credentials.id) {
+      return reply(Boom.unauthorized());
     }
 
     return reply(body);
@@ -130,7 +137,7 @@ function remove (request, reply) {
 
   // first, get the replay with the given id
   // because we need the aws key, etc
-  Replays.get(id, account, (err, replay) => {
+  Replays.get(id, (err, replay) => {
 
     if (err) {
       return reply(Boom.notFound());
@@ -202,6 +209,7 @@ function upload (request, reply) {
   // same content-type when using PUT
   let params = {
     Key: key,
+    ACL: "public-read",
     Bucket: Settings.AWS_S3_BUCKET,
     Expires: 60,
     ContentType: "binary/octet-stream",
@@ -282,6 +290,11 @@ function download (request, reply) {
 module.exports = [
   {
     path: '/replay',
+    config: {
+      auth: {
+        mode: "try"
+      }
+    },
     method: 'GET',
     handler: index
   },
@@ -292,6 +305,11 @@ module.exports = [
   },
   {
     path: '/replay/{id}',
+    config: {
+      auth: {
+        mode: "try"
+      }
+    },
     method: 'GET',
     handler: detail
   },

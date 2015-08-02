@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 // development settings
 let settings = {
@@ -7,10 +7,10 @@ let settings = {
 };
 
 // production settings
-if (process.env.NODE_ENV == 'production') {
+if (process.env.NODE_ENV === "production") {
   settings = {
     "API_ADDR": "http://api.dank.gg",
-    "DOWNLOAD_PREFIX": "https://cdn.dank.gg"  
+    "DOWNLOAD_PREFIX": "https://cdn.dank.gg"
   };
 }
 
