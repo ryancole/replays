@@ -99,9 +99,9 @@ export function deleteReplay (id) {
 
     const { session } = getState();
 
-    // this action requires a valid
-    // existing session
-    if (session.token.length === 0) {
+    // this action requires an
+    // active session
+    if (!session) {
       return;
     }
 

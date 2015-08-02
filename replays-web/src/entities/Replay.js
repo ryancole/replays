@@ -3,7 +3,7 @@ import Immutable from "immutable";
 export default Immutable.Record({
   id: undefined,
   awsKey: "",
-  public: false,
+  public: true,
   filename: "",
   filesize: 0,
   accountId: undefined,

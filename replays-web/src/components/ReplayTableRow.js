@@ -9,18 +9,13 @@ export default class ReplayTableRow extends React.Component {
     return {
       replay: React.PropTypes.object.isRequired,
       onDelete: React.PropTypes.func,
-      activeSession: React.PropTypes.object,
-      onToggleSharing: React.PropTypes.func
+      activeSession: React.PropTypes.object
     };
   }
 
   constructor () {
-
     super();
-
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
-    this.handleToggleSharingClick = this.handleToggleSharingClick.bind(this);
-
   }
 
   render () {
@@ -55,22 +50,9 @@ export default class ReplayTableRow extends React.Component {
       return undefined;
     }
 
-    let shareIcon = (
-      <span className="glyphicon glyphicon glyphicon-eye-open"></span>
-    );
-
-    if (this.props.replay.public === true) {
-      shareIcon = (
-        <span className="glyphicon glyphicon glyphicon-eye-close"></span>
-      );
-    }
-
     return (
       <td>
         <div className="btn-group pull-right">
-          <button type="button" className="btn btn-xs btn-default" onClick={this.handleToggleSharingClick}>
-            {shareIcon}
-          </button>
           <button type="button" className="btn btn-xs btn-danger" onClick={this.handleDeleteClick}>
             <span className="glyphicon glyphicon-remove-circle"></span>
           </button>
@@ -82,10 +64,6 @@ export default class ReplayTableRow extends React.Component {
 
   handleDeleteClick () {
     this.props.onDelete(this.props.replay);
-  }
-
-  handleToggleSharingClick () {
-    this.props.onToggleSharing(this.props.replay);
   }
 
 }

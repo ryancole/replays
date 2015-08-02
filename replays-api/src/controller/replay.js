@@ -137,7 +137,7 @@ function remove (request, reply) {
 
   // first, get the replay with the given id
   // because we need the aws key, etc
-  Replays.get(id, account, (err, replay) => {
+  Replays.get(id, (err, replay) => {
 
     if (err) {
       return reply(Boom.notFound());
@@ -209,6 +209,7 @@ function upload (request, reply) {
   // same content-type when using PUT
   let params = {
     Key: key,
+    ACL: "public-read",
     Bucket: Settings.AWS_S3_BUCKET,
     Expires: 60,
     ContentType: "binary/octet-stream",

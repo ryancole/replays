@@ -33,7 +33,6 @@ export default class AccountIndexView extends React.Component {
 
     // bind event handlers
     this.handleDeleteReplay = this.handleDeleteReplay.bind(this);
-    this.handleToggleSharing = this.handleToggleSharing.bind(this);
 
   }
 
@@ -65,12 +64,12 @@ export default class AccountIndexView extends React.Component {
               account={this.props.account}
               replays={this.props.replays}
               onDelete={this.handleDeleteReplay}
-              activeSession={this.props.activeSession}
-              onToggleSharing={this.handleToggleSharing} />
+              activeSession={this.props.activeSession} />
           </div>
         </div>
       </div>
     );
+
   }
 
   componentDidMount () {
@@ -91,15 +90,11 @@ export default class AccountIndexView extends React.Component {
   }
 
   handleDeleteReplay (replay) {
-    this.props.dispatch(ReplayActions.deleteReplay(replay.id));
-  }
 
-  handleToggleSharing (replay) {
-    if (replay.public === false) {
-      this.props.dispatch(ReplayActions.makeReplayPublic(replay.id));
-    } else {
-      this.props.dispatch(ReplayActions.makeReplayPrivate(replay.id));
-    }
+    // request that the specified replay
+    // is deleted from the server
+    this.props.dispatch(ReplayActions.deleteReplay(replay.id));
+
   }
 
 }

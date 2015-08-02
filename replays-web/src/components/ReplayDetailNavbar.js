@@ -22,7 +22,7 @@ export default class ReplayDetailNavbar extends React.Component {
     // default to the public and direct aws
     // download url
     let link = (
-      <a href={`${Settings.DOWNLOAD_PREFIX}/${this.props.replay.awsKey}`}>
+      <a target="_blank" href={`${Settings.DOWNLOAD_PREFIX}/${this.props.replay.awsKey}`}>
         Download
       </a>
     );
