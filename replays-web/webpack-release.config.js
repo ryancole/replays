@@ -44,7 +44,7 @@ module.exports = {
   output: {
     path: path.resolve(destination, "static"),
     filename: "app.[hash].js",
-    publicPath: "/static",
+    publicPath: "/static/",
     chunkFilename: "[id].[hash].js"
   },
   module: {
