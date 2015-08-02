@@ -30,7 +30,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.CommonsChunkPlugin(
       "vendor",
-      "vendor.[chunkhash].js"
+      "vendor.[hash].js"
     ),
     new HtmlWebpackPlugin({
       title: "A place to store your League of Legends replays",
@@ -41,11 +41,6 @@ module.exports = {
     path: path.resolve(destination, "static"),
     filename: "app.[chunkhash].js",
     publicPath: "/static/"
-  },
-  resolve: {
-    alias: {
-      "bootstrap": "bootstrap/dist"
-    }
   },
   devtool: "source-map",
   devServer: {
