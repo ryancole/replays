@@ -7,3 +7,11 @@ opportunity to learn some new things. Namely ...
 * Flux (Redux)
 * Immutable.js
 * Docker
+
+# Docker
+
+To build the docker images ...
+
+```
+docker build -t ryancole/dank-api .
+```
