@@ -40,6 +40,6 @@
   "scripts": {
     "start": "webpack-dev-server --config webpack-debug.config.js",
     "build": "webpack -d --progress --colors --config webpack-debug.config.js",
-    "build-release": "NODE_ENV=production webpack -p --progress --colors --config webpack-release.config.js"
+    "build-release": "webpack -p --progress --colors --config webpack-release.config.js"
   }
 }

@@ -1,6 +1,5 @@
 var path = require("path");
 var webpack = require("webpack");
-var CleanPlugin = require("clean-webpack-plugin");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 
 // so we can read vendor dependencies
@@ -19,35 +18,32 @@ module.exports = {
     vendor: Object.keys(pkg.dependencies)
   },
   plugins: [
-    new CleanPlugin([
-      path.relative(__dirname, destination)
-    ]),
     new webpack.DefinePlugin({
       "process.env": {
         "NODE_ENV": JSON.stringify("development")
       }
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.CommonsChunkPlugin(
       "vendor",
       "vendor.[hash].js"
     ),
     new HtmlWebpackPlugin({
-      title: "A place to store your League of Legends replays",
-      filename: "../index.html"
-    })
+      inject: true,
+      template: "index.html"
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ],
   output: {
-    path: path.resolve(destination, "static"),
-    filename: "app.[chunkhash].js",
-    publicPath: "/static/"
+    path: destination,
+    filename: "app.[hash].js",
+    chunkFilename: "[id].[hash].js"
   },
   devtool: "source-map",
   devServer: {
     hot: true,
     port: 8081,
     colors: true,
-    publicPath: "/static/",
+    contentBase: destination,
     historyApiFallback: true
   },
   module: {

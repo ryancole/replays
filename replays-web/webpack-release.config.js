@@ -22,7 +22,7 @@ module.exports = {
     new ExtractTextPlugin("styles.css"),
     new webpack.optimize.CommonsChunkPlugin(
       "vendor",
-      "vendor.[chunkhash].js"
+      "vendor.[hash].js"
     ),
     new webpack.DefinePlugin({
       "process.env": {
@@ -35,18 +35,17 @@ module.exports = {
       }
     }),
     new HtmlWebpackPlugin({
-      title: "A place to store your League of Legends replays"
+      inject: true,
+      minify: true,
+      filename: "../index.html",
+      template: "index.html"
     })
   ],
   output: {
-    path: destination,
-    filename: "app.[chunkhash].js",
-    publicPath: "/static/"
-  },
-  resolve: {
-    alias: {
-      "bootstrap": "bootstrap/dist"
-    }
+    path: path.resolve(destination, "static"),
+    filename: "app.[hash].js",
+    publicPath: "/static",
+    chunkFilename: "[id].[hash].js"
   },
   module: {
     preLoaders: [
