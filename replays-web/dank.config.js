@@ -1,7 +1,7 @@
 "use strict";
 
 // development settings
-let settings = {
+var settings = {
   "API_ADDR": "http://localhost:8080",
   "DOWNLOAD_PREFIX": "https://cdn.dank.gg"
 };
