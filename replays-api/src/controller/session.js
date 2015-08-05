@@ -19,7 +19,7 @@ function create (request, reply) {
   accounts.getByUsernameAndPassword(username, password, (err, account) => {
 
     if (err) {
-      return reply(err);
+      return reply(Boom.badRequest());
     }
 
     // the token payload

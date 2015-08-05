@@ -35,6 +35,7 @@ module.exports = {
   ],
   output: {
     path: destination,
+    publicPath: "/",
     filename: "app.[hash].js",
     chunkFilename: "[id].[hash].js"
   },
@@ -43,6 +44,7 @@ module.exports = {
     hot: true,
     port: 8081,
     colors: true,
+    publicPath: "/",
     contentBase: destination,
     historyApiFallback: true
   },

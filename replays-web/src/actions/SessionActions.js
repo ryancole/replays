@@ -26,7 +26,12 @@ export function fetchNewSession (username, password) {
         "Content-Type": "application/json"
       }
     })
-    .then(response => response.json())
+    .then(response => {
+      if (response.status >= 200 && response.status < 300) {
+        return response.json();
+      }
+      throw new Error(response.statusText);
+    })
     .then(response => {
 
       // decode the token payload
